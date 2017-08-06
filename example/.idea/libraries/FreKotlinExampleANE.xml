@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="FreKotlinExampleANE" type="flex">
+    <CLASSES>
+      <root url="jar://$DOCUMENTS$/FreKotlin/native_extension/ane/FreKotlinExampleANE.ane!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
