@@ -214,9 +214,9 @@ class KotlinController {
         }
 
         try {
-            person.getProperty("doNotExist")
+            person.getProperty("doNotExist") //calling a property that doesn't exist
         } catch (e: FreException) {
-            return e.getError(Thread.currentThread().stackTrace)
+            return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
         }
 
         return null
