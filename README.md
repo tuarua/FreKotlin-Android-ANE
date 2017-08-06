@@ -1,7 +1,8 @@
 # Android Kotlin ANE
 
-Example Android Studio project showing how to create Air Native Extensions for iOS using Kotlin 1.1   
-It supports Android 21.0+
+Example Android Studio project showing how to create Air Native Extensions for iOS using Kotlin.  
+  
+https://kotlinlang.org/docs/reference/
 
 FreKotlinExampleANE.java is the entry point of the ANE. It acts as a thin layered API to your Kotlin controller.  
 Add the number of methods here 
