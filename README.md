@@ -1,6 +1,6 @@
 # Android Kotlin ANE
 
-Example Android Studio project showing how to create Air Native Extensions for iOS using Kotlin.  
+Example Android Studio project showing how to create Air Native Extensions for Android using Kotlin.  
   
 https://kotlinlang.org/docs/reference/
 
