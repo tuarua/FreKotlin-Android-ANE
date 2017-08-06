@@ -1,9 +1,7 @@
 # Android Kotlin ANE
 
-Example Android Studio project showing how to create Air Native Extensions for iOS using Kotlin 1.1
+Example Android Studio project showing how to create Air Native Extensions for iOS using Kotlin 1.1   
 It supports Android 21.0+
-
-It is comprised of 2 parts.
 
 FreKotlinExampleANE.java is the entry point of the ANE. It acts as a thin layered API to your Kotlin controller.  
 Add the number of methods here 
@@ -16,8 +14,8 @@ public static final String[] FUNCTIONS = {
 `````
 
 
-KotlinController.kt
-Add Kotlin function(s) here
+KotlinController.kt   
+Add Kotlin function(s) here   
 
 ```` Kotlin
 fun sayHello(ctx: FREContext, argv: FREArgv): FREObject? {
