@@ -15,6 +15,7 @@
  */
 
 package com.tuarua
+
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.Rect
@@ -74,15 +75,10 @@ class KotlinController {
 
     fun runNumberTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Number test***********")
-        try {
-            val airNumber: Double = FreObjectKotlin(argv[0]).value as Double
-            trace("Number passed from AIR:", airNumber)
-            val kotlinDouble: Double = 34343.31
-            return FreObjectKotlin(kotlinDouble).rawValue
-        } catch (e: Exception) {
-            Log.e(Companion.TAG, "ERROR: " + e.message)
-        }
-        return null
+        val airNumber: Double = FreObjectKotlin(argv[0]).value as Double
+        trace("Number passed from AIR:", airNumber)
+        val kotlinDouble: Double = 34343.31
+        return FreObjectKotlin(kotlinDouble).rawValue
     }
 
     fun runObjectTests(ctx: FREContext, argv: FREArgv): FREObject? {
@@ -128,17 +124,13 @@ class KotlinController {
         trace("AIR Array length:", airArrayLen)
 
         val itemZero: FreObjectKotlin? = airArray?.getObjectAt(0);
-        if (itemZero is FreObjectKotlin) {
-            Log.d(Companion.TAG, "itemZero is FreObjectKotlin")
-            val itemZeroVal: Int? = itemZero.value as Int?
-            if (itemZeroVal is Int) {
-                trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
-                val newVal = FreObjectKotlin(56)
-                airArray.setObjectAt(0, newVal)
-                return airArray.rawValue
-            }
-        } else {
-            Log.d(Companion.TAG, "itemZero is null")
+        Log.d(TAG, "itemZero is FreObjectKotlin")
+        val itemZeroVal: Int? = itemZero?.value as Int?
+        if (itemZeroVal is Int) {
+            trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+            val newVal = FreObjectKotlin(56)
+            airArray?.setObjectAt(0, newVal)
+            return airArray?.rawValue.guard { return null }
         }
         return null
     }
@@ -186,7 +178,7 @@ class KotlinController {
             frePoint.copyFrom(targetPoint)
             trace("frePoint is now", frePoint.value.x, frePoint.value.y)
         } catch (e: Exception) {
-            Log.e(Companion.TAG, e.message)
+            Log.e(TAG, e.message)
         }
 
         return ret
@@ -237,7 +229,7 @@ class KotlinController {
     fun runDataTests(ctx: FREContext, argv: FREArgv): FREObject? {
         return null
     }
-    
+
     fun dispose() {
     }
 
@@ -246,7 +238,7 @@ class KotlinController {
     }
 
     private fun trace(vararg value: Any?) {
-        var traceStr: String = "${Companion.TAG}: "
+        var traceStr: String = "${TAG}: "
         for (v in value)
             traceStr = traceStr + "$v" + " "
         context?.dispatchStatusEventAsync(traceStr, TRACE)

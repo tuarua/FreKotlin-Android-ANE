@@ -35,9 +35,9 @@ class FreException : Exception {
         //Log.e(TAG, "type?: " + e.getClass().getName());
         val exception = e as Exception
         type = e.javaClass.simpleName
-        message = when (msg) {
-            null -> msg as String
-            else -> exception.message.toString()
+        when {
+            msg != null -> message = msg
+            else -> message = exception.message.toString()
         }
 
         if (e is FREASErrorException) {

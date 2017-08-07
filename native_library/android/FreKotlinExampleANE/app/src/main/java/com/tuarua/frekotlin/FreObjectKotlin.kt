@@ -75,7 +75,7 @@ open class FreObjectKotlin {
     open val value: Any?
         get() {
             val rv = rawValue ?: return null
-            return rv?.let { FreKotlinHelper.getAsObject(it) } as Any
+            return rv.let { FreKotlinHelper.getAsObject(it) } as Any
         }
 
     @Throws(FreException::class)
