@@ -27,10 +27,10 @@ open class FreObjectKotlin {
 
     @Throws(FREWrongThreadException::class)
     constructor(any: Any?) { //TODO others
-        Log.d(TAG, "any.toString()" + any.toString())
+        //Log.d(TAG, "any.toString()" + any.toString())
 
         if (any is FREObject) {
-            Log.d(TAG, "any is a FREObject")
+            //Log.d(TAG, "any is a FREObject")
             rawValue = any
             return
         }
@@ -42,18 +42,18 @@ open class FreObjectKotlin {
         }
 
         if (any is String) {
-            Log.d(TAG, "any is a String")
+            //Log.d(TAG, "any is a String")
             rawValue = FREObject.newObject(any)
             return
         }
         if (any is Int) {
-            Log.d(TAG, "any is a Integer")
+            //Log.d(TAG, "any is a Integer")
             rawValue = FREObject.newObject(any)
             return
         }
 
         if (any is Double) {
-            Log.d(TAG, "any is a Double")
+            //Log.d(TAG, "any is a Double")
             rawValue = FREObject.newObject(any)
             return
         }
@@ -65,10 +65,10 @@ open class FreObjectKotlin {
         }
 
         if (any is Any) {
-            Log.e(TAG, "any is an Any - NOT FOUND")
+            //Log.e(TAG, "any is an Any - NOT FOUND")
             return
         }
-        Log.d(TAG, "can't find type")
+       // Log.d(TAG, "can't find type")
         return
     }
 
