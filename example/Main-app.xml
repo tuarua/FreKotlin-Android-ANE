@@ -43,6 +43,7 @@
     <!-- Identifies the ActionScript extensions used by an application. -->
     <extensions>
         <extensionID>com.tuarua.FreKotlinExampleANE</extensionID>
+        <extensionID>com.tuarua.CommonDependencies</extensionID>
     </extensions>
 
     <!-- Settings for the application's initial window. Required. -->

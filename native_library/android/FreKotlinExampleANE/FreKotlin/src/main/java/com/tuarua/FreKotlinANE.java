@@ -13,40 +13,39 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package com.tuarua;
 
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
-import com.tuarua.frekotlin.FreKotlinContext;
+import com.adobe.fre.FREFunction;
+import java.util.Map;
 
-public class FreKotlinExampleANE implements FREExtension {
-    private String NAME = "com.tuarua.FreKotlinExampleANE";
-    public static final String[] FUNCTIONS = {
-            "runStringTests",
-            "runNumberTests",
-            "runIntTests",
-            "runObjectTests",
-            "runArrayTests",
-            "runBitmapTests",
-            "runExtensibleTests",
-            "runByteArrayTests",
-            "runErrorTests",
-            "runErrorTests2",
-            "runDataTests"
-    };
-    public static FreKotlinContext extensionContext;
-
+public class FreKotlinANE implements FREExtension {
     @Override
     public void initialize() {
+
     }
 
     @Override
     public FREContext createContext(String s) {
-        return extensionContext = new FreKotlinContext(NAME, new KotlinController(), FUNCTIONS);
+        return new FreKotlinANEContext();
     }
 
     @Override
     public void dispose() {
-        extensionContext.dispose();
+
+    }
+
+    private class FreKotlinANEContext extends FREContext {
+        @Override
+        public Map<String, FREFunction> getFunctions() {
+            return null;
+        }
+
+        @Override
+        public void dispose() {
+
+        }
     }
 }

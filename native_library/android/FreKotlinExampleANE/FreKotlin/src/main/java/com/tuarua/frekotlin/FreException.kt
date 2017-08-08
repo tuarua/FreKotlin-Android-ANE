@@ -68,7 +68,7 @@ class FreException : Exception {
 
     fun getError(stackTraceElements: Array<StackTraceElement>): FREObject? {
         val fullClassName = stackTraceElements[2].className
-        val className = fullClassName.substring(fullClassName.lastIndexOf(".") + 1)
+        val className = fullClassName.substring(fullClassName.lastIndexOf("") + 1)
         val methodName = stackTraceElements[2].methodName
         val lineNumber = stackTraceElements[2].lineNumber
         try {

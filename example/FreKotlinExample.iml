@@ -8,6 +8,9 @@
             <entry library-name="FreKotlinExampleANE" library-level="project">
               <dependency linkage="Merged" />
             </entry>
+            <entry library-name="CommonDependencies" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
           </entries>
           <sdk name="AIRSDK_25" />
         </dependencies>
@@ -29,5 +32,6 @@
     <orderEntry type="jdk" jdkName="AIRSDK_25" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="FreKotlinExampleANE" level="project" />
+    <orderEntry type="library" exported="" name="CommonDependencies" level="project" />
   </component>
 </module>

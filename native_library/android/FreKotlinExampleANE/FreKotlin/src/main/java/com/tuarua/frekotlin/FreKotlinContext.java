@@ -18,8 +18,6 @@ import android.util.Log;
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREFunction;
 import com.adobe.fre.FREObject;
-import com.tuarua.FreKotlinExampleANE;
-import com.tuarua.KotlinController;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,23 +28,30 @@ import java.lang.reflect.Method;
 // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib/1.1.3-2
 public class FreKotlinContext extends FREContext {
     private String TAG = null;
-    public FreKotlinContext(String name) {
+    //private KotlinController controller;
+
+    private FreKotlinController controller;
+
+    private String[] functions;
+    public FreKotlinContext(String name, FreKotlinController controller, String[] functions) {
         TAG = name;
+        this.controller = controller;
+        this.functions = functions;
+        controller.setFREContext(this);
     }
-    private KotlinController kotlinController = new KotlinController();
+
     @Override
     public Map<String, FREFunction> getFunctions() {
         Map<String, FREFunction> functionsToSet = new HashMap<>();
-        for (String function : FreKotlinExampleANE.FUNCTIONS) {
+        for (String function : functions) {
             functionsToSet.put(function, new CallKotlinFunction(function));
         }
-        kotlinController.setFREContext(this);
         return functionsToSet;
     }
 
     @Override
     public void dispose() {
-        kotlinController.dispose();
+        controller.dispose();
     }
 
     // https://stackoverflow.com/questions/4685563/how-to-pass-a-function-as-a-parameter-in-java
@@ -64,9 +69,9 @@ public class FreKotlinContext extends FREContext {
             ArrayList<FREObject> al = new ArrayList<>();
             Collections.addAll(al, freObjects);
             try {
-                Method func = kotlinController.getClass().getMethod(_name, parameterTypes);
+                Method func = controller.getClass().getMethod(_name, parameterTypes);
                 //Log.d(TAG, String.valueOf(method1));
-                return (FREObject) func.invoke(kotlinController, freContext, al);
+                return (FREObject) func.invoke(controller, freContext, al);
             } catch (NoSuchMethodException e) {
                 Log.e(TAG, "can't find function " + _name + " " + e.getMessage());
             } catch (IllegalAccessException | InvocationTargetException e) {

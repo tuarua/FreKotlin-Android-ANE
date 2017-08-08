@@ -13,34 +13,47 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
 package com.tuarua.frekotlin.geom
-
-import android.graphics.Point
+import android.graphics.Rect
 import android.util.Log
+import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.FreObjectKotlin
+@Suppress("unused")
+open class FreRectangleKotlin() : FreObjectKotlin() {
+    private var TAG = "com.tuarua.FreRectangleKotlin"
 
-class FrePointKotlin() : FreObjectKotlin() {
-    private var TAG = "com.tuarua.FrePointKotlin"
-
-    constructor(value: Point) : this() {
-        rawValue = FreObjectKotlin("flash.geom.Point", value.x, value.y).rawValue
+    constructor(value: FreObjectKotlin) : this() {
+        this.rawValue = value.rawValue
     }
 
-    override val value: Point
+    constructor(value: FREObject?) : this() {
+        this.rawValue = value
+    }
+
+    constructor(value: Rect) : this() {
+        rawValue = FreObjectKotlin("flash.geom.Rectangle",
+                value.left,
+                value.top,
+                value.width(),
+                value.height()).rawValue
+    }
+
+    override val value: Rect
         get() {
             var x = 0
             var y = 0
+            var w = 0
+            var h = 0
             try {
                 x = this.getProperty("x")?.value as Int
                 y = this.getProperty("y")?.value as Int
+                w = this.getProperty("width")?.value as Int
+                h = this.getProperty("width")?.value as Int
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }
-            return Point(x, y)
+            return Rect(x, y, x + w, y + h)
         }
-
-    fun copyFrom(sourcePoint: FrePointKotlin) {
-        sourcePoint.rawValue?.let { this.callMethod("copyFrom", it) }
-    }
 
 }

@@ -19,22 +19,21 @@ copy %pathtome%library.swf %pathtome%platforms\android
 
 echo copy the aar into place
 copy /Y %pathtome%..\..\native_library\android\%projectName%\app\build\outputs\aar\app-release.aar %pathtome%platforms\android\app-release.aar
-copy /Y %pathtome%..\..\native_library\android\%projectName%\app\libs\kotlin-stdlib-1.1.3-2.jar %pathtome%platforms\android\kotlin-stdlib-1.1.3-2.jar
+
 
 echo "GETTING ANDROID JAR"
 call %SZIP% x %pathtome%platforms\android\app-release.aar -o%pathtome%platforms\android\ classes.jar
+
 
 echo "GENERATING ANE"
 call %AIR_PATH%adt.bat -package -target ane %pathtome%%projectName%.ane extension_android.xml ^
 -swc %projectName%.swc ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^
--platformoptions platforms/android/platform.xml res/values/strings.xml ^
-kotlin-stdlib-1.1.3-2.jar ^
+-platformoptions platforms/android/platform.xml res/values/strings.xml
 
 
 del %pathtome%platforms\\android\\classes.jar
-del %pathtome%platforms\\android\\kotlin-stdlib-1.1.3-2.jar
 del %pathtome%platforms\\android\\app-release.aar
 del %pathtome%platforms\\android\\library.swf
 

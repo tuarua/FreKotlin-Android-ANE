@@ -1,5 +1,6 @@
 package {
 
+import com.tuarua.CommonDependencies;
 import com.tuarua.FreKotlinExampleANE;
 import com.tuarua.Person;
 import com.tuarua.fre.ANEError;
@@ -103,8 +104,6 @@ public class Main extends Sprite {
             }
             ane.runErrorTests2("Test String");
 
-
-            trace("textField.text: ", textField.text);
             addChild(textField);
         }
         hasActivated = true;

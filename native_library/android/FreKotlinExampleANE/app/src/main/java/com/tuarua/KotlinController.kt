@@ -22,10 +22,7 @@ import android.graphics.Rect
 import android.util.Log
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
-import com.tuarua.frekotlin.FreArrayKotlin
-import com.tuarua.frekotlin.FreException
-import com.tuarua.frekotlin.FreObjectKotlin
-import com.tuarua.frekotlin.FreObjectTypeKotlin
+import com.tuarua.frekotlin.*
 import com.tuarua.frekotlin.display.FreBitmapDataKotlin
 import com.tuarua.frekotlin.geom.FrePointKotlin
 import com.tuarua.frekotlin.geom.FreRectangleKotlin
@@ -35,8 +32,8 @@ import java.util.*
 
 typealias FREArgv = ArrayList<FREObject>
 
-@Suppress("unused", "UNUSED_PARAMETER")
-class KotlinController {
+@Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
+class KotlinController : FreKotlinController {
     private var context: FREContext? = null
     private val TRACE = "TRACE"
 
@@ -123,7 +120,7 @@ class KotlinController {
         trace("Array passed from AIR:", airArray?.value)
         trace("AIR Array length:", airArrayLen)
 
-        val itemZero: FreObjectKotlin? = airArray?.getObjectAt(0);
+        val itemZero: FreObjectKotlin? = airArray?.getObjectAt(0)
         Log.d(TAG, "itemZero is FreObjectKotlin")
         val itemZeroVal: Int? = itemZero?.value as Int?
         if (itemZeroVal is Int) {
@@ -136,14 +133,14 @@ class KotlinController {
     }
 
     fun runBitmapTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        val bmd = FreBitmapDataKotlin(argv[0]);
+        val bmd = FreBitmapDataKotlin(argv[0])
         bmd.acquire()
         trace("bmd", bmd.width, bmd.height)
         if (bmd.bits32 is ByteBuffer) {
             val width = bmd.width
             val height = bmd.height
 
-            var bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+            val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             bmp.copyPixelsFromBuffer(bmd.bits32)
 
 
@@ -230,18 +227,12 @@ class KotlinController {
         return null
     }
 
-    fun dispose() {
-    }
-
-    fun setFREContext(ctx: FREContext) {
+    override fun setFREContext(ctx: FREContext) {
         context = ctx
     }
 
     private fun trace(vararg value: Any?) {
-        var traceStr: String = "${TAG}: "
-        for (v in value)
-            traceStr = traceStr + "$v" + " "
-        context?.dispatchStatusEventAsync(traceStr, TRACE)
+        freTrace(context, TAG, value)
     }
 
     // https://android.jlelse.eu/a-few-ways-to-implement-a-swift-like-guard-in-kotlin-ffd94027864e

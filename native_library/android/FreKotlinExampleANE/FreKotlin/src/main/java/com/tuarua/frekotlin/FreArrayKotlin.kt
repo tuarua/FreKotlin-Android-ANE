@@ -15,8 +15,6 @@
  */
 package com.tuarua.frekotlin
 
-import android.util.Log
-
 import com.adobe.fre.FREArray
 import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FREObject
