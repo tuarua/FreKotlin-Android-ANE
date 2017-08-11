@@ -34,7 +34,6 @@ class FreArrayKotlin {
         rawValue = value
     }
 
-    //@Throws(FREWrongThreadException::class, FREInvalidObjectException::class)
     val length: Int
         get() = rawValue?.length?.toInt() as Int
 

@@ -1,6 +1,4 @@
 package {
-
-import com.tuarua.CommonDependencies;
 import com.tuarua.FreKotlinExampleANE;
 import com.tuarua.Person;
 import com.tuarua.fre.ANEError;

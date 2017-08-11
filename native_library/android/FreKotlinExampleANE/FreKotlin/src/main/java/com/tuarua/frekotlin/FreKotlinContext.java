@@ -14,24 +14,30 @@
  *  limitations under the License.
  */
 package com.tuarua.frekotlin;
+
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.util.Log;
+
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREFunction;
 import com.adobe.fre.FREObject;
+import com.adobe.air.ActivityResultCallback;
+import com.adobe.air.AndroidActivityWrapper;
+import com.adobe.air.AndroidActivityWrapper.ActivityState;
+import com.adobe.air.StateChangeCallback;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Method;
-
+//This file must remain as Java
 // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib/1.1.3-2
-public class FreKotlinContext extends FREContext {
+public class FreKotlinContext extends FREContext implements ActivityResultCallback, StateChangeCallback {
     private String TAG = null;
-    //private KotlinController controller;
-
     private FreKotlinController controller;
-
     private String[] functions;
     public FreKotlinContext(String name, FreKotlinController controller, String[] functions) {
         TAG = name;
@@ -54,15 +60,29 @@ public class FreKotlinContext extends FREContext {
         controller.dispose();
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+    }
+
+    @Override
+    public void onActivityStateChanged(ActivityState activityState) {
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration configuration) {
+    }
+
     // https://stackoverflow.com/questions/4685563/how-to-pass-a-function-as-a-parameter-in-java
     private class CallKotlinFunction implements FREFunction {
         private String _name;
+
         CallKotlinFunction(String name) {
             _name = name;
         }
+
         @Override
         public FREObject call(FREContext freContext, FREObject[] freObjects) {
-            Log.d(TAG, "calling function: "+_name);
+            //Log.d(TAG, "calling function: "+_name);
             Class[] parameterTypes = new Class[2];
             parameterTypes[0] = FREContext.class;
             parameterTypes[1] = ArrayList.class;

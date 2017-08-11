@@ -8,11 +8,11 @@
             <entry library-name="FreKotlinExampleANE" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="CommonDependencies" library-level="project">
+            <entry library-name="frekotlin" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
-          <sdk name="AIRSDK_25" />
+          <sdk name="AIRSDK_26" />
         </dependencies>
         <compiler-options />
         <packaging-air-desktop />
@@ -29,9 +29,13 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="AIRSDK_25" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="AIRSDK_26" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="FreKotlinExampleANE" level="project" />
     <orderEntry type="library" exported="" name="CommonDependencies" level="project" />
+    <orderEntry type="library" exported="" name="com.distriqt.playservices.Base" level="project" />
+    <orderEntry type="library" exported="" name="com.distriqt.androidsupport.V4" level="project" />
+    <orderEntry type="library" exported="" name="com.distriqt.playservices.Maps" level="project" />
+    <orderEntry type="library" exported="" name="frekotlin" level="project" />
   </component>
 </module>

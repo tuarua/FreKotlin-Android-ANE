@@ -36,7 +36,7 @@ open class FreObjectKotlin {
         }
 
         if (any is FreObjectKotlin) {
-            Log.d(TAG, "any is a FreObjectKotlin")
+            //Log.d(TAG, "any is a FreObjectKotlin")
             rawValue = any.rawValue
             return
         }

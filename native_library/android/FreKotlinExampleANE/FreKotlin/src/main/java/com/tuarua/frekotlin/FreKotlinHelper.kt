@@ -215,7 +215,7 @@ object FreKotlinHelper {
 
     @Throws(FreException::class)
     fun callMethod(rawValue: FREObject, name: String, args: Array<out Any>): FREObject? {
-        Log.d(TAG, "call method: " + name);
+        //Log.d(TAG, "call method: " + name);
         val argsArray = arrayOfNulls<FREObject>(args.size)
         var i = 0
         for (item in args) {

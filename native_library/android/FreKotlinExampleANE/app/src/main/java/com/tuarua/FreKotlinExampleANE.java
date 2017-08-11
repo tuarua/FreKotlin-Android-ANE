@@ -19,7 +19,7 @@ import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 import com.tuarua.frekotlin.FreKotlinContext;
 
-public class FreKotlinExampleANE implements FREExtension {
+public class FreKotlinExampleANE implements FREExtension  {
     private String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {
             "runStringTests",
@@ -34,7 +34,7 @@ public class FreKotlinExampleANE implements FREExtension {
             "runErrorTests2",
             "runDataTests"
     };
-    public static FreKotlinContext extensionContext;
+    public static FreKotlinExampleContext extensionContext;
 
     @Override
     public void initialize() {
@@ -42,7 +42,7 @@ public class FreKotlinExampleANE implements FREExtension {
 
     @Override
     public FREContext createContext(String s) {
-        return extensionContext = new FreKotlinContext(NAME, new KotlinController(), FUNCTIONS);
+        return extensionContext = new FreKotlinExampleContext(NAME, new KotlinController(), FUNCTIONS);
     }
 
     @Override

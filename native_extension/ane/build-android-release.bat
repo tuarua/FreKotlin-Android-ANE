@@ -30,7 +30,11 @@ call %AIR_PATH%adt.bat -package -target ane %pathtome%%projectName%.ane extensio
 -swc %projectName%.swc ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^
--platformoptions platforms/android/platform.xml res/values/strings.xml
+com.tuarua.FreKotlinExampleANE-res/. ^
+-platformoptions platforms/android/platform.xml
+
+
+REM res/.
 
 
 del %pathtome%platforms\\android\\classes.jar
@@ -42,3 +46,9 @@ call DEL /F /Q /A %pathtome%catalog.xml
 call DEL /F /Q /A %pathtome%%projectName%.swc
 
 echo "DONE!"
+
+REM res/values/styles.xml ^
+REM res/layout/activity_maps.xml ^
+REM play-services-maps.jar ^
+REM play-services-base.jar ^
+REM play-services-basement.jar

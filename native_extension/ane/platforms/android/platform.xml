@@ -3,7 +3,7 @@
     <packagedResources>
         <packagedResource>
             <packageName>com.tuarua.FreKotlinExampleANE</packageName>
-            <folderName>res</folderName>
+            <folderName>com.tuarua.FreKotlinExampleANE-res</folderName>
         </packagedResource>
     </packagedResources>
 </platform>

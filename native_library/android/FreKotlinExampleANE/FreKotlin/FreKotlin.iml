@@ -119,6 +119,7 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="runtimeClasses" level="project" />
     <orderEntry type="library" name="kotlin-stdlib-1.1.3-2" level="project" />
     <orderEntry type="library" name="FlashRuntimeExtensions" level="project" />
   </component>

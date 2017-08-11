@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="CommonDependencies">
+  <component name="FlexBuildConfigurationManager" active="FreKotlin">
     <configurations>
-      <configuration name="CommonDependencies" target-platform="Mobile" pure-as="true" output-type="Library" output-file="CommonDependencies.swc" output-folder="$MODULE_DIR$/bin">
+      <configuration name="FreKotlin" target-platform="Mobile" pure-as="true" output-type="Library" output-file="frekotlin.swc" output-folder="$MODULE_DIR$/bin">
         <dependencies target-player="26.0">
           <sdk name="AIRSDK_26" />
         </dependencies>

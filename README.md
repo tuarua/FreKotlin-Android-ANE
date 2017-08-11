@@ -69,6 +69,6 @@ try {
 
 You will need
 
-- Android Studio 3.0 Canary
+- Android Studio 3.0 Beta1
 - IntelliJ IDEA
 - AIR 25+

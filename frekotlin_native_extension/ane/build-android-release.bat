@@ -3,7 +3,7 @@ SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
 SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_26\bin\"
 SET projectName=FreKotlinExampleANE
-SET swcName=CommonDependencies
+SET swcName=frekotlin
 IF NOT EXIST %pathtome%platforms\default  %pathtome%platforms\default
 copy %pathtome%..\bin\%swcName%.swc %pathtome%
 
@@ -33,7 +33,11 @@ call %AIR_PATH%adt.bat -package -target ane %pathtome%%swcName%.ane extension_an
 -swc %swcName%.swc ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^
--platformoptions platforms/android/platform.xml res/values/strings.xml ^
+-platformoptions platforms/android/platform.xml ^
+kotlin-stdlib-1.1.3-2.jar ^
+-platform Android-x86 ^
+-C platforms/android library.swf classes.jar ^
+-platformoptions platforms/android/platform.xml ^
 kotlin-stdlib-1.1.3-2.jar ^
 -platform default -C platforms/default library.swf
 

@@ -16,36 +16,23 @@
 
 package com.tuarua;
 
-import com.adobe.fre.FREContext;
-import com.adobe.fre.FREExtension;
-import com.adobe.fre.FREFunction;
-import java.util.Map;
+import android.content.Context;
+import android.widget.FrameLayout;
 
-public class FreKotlinANE implements FREExtension {
-    @Override
-    public void initialize() {
+/**
+ * Created by Local Eoin Landy on 11/08/2017.
+ */
 
-    }
+public class FrameView extends FrameLayout {
+    private int _width = 800;
+    private int _height = 800;
 
-    @Override
-    public FREContext createContext(String s) {
-        return new FreKotlinANEContext();
-    }
+    public FrameView(Context context) {
+        super(context);
+        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(_width, _height);
+        this.setLayoutParams(layoutParams);
 
-    @Override
-    public void dispose() {
 
-    }
 
-    private class FreKotlinANEContext extends FREContext {
-        @Override
-        public Map<String, FREFunction> getFunctions() {
-            return null;
-        }
-
-        @Override
-        public void dispose() {
-
-        }
     }
 }

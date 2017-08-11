@@ -15,11 +15,11 @@
  */
 
 package com.tuarua
-
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.Rect
 import android.util.Log
+import android.view.ViewGroup
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
@@ -29,11 +29,13 @@ import com.tuarua.frekotlin.geom.FreRectangleKotlin
 import java.nio.ByteBuffer
 import java.util.*
 
-
 typealias FREArgv = ArrayList<FREObject>
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinController {
+
+    private var airView: ViewGroup? = null
+    private var container: FrameView? = null
     private var context: FREContext? = null
     private val TRACE = "TRACE"
 
@@ -155,6 +157,7 @@ class KotlinController : FreKotlinController {
             bmpSepia.recycle()
         }
         return null
+
     }
 
     fun runExtensibleTests(ctx: FREContext, argv: FREArgv): FREObject? {
@@ -167,6 +170,7 @@ class KotlinController : FreKotlinController {
         try {
             val rectangle: Rect = FreRectangleKotlin(inFRE0).value
             rectangle.set(0, 0, 999, 111)
+
             ret = FreRectangleKotlin(rectangle).rawValue
 
             val frePoint = FrePointKotlin(point)
