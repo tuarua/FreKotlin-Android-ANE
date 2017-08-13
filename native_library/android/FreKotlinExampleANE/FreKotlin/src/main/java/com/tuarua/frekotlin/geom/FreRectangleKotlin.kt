@@ -49,7 +49,7 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
                 x = this.getProperty("x")?.value as Int
                 y = this.getProperty("y")?.value as Int
                 w = this.getProperty("width")?.value as Int
-                h = this.getProperty("width")?.value as Int
+                h = this.getProperty("height")?.value as Int
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }
