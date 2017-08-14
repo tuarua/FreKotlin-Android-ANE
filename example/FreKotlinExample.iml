@@ -5,10 +5,10 @@
       <configuration name="FreKotlinExample" target-platform="Mobile" pure-as="true" main-class="Main" output-file="Main.swf" output-folder="$MODULE_DIR$/out/production/FreKotlinExample">
         <dependencies>
           <entries>
-            <entry library-name="FreKotlinExampleANE" library-level="project">
+            <entry library-name="com.tuarua.frekotlin" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="com.tuarua.frekotlin" library-level="project">
+            <entry library-name="com.tuarua.frekotlin.example" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -38,5 +38,6 @@
     <orderEntry type="library" exported="" name="com.distriqt.playservices.Maps" level="project" />
     <orderEntry type="library" exported="" name="frekotlin" level="project" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin" level="project" />
+    <orderEntry type="library" exported="" name="com.tuarua.frekotlin.example" level="project" />
   </component>
 </module>

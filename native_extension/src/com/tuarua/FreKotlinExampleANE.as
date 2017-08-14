@@ -9,7 +9,7 @@ import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 
 public class FreKotlinExampleANE extends EventDispatcher {
-    private static const NAME:String = "FreKotlinExampleANE";
+    private static const NAME:String = "frekotlin.example";
     private var ctx:ExtensionContext;
     public function FreKotlinExampleANE() {
         initiate();
