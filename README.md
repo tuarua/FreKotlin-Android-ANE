@@ -65,6 +65,45 @@ try {
 }
 `````
 
+Example - Extending. Convert to/from LatLng
+```` kotlin
+package com.tuarua.frekotlin
+import android.util.Log
+import com.adobe.fre.FREObject
+import com.google.android.gms.maps.model.LatLng
+
+class FreCoordinateKotlin() : FreObjectKotlin() {
+    private var TAG = "com.tuarua.FreCoordinateKotlin"
+
+    constructor(value: LatLng) : this() {
+        rawValue = FreObjectKotlin("com.tuarua.googlemaps.Coordinate", value.longitude, value.latitude).rawValue
+    }
+
+    constructor(freObjectKotlin: FreObjectKotlin?) : this() {
+        rawValue = freObjectKotlin?.rawValue
+    }
+
+    constructor(freObject: FREObject?) : this() {
+        rawValue = freObject
+    }
+
+    override val value: LatLng
+        get() {
+            var lat = 0.0
+            var lng = 0.0
+            try {
+                val latFre = this.getProperty("latitude")?.value
+                val lngFre = this.getProperty("longitude")?.value
+                lat = (latFre as? Int)?.toDouble() ?: latFre as Double
+                lng = (lngFre as? Int)?.toDouble() ?: lngFre as Double
+            } catch (e: Exception) {
+                Log.e(TAG, e.message)
+            }
+            return LatLng(lat, lng)
+        }
+}
+`````
+
 ### Prerequisites
 
 You will need
