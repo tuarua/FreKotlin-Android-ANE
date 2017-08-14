@@ -231,8 +231,32 @@ class KotlinController : FreKotlinController {
         return null
     }
 
-    override fun setFREContext(ctx: FREContext) {
-        context = ctx
+    override fun onStarted() {
+        super.onStarted()
+    }
+
+    override fun onRestarted() {
+        super.onRestarted()
+    }
+
+    override fun onResumed() {
+        super.onResumed()
+    }
+
+    override fun onPaused() {
+        super.onPaused()
+    }
+
+    override fun onStopped() {
+        super.onStopped()
+    }
+
+    override fun onDestroyed() {
+        super.onDestroyed()
+    }
+
+    override fun setFREContext(context: FREContext) {
+        this.context = context
     }
 
     private fun trace(vararg value: Any?) {

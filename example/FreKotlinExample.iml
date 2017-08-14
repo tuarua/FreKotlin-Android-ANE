@@ -8,7 +8,7 @@
             <entry library-name="FreKotlinExampleANE" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="frekotlin" library-level="project">
+            <entry library-name="com.tuarua.frekotlin" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -37,5 +37,6 @@
     <orderEntry type="library" exported="" name="com.distriqt.androidsupport.V4" level="project" />
     <orderEntry type="library" exported="" name="com.distriqt.playservices.Maps" level="project" />
     <orderEntry type="library" exported="" name="frekotlin" level="project" />
+    <orderEntry type="library" exported="" name="com.tuarua.frekotlin" level="project" />
   </component>
 </module>

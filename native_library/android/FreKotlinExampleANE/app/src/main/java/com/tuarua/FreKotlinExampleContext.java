@@ -18,18 +18,19 @@ package com.tuarua;
 
 import android.content.Intent;
 
-import com.adobe.air.ActivityResultCallback;
+import com.adobe.air.TRActivityResultCallback;
 import com.adobe.air.AndroidActivityWrapper;
-import com.adobe.air.StateChangeCallback;
+import com.adobe.air.TRStateChangeCallback;
 import com.tuarua.frekotlin.FreKotlinContext;
 import com.tuarua.frekotlin.FreKotlinController;
 
 //This file must remain as Java
-public class FreKotlinExampleContext extends FreKotlinContext implements ActivityResultCallback, StateChangeCallback {
+public class FreKotlinExampleContext extends FreKotlinContext implements TRActivityResultCallback, TRStateChangeCallback {
     private AndroidActivityWrapper aaw;
 
     public FreKotlinExampleContext(String name, FreKotlinController controller, String[] functions) {
         super(name, controller, functions);
+        this.controller = controller;
         aaw = AndroidActivityWrapper.GetAndroidActivityWrapper();
         aaw.addActivityResultListener(this);
         aaw.addActivityStateChangeListner(this);
@@ -45,16 +46,22 @@ public class FreKotlinExampleContext extends FreKotlinContext implements Activit
         super.onActivityStateChanged(activityState);
         switch (activityState){
             case STARTED:
+                this.controller.onStarted();
                 break;
             case RESTARTED:
+                this.controller.onRestarted();
                 break;
             case RESUMED:
+                this.controller.onResumed();
                 break;
             case PAUSED:
+                this.controller.onPaused();
                 break;
             case STOPPED:
+                this.controller.onStopped();
                 break;
             case DESTROYED:
+                this.controller.onDestroyed();
                 break;
         }
     }

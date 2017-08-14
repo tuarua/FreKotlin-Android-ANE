@@ -29,7 +29,7 @@ call %SZIP% x %pathtome%platforms\android\FreKotlin-release.aar -o%pathtome%plat
 
 
 echo "GENERATING ANE"
-call %AIR_PATH%adt.bat -package -target ane %pathtome%%swcName%.ane extension_android.xml ^
+call %AIR_PATH%adt.bat -package -target ane %pathtome%com.tuarua.%swcName%.ane extension.xml ^
 -swc %swcName%.swc ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^

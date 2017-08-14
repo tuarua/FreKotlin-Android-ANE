@@ -17,5 +17,6 @@
 package com.adobe.air;
 
 import com.adobe.air.AndroidActivityWrapper;
-public abstract interface StateChangeCallback extends AndroidActivityWrapper.StateChangeCallback {
+public abstract interface TRActivityResultCallback extends AndroidActivityWrapper.ActivityResultCallback {
+
 }

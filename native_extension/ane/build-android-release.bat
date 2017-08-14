@@ -26,7 +26,7 @@ call %SZIP% x %pathtome%platforms\android\app-release.aar -o%pathtome%platforms\
 
 
 echo "GENERATING ANE"
-call %AIR_PATH%adt.bat -package -target ane %pathtome%%projectName%.ane extension_android.xml ^
+call %AIR_PATH%adt.bat -package -target ane %pathtome%%projectName%.ane extension.xml ^
 -swc %projectName%.swc ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^

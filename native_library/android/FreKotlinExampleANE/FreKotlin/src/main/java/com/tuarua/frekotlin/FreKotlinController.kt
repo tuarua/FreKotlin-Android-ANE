@@ -20,16 +20,27 @@ import com.adobe.fre.FREContext
 
 interface FreKotlinController {
 
-    fun dispose() {
-    }
+    fun dispose() {}
 
-    fun setFREContext(ctx: FREContext) {
-    }
+    fun setFREContext(context: FREContext) {}
 
-    fun freTrace(ctx: FREContext?, TAG: String, args: Array<out Any?>) {
-        var traceStr: String = "${TAG}: "
+    fun onStarted() {}
+
+    fun onRestarted() {}
+
+    fun onResumed() {}
+
+    fun onPaused() {}
+
+    fun onStopped() {}
+
+    fun onDestroyed() {}
+
+    fun freTrace(context: FREContext?, TAG: String, args: Array<out Any?>) {
+        val ctx: FREContext = context ?: return
+        var traceStr: String = "$TAG: "
         for (v in args)
             traceStr = traceStr + "$v" + " "
-        ctx?.dispatchStatusEventAsync(traceStr, "TRACE")
+        ctx.dispatchStatusEventAsync(traceStr, "TRACE")
     }
 }

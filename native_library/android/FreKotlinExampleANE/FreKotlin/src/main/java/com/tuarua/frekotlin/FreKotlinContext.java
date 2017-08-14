@@ -22,10 +22,9 @@ import android.util.Log;
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREFunction;
 import com.adobe.fre.FREObject;
-import com.adobe.air.ActivityResultCallback;
-import com.adobe.air.AndroidActivityWrapper;
+import com.adobe.air.TRActivityResultCallback;
 import com.adobe.air.AndroidActivityWrapper.ActivityState;
-import com.adobe.air.StateChangeCallback;
+import com.adobe.air.TRStateChangeCallback;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -35,9 +34,9 @@ import java.util.Map;
 import java.lang.reflect.Method;
 //This file must remain as Java
 // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib/1.1.3-2
-public class FreKotlinContext extends FREContext implements ActivityResultCallback, StateChangeCallback {
+public class FreKotlinContext extends FREContext implements TRActivityResultCallback, TRStateChangeCallback {
     private String TAG = null;
-    private FreKotlinController controller;
+    protected FreKotlinController controller;
     private String[] functions;
     public FreKotlinContext(String name, FreKotlinController controller, String[] functions) {
         TAG = name;
