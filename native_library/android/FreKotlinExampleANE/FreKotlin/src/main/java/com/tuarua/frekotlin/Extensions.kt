@@ -14,25 +14,22 @@
  *  limitations under the License.
  */
 
-package com.tuarua;
+package com.tuarua.frekotlin
+import com.adobe.fre.FREContext
 
-import android.content.Context;
-import android.widget.FrameLayout;
+fun FREContext.sendEvent(name: String, value: String) {
+    this.dispatchStatusEventAsync(value, name)
+}
 
-/**
- * Created by Local Eoin Landy on 11/08/2017.
- */
+fun FREContext.trace(TAG: String, args: Array<out Any?>) {
+    val TRACE = "TRACE"
+    var traceStr = "$TAG: "
+    for (v in args)
+        traceStr = traceStr + "$v" + " "
+    this.sendEvent(traceStr, TRACE)
+}
 
-public class FrameView extends FrameLayout {
-    private int _width = 800;
-    private int _height = 800;
-
-    public FrameView(Context context) {
-        super(context);
-        FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(_width, _height);
-        this.setLayoutParams(layoutParams);
-
-
-
-    }
+// Declare an extension function that calls a lambda called block if the value is null
+inline fun <T> T.guard(block: T.() -> Unit): T {
+    if (this == null) block(); return this
 }

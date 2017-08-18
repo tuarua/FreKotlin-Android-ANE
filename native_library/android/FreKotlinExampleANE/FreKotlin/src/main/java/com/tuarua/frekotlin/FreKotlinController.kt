@@ -36,11 +36,4 @@ interface FreKotlinController {
 
     fun onDestroyed() {}
 
-    fun freTrace(context: FREContext?, TAG: String, args: Array<out Any?>) {
-        val ctx: FREContext = context ?: return
-        var traceStr: String = "$TAG: "
-        for (v in args)
-            traceStr = traceStr + "$v" + " "
-        ctx.dispatchStatusEventAsync(traceStr, "TRACE")
-    }
 }

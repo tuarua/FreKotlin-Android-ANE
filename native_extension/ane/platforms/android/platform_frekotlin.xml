@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <platform xmlns="http://ns.adobe.com/air/extension/19.0">
     <packagedDependencies>
-        <packagedDependency>kotlin-stdlib-1.1.3-2.jar</packagedDependency>
+        <packagedDependency>kotlin-stdlib-1.1.4.jar</packagedDependency>
     </packagedDependencies>
 </platform>

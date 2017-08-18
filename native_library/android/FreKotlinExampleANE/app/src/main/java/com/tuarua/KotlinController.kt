@@ -15,11 +15,13 @@
  */
 
 package com.tuarua
+
 import android.graphics.Bitmap
 import android.graphics.Point
 import android.graphics.Rect
 import android.util.Log
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
@@ -33,11 +35,9 @@ typealias FREArgv = ArrayList<FREObject>
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinController {
-
     private var airView: ViewGroup? = null
-    private var container: FrameView? = null
+    private var container: FrameLayout? = null
     private var context: FREContext? = null
-    private val TRACE = "TRACE"
 
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
@@ -49,8 +49,11 @@ class KotlinController : FreKotlinController {
         val airString: String = (FreObjectKotlin(freObject = inFRE0).value as String).guard {
             trace("Cannot convert passed string");return null
         }
+
         trace(airString)
-        val kotlinString: String = "I am a string from Kotlin"
+        sendEvent("MY_EVENT", "this is a test")
+
+        val kotlinString = "I am a string from Kotlin"
         return FreObjectKotlin(kotlinString).rawValue.guard { return null }
     }
 
@@ -63,7 +66,7 @@ class KotlinController : FreKotlinController {
         trace("UInt passed from AIR:", airUInt)
 
         val kotlinInt: Int = -666
-        val kotlinUInt: Int = 888
+        val kotlinUInt = 888
 
         val test: Any? = FreObjectKotlin(kotlinUInt).value
         if (test is Int) { //to test for null
@@ -76,7 +79,7 @@ class KotlinController : FreKotlinController {
         trace("***********Start Number test***********")
         val airNumber: Double = FreObjectKotlin(argv[0]).value as Double
         trace("Number passed from AIR:", airNumber)
-        val kotlinDouble: Double = 34343.31
+        val kotlinDouble = 34343.31
         return FreObjectKotlin(kotlinDouble).rawValue
     }
 
@@ -145,7 +148,6 @@ class KotlinController : FreKotlinController {
             val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             bmp.copyPixelsFromBuffer(bmd.bits32)
 
-
             val bmpSepia = BitmapUtils.sepiaFilter(image = bmp)
             bmd.release()
             bmp.recycle()
@@ -165,7 +167,7 @@ class KotlinController : FreKotlinController {
         val inFRE0 = argv[0].guard {
             trace("Rectangle passed to runExtensibleTests cannot be null");return null
         }
-        val point: Point = Point(10, 88)
+        val point = Point(10, 88)
         var ret: FREObject? = null
         try {
             val rectangle: Rect = FreRectangleKotlin(inFRE0).value
@@ -260,17 +262,16 @@ class KotlinController : FreKotlinController {
     }
 
     private fun trace(vararg value: Any?) {
-        freTrace(context, TAG, value)
+        context?.trace(TAG, value)
+        //freTrace(context, TAG, value)
     }
 
-    // https://android.jlelse.eu/a-few-ways-to-implement-a-swift-like-guard-in-kotlin-ffd94027864e
-    // Declare an extension function that calls a lambda called block if the value is null
-    inline fun <T> T.guard(block: T.() -> Unit): T {
-        if (this == null) block(); return this
+    private fun sendEvent(name: String, value: String) {
+        context?.sendEvent(name, value)
     }
 
     companion object {
-        private var TAG = "com.tuarua.FreKotlinExampleANE"
+        private var TAG = "com.tuarua.${this::class.java.simpleName}"
     }
 
 }
