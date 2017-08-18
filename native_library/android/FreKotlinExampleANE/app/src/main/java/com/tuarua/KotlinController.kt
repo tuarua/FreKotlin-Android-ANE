@@ -271,7 +271,7 @@ class KotlinController : FreKotlinController {
     }
 
     companion object {
-        private var TAG = "com.tuarua.${this::class.java.simpleName}"
+        private var TAG = "com.tuarua.${KotlinController::class.java.simpleName}"
     }
 
 }

@@ -26,7 +26,7 @@ fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
         traceStr = traceStr + "$v" + " "
-    this.sendEvent(traceStr, TRACE)
+    this.sendEvent(TRACE, traceStr)
 }
 
 // Declare an extension function that calls a lambda called block if the value is null
