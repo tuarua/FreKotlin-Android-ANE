@@ -15,6 +15,7 @@
  */
 package com.tuarua.frekotlin
 
+import android.graphics.Color
 import android.util.Log
 import com.adobe.fre.FREObject
 import com.adobe.fre.FREWrongThreadException
@@ -68,7 +69,7 @@ open class FreObjectKotlin {
             //Log.e(TAG, "any is an Any - NOT FOUND")
             return
         }
-       // Log.d(TAG, "can't find type")
+        // Log.d(TAG, "can't find type")
         return
     }
 
@@ -138,10 +139,10 @@ open class FreObjectKotlin {
     @Throws(FreException::class)
     fun getProperty(name: String): FreObjectKotlin? {
         val rv = rawValue ?: return null
-        try{
+        try {
             val ret = FreKotlinHelper.getProperty(rv, name)
             return FreObjectKotlin(ret)
-        }catch (e: Exception){
+        } catch (e: Exception) {
             throw FreException(e, "cannot create get property $name")
         }
     }
@@ -149,18 +150,22 @@ open class FreObjectKotlin {
     @Throws(FreException::class)
     fun setProperty(name: String, prop: FreObjectKotlin?): FreObjectKotlin? {
         val rv = rawValue ?: return null
-        val prv:FREObject?
+        val prv: FREObject?
         if (prop is FreObjectKotlin) {
             prv = prop.rawValue
         } else {
             prv = null
         }
-        try{
+        try {
             val ret = FreKotlinHelper.setProperty(rv, name, prv)
             return FreObjectKotlin(ret)
         } catch (e: Exception) {
             throw FreException(e, "cannot create set property $name")
         }
+    }
+
+    fun getType(): FreObjectTypeKotlin {
+        return FreKotlinHelper.getType(rawValue)
     }
 
     @Throws(FreException::class)
@@ -172,10 +177,6 @@ open class FreObjectKotlin {
         } else null
     }
 
-    fun getType(): FreObjectTypeKotlin {
-        return FreKotlinHelper.getType(rawValue)
-    }
-
     @Throws(FreException::class)
     fun callMethod(name: String, vararg args: FREObject): FreObjectKotlin? {
         val rv = rawValue ?: return null
@@ -183,6 +184,26 @@ open class FreObjectKotlin {
         return if (ret is FREObject) {
             FreObjectKotlin(ret)
         } else null
+    }
+
+    fun callMethod(name: String): FreObjectKotlin? {
+        val rv = rawValue ?: return null
+        val ret = FreKotlinHelper.callMethod(rv, name)
+        return if (ret is FREObject) {
+            FreObjectKotlin(ret)
+        } else null
+    }
+
+    fun toColor(alpha: Int = 255): Int {
+        val freColor = this.value as Int
+        val ret:Int = Color.argb(alpha, Color.red(freColor), Color.green(freColor), Color.blue(freColor))
+        return ret
+    }
+
+    fun toHSV(alpha: Int = 255): Float {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(toColor(alpha), hsv)
+        return hsv[0]
     }
 
     companion object {

@@ -215,13 +215,9 @@ object FreKotlinHelper {
 
     @Throws(FreException::class)
     fun callMethod(rawValue: FREObject, name: String, args: Array<out Any>): FREObject? {
-        //Log.d(TAG, "call method: " + name);
         val argsArray = arrayOfNulls<FREObject>(args.size)
-        var i = 0
-        for (item in args) {
+        for ((i, item) in args.withIndex()) {
             argsArray[i] = FreObjectKotlin(item).rawValue
-            //Log.d(TAG, "call method with arg: " + String.valueOf(item));
-            i++
         }
         var ret: FREObject?
         try {
@@ -231,4 +227,18 @@ object FreKotlinHelper {
         }
         return ret
     }
+
+    @Throws(FreException::class)
+    fun callMethod(rawValue: FREObject, name: String): FREObject? {
+        Log.d(TAG, "call method: " + name);
+        val argsArray = arrayOfNulls<FREObject>(0)
+        var ret: FREObject?
+        try {
+            ret = rawValue.callMethod(name, argsArray)
+        } catch (e: Exception) {
+            throw FreException(e)
+        }
+        return ret
+    }
+
 }
