@@ -143,7 +143,7 @@ open class FreObjectKotlin {
             val ret = FreKotlinHelper.getProperty(rv, name)
             return FreObjectKotlin(ret)
         } catch (e: Exception) {
-            throw FreException(e, "cannot create get property $name")
+            throw FreException(e, "cannot get property $name")
         }
     }
 

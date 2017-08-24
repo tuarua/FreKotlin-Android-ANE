@@ -24,31 +24,38 @@ import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 
 @Suppress("unused")
-class FreException : Exception {
+open class FreException : Exception {
     private val TAG = "com.tuarua.frekotlin.FreException"
     private var _aneError: FreObjectKotlin? = null
     var stackTrace = ""
     override var message = ""
     var type = ""
 
-    constructor(e: Any, msg:String? = null) : super() {
+    constructor(e: Any, message: String? = null) : super() {
         //Log.e(TAG, "type?: " + e.getClass().getName());
         val exception = e as Exception
         type = e.javaClass.simpleName
-        when {
-            msg != null -> message = msg
-            else -> message = exception.message.toString()
+        this.message = when {
+            message != null -> message
+            else -> exception.message.toString()
         }
 
         if (e is FREASErrorException) {
             stackTrace = getActionscriptException(e.thrownException)
         } else if (e is FREInvalidObjectException || e is FRENoSuchNameException || e is FREReadOnlyException || e is FRETypeMismatchException || e is FREWrongThreadException) {
             val st = exception.stackTrace
-            for (i in st.indices) {
-                val elem:StackTraceElement = st[i]
+            st.indices.forEach { i ->
+                val elem: StackTraceElement = st[i]
                 stackTrace = stackTrace + "\n" + elem.toString()
             }
         }
+    }
+
+    //message:String, errorID:int, type:String, source:String, stackTrace:String
+    constructor(message: String, errorID: Int = 0, type: String = "", stackTrace: String = "") {
+        this.message = message
+        this.type = type
+        this.stackTrace = stackTrace
     }
 
     private fun getActionscriptException(thrownException: FREObject): String {

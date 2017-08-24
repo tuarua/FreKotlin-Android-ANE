@@ -35,6 +35,7 @@
           <option name="pluginClasspaths">
             <array />
           </option>
+          <option name="version" value="true" />
         </compilerArguments>
       </configuration>
     </facet>
@@ -101,8 +102,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/shaders" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/symbols" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/transforms" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/typedefs.txt" />
       <excludeFolder url="file://$MODULE_DIR$/build/kotlin" />
@@ -116,7 +115,6 @@
     <orderEntry type="library" name="kotlin-stdlib-1.1.4-2" level="project" />
     <orderEntry type="library" name="annotations-13.0" level="project" />
     <orderEntry type="library" name="FlashRuntimeExtensions" level="project" />
-    <orderEntry type="module" module-name="FreKotlin" />
     <orderEntry type="module" module-name="FreKotlin" />
   </component>
 </module>

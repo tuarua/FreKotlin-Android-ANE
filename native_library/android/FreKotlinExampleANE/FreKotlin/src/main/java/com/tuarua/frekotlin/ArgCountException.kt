@@ -15,21 +15,7 @@
  */
 
 package com.tuarua.frekotlin
-import com.adobe.fre.FREContext
 
-fun FREContext.sendEvent(name: String, value: String) {
-    this.dispatchStatusEventAsync(value, name)
-}
+class ArgCountException : FreException(message = "Not enough arguments") {
 
-fun FREContext.trace(TAG: String, args: Array<out Any?>) {
-    val TRACE = "TRACE"
-    var traceStr = "$TAG: "
-    for (v in args)
-        traceStr = traceStr + "$v" + " "
-    this.sendEvent(TRACE, traceStr)
-}
-
-// Declare an extension function that calls a lambda called block if the value is null
-inline fun <T> T.guard(block: T.() -> Unit): T {
-    if (this == null) block(); return this
 }

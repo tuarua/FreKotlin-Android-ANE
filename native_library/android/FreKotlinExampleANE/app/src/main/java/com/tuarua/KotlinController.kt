@@ -41,7 +41,9 @@ class KotlinController : FreKotlinController {
 
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
-        argv.takeIf { argv.size == 1 } ?: return null //check number of args is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check
+        // number of args
+        // is 1
         val inFRE0 = argv[0].guard {
             //ensures String passed is not null
             trace("String passed to runStringTests cannot be null");return null
@@ -163,7 +165,7 @@ class KotlinController : FreKotlinController {
     }
 
     fun runExtensibleTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size == 1 } ?: return null //check number of args is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
         val inFRE0 = argv[0].guard {
             trace("Rectangle passed to runExtensibleTests cannot be null");return null
         }
@@ -193,7 +195,7 @@ class KotlinController : FreKotlinController {
 
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Error Handling test***********")
-        argv.takeIf { argv.size == 1 } ?: return null //check number of args is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
         val inFRE0 = argv[0].guard {
             trace("Object passed to runErrorTests cannot be null");return null
         }
@@ -218,7 +220,7 @@ class KotlinController : FreKotlinController {
     }
 
     fun runErrorTests2(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size == 1 } ?: return null //check number of args is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
         val inFRE0 = argv[0].guard {
             trace("value passed to runErrorTests2 cannot be null");return null
         }
