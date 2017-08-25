@@ -73,6 +73,7 @@ open class FreObjectKotlin {
         return
     }
 
+
     open val value: Any?
         get() {
             val rv = rawValue ?: return null
@@ -150,11 +151,10 @@ open class FreObjectKotlin {
     @Throws(FreException::class)
     fun setProperty(name: String, prop: FreObjectKotlin?): FreObjectKotlin? {
         val rv = rawValue ?: return null
-        val prv: FREObject?
-        if (prop is FreObjectKotlin) {
-            prv = prop.rawValue
+        val prv: FREObject? = if (prop is FreObjectKotlin) {
+            prop.rawValue
         } else {
-            prv = null
+            null
         }
         try {
             val ret = FreKotlinHelper.setProperty(rv, name, prv)

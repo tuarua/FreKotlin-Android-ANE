@@ -85,5 +85,9 @@ public class ANEError extends Error {
     public function get source():String {
         return _source;
     }
+
+    public function throwMe():void {
+        throw this;
+    }
 }
 }

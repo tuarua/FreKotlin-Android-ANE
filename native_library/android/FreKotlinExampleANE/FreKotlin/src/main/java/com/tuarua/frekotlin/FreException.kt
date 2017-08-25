@@ -42,7 +42,7 @@ open class FreException : Exception {
 
         if (e is FREASErrorException) {
             stackTrace = getActionscriptException(e.thrownException)
-        } else if (e is FREInvalidObjectException || e is FRENoSuchNameException || e is FREReadOnlyException || e is FRETypeMismatchException || e is FREWrongThreadException) {
+        } else/* if (e is FREInvalidObjectException || e is FRENoSuchNameException || e is FREReadOnlyException || e is FRETypeMismatchException || e is FREWrongThreadException)*/ {
             val st = exception.stackTrace
             st.indices.forEach { i ->
                 val elem: StackTraceElement = st[i]
