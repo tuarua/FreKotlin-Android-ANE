@@ -1,3 +1,7 @@
+### 0.0.6  
+- Support conversion to/from Date, Long, Short
+- Improve FreArrayKotlin
+
 ### 0.0.5  
 - Improve FreException
 

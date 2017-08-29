@@ -119,13 +119,35 @@ class KotlinController : FreKotlinController {
         return person.rawValue
     }
 
+    fun runDateTests(ctx: FREContext, argv: FREArgv): FREObject? {
+        trace("***********Start Date test ***********")
+        return try {
+            val date = FreObjectKotlin(argv[0]).value as Date
+            trace(date.time.toString())
+            FreObjectKotlin(date).rawValue
+        } catch (e: FreException) {
+            e.getError(Thread.currentThread().stackTrace)
+        } catch (e: Exception) {
+            FreException(e).getError(Thread.currentThread().stackTrace)
+        }
+    }
+
     fun runArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        trace("***********Start Array test NEW ***********")
+        trace("***********Start Array test ***********")
 
         val airArray: FreArrayKotlin? = FreArrayKotlin(argv[0])
         val airArrayLen = airArray?.length
         trace("Array passed from AIR:", airArray?.value)
         trace("AIR Array length:", airArrayLen)
+
+        val airVector: FreArrayKotlin? = FreArrayKotlin(argv[1])
+        val airVectorLen = airVector?.length
+
+        trace("Vector.<String> passed from AIR:", airVector?.value)
+        trace("AIR Vector.<String> length:", airVectorLen)
+
+        val kotArr: IntArray = intArrayOf(1, 2, 3)
+        val kotArrayFre = FreArrayKotlin(kotArr)
 
         val itemZero: FreObjectKotlin? = airArray?.getObjectAt(0)
         Log.d(TAG, "itemZero is FreObjectKotlin")
@@ -165,7 +187,7 @@ class KotlinController : FreKotlinController {
     }
 
     fun runExtensibleTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val inFRE0 = argv[0].guard {
             trace("Rectangle passed to runExtensibleTests cannot be null");return null
         }

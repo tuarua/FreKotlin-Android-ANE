@@ -15,6 +15,7 @@
  */
 package com.tuarua.frekotlin
 
+import android.util.Log
 import com.adobe.fre.FREArray
 import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FREObject
@@ -32,6 +33,27 @@ class FreArrayKotlin {
 
     constructor(value: FREArray) {
         rawValue = value
+    }
+
+    constructor(value: IntArray) {
+        rawValue = FREArray.newArray(value.size)
+        for (i in value.indices) {
+            setObjectAt(i, FreObjectKotlin(value[i]))
+        }
+    }
+
+    constructor(value: DoubleArray) {
+        rawValue = FREArray.newArray(value.size)
+        for (i in value.indices) {
+            setObjectAt(i, FreObjectKotlin(value[i]))
+        }
+    }
+
+    constructor(value:ArrayList<Any>) {
+        rawValue = FREArray.newArray(value.size)
+        for (i in value.indices) {
+            setObjectAt(i, FreObjectKotlin(value[i]))
+        }
     }
 
     val length: Int

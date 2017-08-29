@@ -32,7 +32,8 @@ public class FreKotlinExampleANE implements FREExtension  {
             "runByteArrayTests",
             "runErrorTests",
             "runErrorTests2",
-            "runDataTests"
+            "runDataTests",
+            "runDateTests"
     };
     public static FreKotlinExampleContext extensionContext;
 

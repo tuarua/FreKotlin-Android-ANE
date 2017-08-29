@@ -45,6 +45,8 @@ public class Main extends Sprite {
             textField.multiline = true;
             textField.wordWrap = true;
 
+
+
             var person:Person = new Person();
             person.age = 21;
             person.name = "Tom";
@@ -70,7 +72,11 @@ public class Main extends Sprite {
 
             var myArray:Array = [];
             myArray.push(3, 1, 4, 2, 6, 5);
-            var resultArray:Array = ane.runArrayTests(myArray);
+
+            var myVector:Vector.<String> = new <String>[];
+            myVector.push("abc");
+
+            var resultArray:Array = ane.runArrayTests(myArray, myVector);
             if (resultArray) {
                 textField.text += "Array: " + resultArray.toString() + "\n";
             }
@@ -101,6 +107,9 @@ public class Main extends Sprite {
                 trace("e.getStackTrace():", e.getStackTrace());
             }
             ane.runErrorTests2("Test String");
+
+            var returnedDate:Date = ane.runDateTests(new Date());
+            trace("returnedDate:", returnedDate);
 
             addChild(textField);
         }

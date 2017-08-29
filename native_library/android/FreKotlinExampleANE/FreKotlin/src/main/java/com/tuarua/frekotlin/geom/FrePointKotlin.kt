@@ -17,10 +17,19 @@ package com.tuarua.frekotlin.geom
 
 import android.graphics.Point
 import android.util.Log
+import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.FreObjectKotlin
 
 open class FrePointKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FrePointKotlin"
+
+    constructor(value: FreObjectKotlin) : this() {
+        this.rawValue = value.rawValue
+    }
+
+    constructor(value: FREObject?) : this() {
+        this.rawValue = value
+    }
 
     constructor(value: Point) : this() {
         rawValue = FreObjectKotlin("flash.geom.Point", value.x, value.y).rawValue

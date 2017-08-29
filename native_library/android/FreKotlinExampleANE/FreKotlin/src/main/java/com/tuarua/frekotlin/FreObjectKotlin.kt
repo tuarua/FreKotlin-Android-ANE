@@ -19,6 +19,7 @@ import android.graphics.Color
 import android.util.Log
 import com.adobe.fre.FREObject
 import com.adobe.fre.FREWrongThreadException
+import java.util.*
 
 @Suppress("unused")
 open class FreObjectKotlin {
@@ -59,9 +60,27 @@ open class FreObjectKotlin {
             return
         }
 
+        if (any is Long) {
+            //Log.d(TAG, "any is a Long")
+            rawValue = FREObject.newObject(any.toDouble())
+            return
+        }
+
+        if (any is Short) {
+            //Log.d(TAG, "any is a Long")
+            rawValue = FREObject.newObject(any.toInt())
+            return
+        }
+
         if (any is Boolean) {
-            //Log.d(TAG,"item is a Boolean");
+            //Log.d(TAG,"item is a Boolean")
             rawValue = FREObject.newObject(any)
+            return
+        }
+
+        if (any is Date) {
+            //Log.d(TAG,"item is a Date")
+            rawValue = FreObjectKotlin("Date", any.time).rawValue
             return
         }
 
@@ -72,7 +91,6 @@ open class FreObjectKotlin {
         // Log.d(TAG, "can't find type")
         return
     }
-
 
     open val value: Any?
         get() {
@@ -133,7 +151,7 @@ open class FreObjectKotlin {
         try {
             rawValue = FREObject.newObject(name, argsArr)
         } catch (e: Exception) {
-            throw FreException(e, "cannot create new object from Boolean")
+            throw FreException(e, "cannot create new object named $name")
         }
     }
 

@@ -26,5 +26,7 @@ enum class FreObjectTypeKotlin {
     NULL,
     INT,
     CLASS,
-    RECTANGLE
+    RECTANGLE,
+    POINT,
+    DATE
 }

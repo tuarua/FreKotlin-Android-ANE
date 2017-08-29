@@ -23,9 +23,9 @@ import com.adobe.fre.FRENoSuchNameException
 import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
-
-import java.util.ArrayList
-import java.util.HashMap
+import com.tuarua.frekotlin.geom.FrePointKotlin
+import com.tuarua.frekotlin.geom.FreRectangleKotlin
+import java.util.*
 
 object FreKotlinHelper {
     internal var TAG = "com.tuarua.FreKotlinHelper"
@@ -48,6 +48,17 @@ object FreKotlinHelper {
             ret = rawValue.asDouble
         } catch (e: Exception) {
             throw FreException(e, "cannot get FREObject as Double")
+        }
+        return ret
+    }
+
+    @Throws(FreException::class)
+    private fun getAsDate(rawValue: FREObject): Date {
+        val ret:Date
+        try {
+            ret = Date(rawValue.getProperty("time").asDouble.toLong())
+        } catch (e: Exception) {
+            throw FreException(e, "cannot get FREObject as Date")
         }
         return ret
     }
@@ -108,7 +119,6 @@ object FreKotlinHelper {
     }
 
     fun getAsObject(rawValue: FREObject): Any? {
-        //Log.d(TAG, "getAsObject: ")
         try {
             when (getType(rawValue)) {
                 FreObjectTypeKotlin.STRING -> return getAsString(rawValue)
@@ -124,7 +134,9 @@ object FreKotlinHelper {
                 FreObjectTypeKotlin.NULL -> return null
                 FreObjectTypeKotlin.INT -> return getAsInt(rawValue)
                 FreObjectTypeKotlin.CLASS, FreObjectTypeKotlin.OBJECT -> return getAsDictionary(rawValue)
-                FreObjectTypeKotlin.RECTANGLE -> TODO()
+                FreObjectTypeKotlin.RECTANGLE -> return FreRectangleKotlin(rawValue).value
+                FreObjectTypeKotlin.POINT -> return FrePointKotlin(rawValue).value
+                FreObjectTypeKotlin.DATE -> return getAsDate(rawValue)
             }
         } catch (e: FREInvalidObjectException) {
             Log.e(TAG, "getAsObject Error: " + e.message)
@@ -141,17 +153,18 @@ object FreKotlinHelper {
         return null
     }
 
-
     private fun getAsArrayList(rawValue: FREArray): ArrayList<Any> {
         val al = ArrayList<Any>()
         try {
             val len = rawValue.length
-            for (i in 0..len - 1) {
+            for (i in 0 until len) {
                 getAsObject(rawValue.getObjectAt(i))?.let { al.add(it) }
             }
         } catch (e: FREWrongThreadException) {
             Log.e(TAG, e.message)
         } catch (e: FREInvalidObjectException) {
+            Log.e(TAG, e.message)
+        } catch (e:Exception) {
             Log.e(TAG, e.message)
         }
 
@@ -165,19 +178,24 @@ object FreKotlinHelper {
             args[0] = rawValue
             val classType = aneUtils.callMethod("getClassType", args)
             val type = getAsString(classType).toLowerCase()
-            when (type) {
-                "object" -> return FreObjectTypeKotlin.OBJECT
-                "number" -> return FreObjectTypeKotlin.NUMBER
-                "string" -> return FreObjectTypeKotlin.STRING
-                "bytearray" -> return FreObjectTypeKotlin.BYTEARRAY
-                "array" -> return FreObjectTypeKotlin.ARRAY
-                "vector" -> return FreObjectTypeKotlin.VECTOR
-                "bitmapdata" -> return FreObjectTypeKotlin.BITMAPDATA
-                "boolean" -> return FreObjectTypeKotlin.BOOLEAN
-                "null" -> return FreObjectTypeKotlin.NULL
-                "int" -> return FreObjectTypeKotlin.INT
-                "flash.geom::rectangle" -> return FreObjectTypeKotlin.RECTANGLE
-                else -> return FreObjectTypeKotlin.CLASS
+            when {
+                type.contains("__as3__.vec::vector") -> return FreObjectTypeKotlin.VECTOR
+                else -> when (type) {
+                    "object" -> return FreObjectTypeKotlin.OBJECT
+                    "number" -> return FreObjectTypeKotlin.NUMBER
+                    "string" -> return FreObjectTypeKotlin.STRING
+                    "bytearray" -> return FreObjectTypeKotlin.BYTEARRAY
+                    "array" -> return FreObjectTypeKotlin.ARRAY
+                    "vector" -> return FreObjectTypeKotlin.VECTOR
+                    "bitmapdata" -> return FreObjectTypeKotlin.BITMAPDATA
+                    "boolean" -> return FreObjectTypeKotlin.BOOLEAN
+                    "null" -> return FreObjectTypeKotlin.NULL
+                    "int" -> return FreObjectTypeKotlin.INT
+                    "flash.geom::rectangle" -> return FreObjectTypeKotlin.RECTANGLE
+                    "flash.geom::point" -> return FreObjectTypeKotlin.POINT
+                    "date" -> return FreObjectTypeKotlin.DATE
+                    else -> return FreObjectTypeKotlin.CLASS
+                }
             }
         } catch (e: FRETypeMismatchException) {
             return FreObjectTypeKotlin.NULL
@@ -194,7 +212,7 @@ object FreKotlinHelper {
 
     @Throws(FreException::class)
     fun getProperty(rawValue: FREObject, name: String): FREObject? {
-        var ret: FREObject?
+        val ret: FREObject?
         try {
             ret = rawValue.getProperty(name)
         } catch (e: Exception) {
@@ -219,7 +237,7 @@ object FreKotlinHelper {
         for ((i, item) in args.withIndex()) {
             argsArray[i] = FreObjectKotlin(item).rawValue
         }
-        var ret: FREObject?
+        val ret: FREObject?
         try {
             ret = rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
@@ -231,7 +249,7 @@ object FreKotlinHelper {
     @Throws(FreException::class)
     fun callMethod(rawValue: FREObject, name: String): FREObject? {
         val argsArray = arrayOfNulls<FREObject>(0)
-        var ret: FREObject?
+        val ret: FREObject?
         try {
             ret = rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {

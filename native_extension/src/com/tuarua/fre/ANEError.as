@@ -86,8 +86,5 @@ public class ANEError extends Error {
         return _source;
     }
 
-    public function throwMe():void {
-        throw this;
-    }
 }
 }

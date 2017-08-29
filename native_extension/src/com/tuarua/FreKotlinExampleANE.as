@@ -45,8 +45,8 @@ public class FreKotlinExampleANE extends EventDispatcher {
         return ctx.call("runIntTests", value, value2) as int;
     }
 
-    public function runArrayTests(value:Array):Array {
-        return ctx.call("runArrayTests", value) as Array;
+    public function runArrayTests(value:Array, value2:Vector.<String>):Array {
+        return ctx.call("runArrayTests", value, value2) as Array;
     }
 
     public function runObjectTests(value:Person):Person {
@@ -68,6 +68,11 @@ public class FreKotlinExampleANE extends EventDispatcher {
     public function runDataTests(value:String):String {
         return ctx.call("runDataTests", value) as String;
     }
+
+    public function runDateTests(value:Date):Date {
+        return ctx.call("runDateTests", value) as Date;
+    }
+
 
     public function runErrorTests(value:Person):void {
         var theRet:* = ctx.call("runErrorTests", value);
