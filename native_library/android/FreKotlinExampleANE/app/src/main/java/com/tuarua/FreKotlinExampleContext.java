@@ -22,13 +22,13 @@ import com.adobe.air.TRActivityResultCallback;
 import com.adobe.air.AndroidActivityWrapper;
 import com.adobe.air.TRStateChangeCallback;
 import com.tuarua.frekotlin.FreKotlinContext;
-import com.tuarua.frekotlin.FreKotlinController;
+import com.tuarua.frekotlin.FreKotlinMainController;
 
 //This file must remain as Java
 public class FreKotlinExampleContext extends FreKotlinContext implements TRActivityResultCallback, TRStateChangeCallback {
     private AndroidActivityWrapper aaw;
 
-    public FreKotlinExampleContext(String name, FreKotlinController controller, String[] functions) {
+    public FreKotlinExampleContext(String name, FreKotlinMainController controller, String[] functions) {
         super(name, controller, functions);
         this.controller = controller;
         aaw = AndroidActivityWrapper.GetAndroidActivityWrapper();

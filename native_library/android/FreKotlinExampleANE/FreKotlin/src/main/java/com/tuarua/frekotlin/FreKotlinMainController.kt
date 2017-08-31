@@ -15,23 +15,33 @@
  */
 
 package com.tuarua.frekotlin
+
 import com.adobe.fre.FREContext
-import com.adobe.fre.FREObject
 
-typealias FREArgv = ArrayList<FREObject>
-fun FREContext.sendEvent(name: String, value: String) {
-    this.dispatchStatusEventAsync(value, name)
-}
+interface FreKotlinMainController {
 
-fun FREContext.trace(TAG: String, args: Array<out Any?>) {
-    val TRACE = "TRACE"
-    var traceStr = "$TAG: "
-    for (v in args)
-        traceStr = traceStr + "$v" + " "
-    this.sendEvent(TRACE, traceStr)
-}
+    val TAG:String
+    var context: FREContext?
+    fun dispose() {}
 
-// Declare an extension function that calls a lambda called block if the value is null
-inline fun <T> T.guard(block: T.() -> Unit): T {
-    if (this == null) block(); return this
+    fun onStarted() {}
+
+    fun onRestarted() {}
+
+    fun onResumed() {}
+
+    fun onPaused() {}
+
+    fun onStopped() {}
+
+    fun onDestroyed() {}
+
+    fun trace(vararg value: Any?) {
+        context?.trace(TAG, value)
+    }
+
+    fun sendEvent(name: String, value: String) {
+        context?.sendEvent(name, value)
+    }
+
 }

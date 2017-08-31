@@ -33,16 +33,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Method;
 //This file must remain as Java
-// https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-stdlib/1.1.3-2
 public class FreKotlinContext extends FREContext implements TRActivityResultCallback, TRStateChangeCallback {
     private String TAG = null;
-    protected FreKotlinController controller;
+    protected FreKotlinMainController controller;
     private String[] functions;
-    public FreKotlinContext(String name, FreKotlinController controller, String[] functions) {
+    public FreKotlinContext(String name, FreKotlinMainController controller, String[] functions) {
         TAG = name;
         this.controller = controller;
         this.functions = functions;
-        controller.setFREContext(this);
+        controller.setContext(this);
     }
 
     @Override
@@ -71,7 +70,6 @@ public class FreKotlinContext extends FREContext implements TRActivityResultCall
     public void onConfigurationChanged(Configuration configuration) {
     }
 
-    // https://stackoverflow.com/questions/4685563/how-to-pass-a-function-as-a-parameter-in-java
     private class CallKotlinFunction implements FREFunction {
         private String _name;
 
@@ -89,7 +87,6 @@ public class FreKotlinContext extends FREContext implements TRActivityResultCall
             Collections.addAll(al, freObjects);
             try {
                 Method func = controller.getClass().getMethod(_name, parameterTypes);
-                //Log.d(TAG, String.valueOf(method1));
                 return (FREObject) func.invoke(controller, freContext, al);
             } catch (NoSuchMethodException e) {
                 Log.e(TAG, "can't find function " + _name + " " + e.getMessage());

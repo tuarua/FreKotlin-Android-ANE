@@ -19,21 +19,13 @@ package com.tuarua.frekotlin
 import com.adobe.fre.FREContext
 
 interface FreKotlinController {
+    val TAG:String
+    var context: FREContext?
+    fun trace(vararg value: Any?) {
+        context?.trace(TAG, value)
+    }
 
-    fun dispose() {}
-
-    fun setFREContext(context: FREContext) {}
-
-    fun onStarted() {}
-
-    fun onRestarted() {}
-
-    fun onResumed() {}
-
-    fun onPaused() {}
-
-    fun onStopped() {}
-
-    fun onDestroyed() {}
-
+    fun sendEvent(name: String, value: String) {
+        context?.sendEvent(name, value)
+    }
 }

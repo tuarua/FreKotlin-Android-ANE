@@ -31,19 +31,15 @@ import com.tuarua.frekotlin.geom.FreRectangleKotlin
 import java.nio.ByteBuffer
 import java.util.*
 
-typealias FREArgv = ArrayList<FREObject>
-
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
-class KotlinController : FreKotlinController {
+class KotlinController : FreKotlinMainController {
     private var airView: ViewGroup? = null
     private var container: FrameLayout? = null
-    private var context: FREContext? = null
+
 
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check
-        // number of args
-        // is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val inFRE0 = argv[0].guard {
             //ensures String passed is not null
             trace("String passed to runStringTests cannot be null");return null
@@ -123,7 +119,7 @@ class KotlinController : FreKotlinController {
         trace("***********Start Date test ***********")
         return try {
             val date = FreObjectKotlin(argv[0]).value as Date
-            trace(date.time.toString())
+            trace("unix time stamp:", date.time.toString())
             FreObjectKotlin(date).rawValue
         } catch (e: FreException) {
             e.getError(Thread.currentThread().stackTrace)
@@ -148,6 +144,7 @@ class KotlinController : FreKotlinController {
 
         val kotArr: IntArray = intArrayOf(1, 2, 3)
         val kotArrayFre = FreArrayKotlin(kotArr)
+        trace("Kotlin array converted:", kotArrayFre.value)
 
         val itemZero: FreObjectKotlin? = airArray?.getObjectAt(0)
         Log.d(TAG, "itemZero is FreObjectKotlin")
@@ -217,7 +214,7 @@ class KotlinController : FreKotlinController {
 
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Error Handling test***********")
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
+        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val inFRE0 = argv[0].guard {
             trace("Object passed to runErrorTests cannot be null");return null
         }
@@ -281,22 +278,18 @@ class KotlinController : FreKotlinController {
         super.onDestroyed()
     }
 
-    override fun setFREContext(context: FREContext) {
-        this.context = context
-    }
-
-    private fun trace(vararg value: Any?) {
-        context?.trace(TAG, value)
-        //freTrace(context, TAG, value)
-    }
-
-    private fun sendEvent(name: String, value: String) {
-        context?.sendEvent(name, value)
-    }
-
-    companion object {
-        private var TAG = "com.tuarua.${KotlinController::class.java.simpleName}"
-    }
+    override val TAG: String
+        get() = this::class.java.canonicalName
+    private var _context: FREContext? = null
+    override var context: FREContext?
+        get() = _context
+        set(value) {
+            _context = value
+        }
 
 }
+
+
+
+
 

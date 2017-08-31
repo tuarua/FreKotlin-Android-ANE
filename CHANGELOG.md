@@ -1,3 +1,7 @@
+### 0.0.7  
+- Upgraded to Kotlin 1.1.4-3
+- Improve FreKotlinController interface
+
 ### 0.0.6  
 - Support conversion to/from Date, Long, Short
 - Improve FreArrayKotlin
