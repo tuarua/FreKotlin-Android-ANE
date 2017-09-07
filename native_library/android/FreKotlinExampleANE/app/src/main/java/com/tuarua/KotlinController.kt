@@ -40,15 +40,11 @@ class KotlinController : FreKotlinMainController {
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
         argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
-        val inFRE0 = argv[0].guard {
-            //ensures String passed is not null
-            trace("String passed to runStringTests cannot be null");return null
-        }
-        val airString: String = (FreObjectKotlin(freObject = inFRE0).value as String).guard {
-            trace("Cannot convert passed string");return null
+        val airString = String(argv[0]).guard {
+            return ArgException().getError(Thread.currentThread().stackTrace)
         }
 
-        trace(airString)
+        trace("This is AIR string", airString)
         sendEvent("MY_EVENT", "this is a test")
 
         val kotlinString = "I am a string from Kotlin"
@@ -57,11 +53,13 @@ class KotlinController : FreKotlinMainController {
 
     fun runIntTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Int Uint test***********")
-        val airInt: Int = FreObjectKotlin(argv[0]).value as Int
-        val airUInt: Int = FreObjectKotlin(argv[1]).value as Int
+        val airInt = Int(argv[0])
+        val airIntAsDouble = Double(argv[0])
+        val airUInt: Int? = Int(argv[1])
 
         trace("Int passed from AIR:", airInt)
         trace("UInt passed from AIR:", airUInt)
+        trace("Int passed from AIR as Double:", airIntAsDouble)
 
         val kotlinInt: Int = -666
         val kotlinUInt = 888
@@ -75,8 +73,10 @@ class KotlinController : FreKotlinMainController {
 
     fun runNumberTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Number test***********")
-        val airNumber: Double = FreObjectKotlin(argv[0]).value as Double
+        val airNumber = Double(argv[0])
+        val airNumberAsFloat = Float(argv[0])
         trace("Number passed from AIR:", airNumber)
+        trace("Number passed from AIR as Float:", airNumberAsFloat)
         val kotlinDouble = 34343.31
         return FreObjectKotlin(kotlinDouble).rawValue
     }
@@ -118,8 +118,8 @@ class KotlinController : FreKotlinMainController {
     fun runDateTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Date test ***********")
         return try {
-            val date = FreObjectKotlin(argv[0]).value as Date
-            trace("unix time stamp:", date.time.toString())
+            val date = Date(argv[0])
+            trace("unix time stamp:", date?.time.toString())
             FreObjectKotlin(date).rawValue
         } catch (e: FreException) {
             e.getError(Thread.currentThread().stackTrace)
@@ -191,10 +191,10 @@ class KotlinController : FreKotlinMainController {
         val point = Point(10, 88)
         var ret: FREObject? = null
         try {
-            val rectangle: Rect = FreRectangleKotlin(inFRE0).value
-            rectangle.set(0, 0, 999, 111)
+            val rectangle = Rect(inFRE0)
+            rectangle?.set(0, 0, 999, 111)
 
-            ret = FreRectangleKotlin(rectangle).rawValue
+            ret = rectangle?.let { FreRectangleKotlin(it).rawValue }
 
             val frePoint = FrePointKotlin(point)
             trace("frePoint is", frePoint.value.x, frePoint.value.y)
@@ -216,10 +216,10 @@ class KotlinController : FreKotlinMainController {
         trace("***********Start Error Handling test***********")
         argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val inFRE0 = argv[0].guard {
-            trace("Object passed to runErrorTests cannot be null");return null
+            return ArgException().getError(Thread.currentThread().stackTrace)
         }
         val person = FreObjectKotlin(freObject = inFRE0).guard {
-            trace("Cannot convert person string");return null
+            return ArgException().getError(Thread.currentThread().stackTrace)
         }
 
         try {
@@ -241,12 +241,13 @@ class KotlinController : FreKotlinMainController {
     fun runErrorTests2(ctx: FREContext, argv: FREArgv): FREObject? {
         argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
         val inFRE0 = argv[0].guard {
-            trace("value passed to runErrorTests2 cannot be null");return null
+            return ArgException().getError(Thread.currentThread().stackTrace)
         }
         val expectInt = FreObjectKotlin(inFRE0)
         if (expectInt.getType() != FreObjectTypeKotlin.INT) {
             trace("Oops, we expected the FREObject to be passed as an int but it's not")
         }
+
         return null
     }
 
@@ -279,15 +280,15 @@ class KotlinController : FreKotlinMainController {
     }
 
     override val TAG: String
-        get() = this::class.java.canonicalName
+        get() = "FreKotlinExampleANE"
     private var _context: FREContext? = null
     override var context: FREContext?
         get() = _context
         set(value) {
             _context = value
         }
-
 }
+
 
 
 

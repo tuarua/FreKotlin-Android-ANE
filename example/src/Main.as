@@ -46,7 +46,6 @@ public class Main extends Sprite {
             textField.wordWrap = true;
 
 
-
             var person:Person = new Person();
             person.age = 21;
             person.name = "Tom";
@@ -54,6 +53,7 @@ public class Main extends Sprite {
 
             var resultString:String = ane.runStringTests("I am a string from AIR with new interface");
             textField.text += resultString + "\n";
+
 
             var resultNumber:Number = ane.runNumberTests(31.99);
             textField.text += "Number: " + resultNumber + "\n";
@@ -74,7 +74,7 @@ public class Main extends Sprite {
             myArray.push(3, 1, 4, 2, 6, 5);
 
             var myVector:Vector.<String> = new <String>[];
-            myVector.push("abc");
+            myVector.push("abc", "xyz");
 
             var resultArray:Array = ane.runArrayTests(myArray, myVector);
             if (resultArray) {
@@ -117,7 +117,7 @@ public class Main extends Sprite {
     }
 
     private function onExiting(event:Event):void {
-        //ane.dispose();
+        ane.dispose();
     }
 }
 }

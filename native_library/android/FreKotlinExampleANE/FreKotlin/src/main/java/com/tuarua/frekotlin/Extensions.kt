@@ -15,8 +15,13 @@
  */
 
 package com.tuarua.frekotlin
+import android.graphics.Point
+import android.graphics.Rect
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
+import com.tuarua.frekotlin.geom.FrePointKotlin
+import com.tuarua.frekotlin.geom.FreRectangleKotlin
+import java.util.*
 
 typealias FREArgv = ArrayList<FREObject>
 fun FREContext.sendEvent(name: String, value: String) {
@@ -35,3 +40,35 @@ fun FREContext.trace(TAG: String, args: Array<out Any?>) {
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
+
+fun Double(freObject: FREObject?): Double? {
+    val v = FreObjectKotlin(freObject = freObject).value
+    return (v as? Int)?.toDouble() ?: v as Double?
+}
+fun Double(freObjectKotlin: FreObjectKotlin?): Double? {
+    val v = freObjectKotlin?.value
+    return (v as? Int)?.toDouble() ?: v as Double?
+}
+
+fun Float(freObject: FREObject?): Float? {
+    val v = FreObjectKotlin(freObject = freObject).value
+    return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
+}
+
+fun Float(freObjectKotlin: FreObjectKotlin?): Float? {
+    val v = freObjectKotlin?.value
+    return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
+}
+
+fun Int(freObject: FREObject?): Int? = FreObjectKotlin(freObject = freObject).value as Int?
+fun Int(freObjectKotlin: FreObjectKotlin?): Int? = freObjectKotlin?.value as Int?
+fun String(freObject: FREObject?): String? = FreObjectKotlin(freObject = freObject).value?.toString()
+fun String(freObjectKotlin: FreObjectKotlin?): String? = freObjectKotlin?.value?.toString()
+fun Boolean(freObject: FREObject?): Boolean? = FreObjectKotlin(freObject = freObject).value as Boolean?
+fun Boolean(freObjectKotlin: FreObjectKotlin?): Boolean? = freObjectKotlin?.value as Boolean?
+fun Point(freObject: FREObject?): Point? = FrePointKotlin(value = freObject).value
+fun Point(frePointKotlin: FrePointKotlin?): Point? = frePointKotlin?.value
+fun Rect(freObject: FREObject?): Rect? = FreRectangleKotlin(value = freObject).value
+fun Rect(freRectangleObject: FreRectangleKotlin?): Rect? = freRectangleObject?.value
+fun Date(freObject: FREObject?): Date? = FreObjectKotlin(freObject = freObject).value as Date?
+fun Date(freObjectKotlin: FreObjectKotlin?): Date? = freObjectKotlin?.value as Date?

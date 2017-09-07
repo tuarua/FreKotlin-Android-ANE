@@ -19,7 +19,6 @@ import com.adobe.fre.FREASErrorException
 import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FRENoSuchNameException
 import com.adobe.fre.FREObject
-import com.adobe.fre.FREReadOnlyException
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 
@@ -52,7 +51,7 @@ open class FreException : Exception {
     }
 
     //message:String, errorID:int, type:String, source:String, stackTrace:String
-    constructor(message: String, errorID: Int = 0, type: String = "", stackTrace: String = "") {
+    constructor(message: String, type: String = "", stackTrace: String = "") {
         this.message = message
         this.type = type
         this.stackTrace = stackTrace

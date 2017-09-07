@@ -37,7 +37,7 @@ fun isKotlinGreat(ctx: FREContext, argv: FREArgv): FREObject? {
 Example - Convert a FREObject into a String, and String into FREObject
 
 ```` Kotlin
-val airString: String = FreObjectKotlin(freObject = inFRE0).value as String
+val airString: String? = String(argv[0])
 trace("String passed from AIR:", airString) //As3 style trace!
 
 val kotlinString: String = "I am a string from Kotlin"
@@ -92,10 +92,8 @@ class FreCoordinateKotlin() : FreObjectKotlin() {
             var lat = 0.0
             var lng = 0.0
             try {
-                val latFre = this.getProperty("latitude")?.value
-                val lngFre = this.getProperty("longitude")?.value
-                lat = (latFre as? Int)?.toDouble() ?: latFre as Double
-                lng = (lngFre as? Int)?.toDouble() ?: lngFre as Double
+                lat = Double(this.getProperty("latitude")) ?: 0
+                lng = Double(this.getProperty("longitude")) ?: 0
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }

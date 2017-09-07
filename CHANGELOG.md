@@ -1,3 +1,6 @@
+### 0.0.8  
+- Make better use of extensions
+
 ### 0.0.7  
 - Upgraded to Kotlin 1.1.4-3
 - Improve FreKotlinController interface
