@@ -2,6 +2,13 @@
 
 Example Android Studio project showing how to create Air Native Extensions for Android using Kotlin.  
   
+This project is used as the basis for the following ANEs   
+[Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
+[AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
+
+
+-------------
+  
 https://kotlinlang.org/docs/reference/
 
 FreKotlinExampleANE.java is the entry point of the ANE. It acts as a thin layered API to your Kotlin controller.  
@@ -40,8 +47,8 @@ Example - Convert a FREObject into a String, and String into FREObject
 val airString: String? = String(argv[0])
 trace("String passed from AIR:", airString) //As3 style trace!
 
-val kotlinString: String = "I am a string from Kotlin"
-return FreObjectKotlin(kotlinString).rawValue.guard { return null }
+val kotlinString = "I am a string from Kotlin"
+return kotlinString.toFREObject()
 `````
 
 Example - Call a method on an FREObject
@@ -68,7 +75,7 @@ try {
 Example - Extending. Convert to/from LatLng
 ```` kotlin
 package com.tuarua.frekotlin
-import android.util.Log
+
 import com.adobe.fre.FREObject
 import com.google.android.gms.maps.model.LatLng
 
@@ -88,24 +95,35 @@ class FreCoordinateKotlin() : FreObjectKotlin() {
     }
 
     override val value: LatLng
+        @Throws(FreException::class)
         get() {
             var lat = 0.0
             var lng = 0.0
+            if (this.rawValue == null) return LatLng(lat, lng)
             try {
-                lat = Double(this.getProperty("latitude")) ?: 0
-                lng = Double(this.getProperty("longitude")) ?: 0
+                val latFre = Double(this.getProperty("latitude"))
+                val lngFre = Double(this.getProperty("longitude"))
+                if (latFre != null && lngFre != null) {
+                    lat = latFre
+                    lng = lngFre
+                }
+            } catch (e: FreException) {
+                throw e
             } catch (e: Exception) {
-                Log.e(TAG, e.message)
+                throw FreException(e)
             }
             return LatLng(lat, lng)
         }
 }
+
+fun LatLng(freObject: FREObject?): LatLng = FreCoordinateKotlin(freObject = freObject).value
+fun LatLng(freObjectKotlin: FreObjectKotlin?): LatLng = FreCoordinateKotlin(freObjectKotlin = freObjectKotlin).value
 `````
 
 ### Prerequisites
 
 You will need
 
-- Android Studio 3.0 Beta1
+- Android Studio 3.0 Beta
 - IntelliJ IDEA
 - AIR 25+
