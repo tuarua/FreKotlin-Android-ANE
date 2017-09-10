@@ -40,8 +40,24 @@ fun isKotlinGreat(ctx: FREContext, argv: FREArgv): FREObject? {
 ----------
 
 ### How to use 
+###### Converting from FREObject args into Kotlin types, returning FREObjects
+The following table shows the primitive as3 types which can easily be converted to/from Kotlin types
 
-Example - Convert a FREObject into a String, and String into FREObject
+
+| AS3 type | Kotlin type | AS3 param->Kotlin | return Kotlin->AS3 |
+|:--------:|:--------:|:--------------|:-----------|
+| String | String | let str = String(argv[0]) | return str.toFREObject()|
+| int | Int | let i = Int(argv[0]) | return i.toFREObject()|
+| Boolean | Boolean | let b = Boolean(argv[0]) | return b.toFREObject()|
+| Number | Double | let dbl = Double(argv[0]) | return dbl.toFREObject()|
+| Number | Float | let fl = Float(argv[0]) | return fl.toFREObject()|
+| Date | Date | let date = Date(argv[0]) | return date.toFREObject()|
+| Rectangle | Rect | let rect = Rect(argv[0]) | return rect.toFREObject()|
+| Point | Point | let pnt = Point(argv[0]) | return pnt.toFREObject()|
+| Vector Int | IntArray | let arr = IntArray(argv[0]) | return arr.toFREObject()|
+
+
+Example
 
 ```` Kotlin
 val airString: String? = String(argv[0])
