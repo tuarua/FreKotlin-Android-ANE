@@ -14,11 +14,15 @@
  *  limitations under the License.
  */
 
+@file:Suppress("unused")
+
 package com.tuarua.frekotlin.geom
-import android.graphics.Rect
 import android.util.Log
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.FreObjectKotlin
+import com.tuarua.frekotlin.Double
+import com.tuarua.frekotlin.FreException
+
 @Suppress("unused")
 open class FreRectangleKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FreRectangleKotlin"
@@ -33,27 +37,89 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
 
     constructor(value: Rect) : this() {
         rawValue = FreObjectKotlin("flash.geom.Rectangle",
-                value.left,
-                value.top,
-                value.width(),
-                value.height()).rawValue
+                value.x,
+                value.y,
+                value.width,
+                value.height).rawValue
     }
 
     override val value: Rect
         get() {
-            var x = 0
-            var y = 0
-            var w = 0
-            var h = 0
+            var x = 0.0
+            var y = 0.0
+            var w = 0.0
+            var h = 0.0
             try {
-                x = this.getProperty("x")?.value as Int
-                y = this.getProperty("y")?.value as Int
-                w = this.getProperty("width")?.value as Int
-                h = this.getProperty("height")?.value as Int
+                x = Double(this.getProperty("x")) ?: 0.0
+                y = Double(this.getProperty("y")) ?: 0.0
+                w = Double(this.getProperty("width")) ?: 0.0
+                h = Double(this.getProperty("height")) ?: 0.0
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }
-            return Rect(x, y, x + w, y + h)
+            return Rect(x, y, w, h)
         }
 
+}
+
+class Rect() {
+    var x: Double = 0.0
+    var y: Double = 0.0
+    var width: Double = 0.0
+    var height: Double = 0.0
+
+    constructor(x: Double, y: Double, width: Double, height: Double) : this() {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+    }
+
+    constructor(x: Int, y: Int, width: Int, height: Int) : this() {
+        this.x = x.toDouble()
+        this.y = y.toDouble()
+        this.width = width.toDouble()
+        this.height = height.toDouble()
+    }
+
+    constructor(rect : android.graphics.Rect) : this() {
+        this.x = rect.left.toDouble()
+        this.y = rect.top.toDouble()
+        this.width = rect.width().toDouble()
+        this.height = rect.height().toDouble()
+    }
+
+    fun toRect():android.graphics.Rect{
+        return android.graphics.Rect(this.x.toInt(),this.y.toInt(), (this.x + this.width).toInt(),(this.y + this
+                .height).toInt())
+    }
+
+    fun set(x: Double, y: Double, width: Double, height: Double){
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
+    }
+
+    fun set(x: Int, y: Int, width: Int, height: Int){
+        this.x = x.toDouble()
+        this.y = y.toDouble()
+        this.width = width.toDouble()
+        this.height = height.toDouble()
+    }
+
+}
+
+fun Rect(freObject: FREObject?): Rect? = FreRectangleKotlin(value = freObject).value
+fun Rect(freRectangleObject: FreRectangleKotlin?): Rect? = freRectangleObject?.value
+
+@Throws(FreException::class)
+fun Rect.toFREObject():FREObject? {
+    return try {
+        FreRectangleKotlin(this).rawValue
+    } catch (e: FreException) {
+        e.getError(Thread.currentThread().stackTrace)
+    } catch (e: Exception) {
+        FreException(e).getError(Thread.currentThread().stackTrace)
+    }
 }

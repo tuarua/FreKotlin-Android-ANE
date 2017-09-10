@@ -1,5 +1,8 @@
+### 0.0.9  
+- Extensions for conversion to IntArray, DoubleArray, BooleanArray
+
 ### 0.0.8  
-- Make better use of extensions
+- Extensions for conversion to String, Int, Boolean, Double, Float, Date, Rect, Point
 
 ### 0.0.7  
 - Upgraded to Kotlin 1.1.4-3

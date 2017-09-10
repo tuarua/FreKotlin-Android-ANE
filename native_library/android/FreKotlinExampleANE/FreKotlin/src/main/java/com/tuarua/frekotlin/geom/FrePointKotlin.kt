@@ -15,9 +15,10 @@
  */
 package com.tuarua.frekotlin.geom
 
-import android.graphics.Point
 import android.util.Log
 import com.adobe.fre.FREObject
+import com.tuarua.frekotlin.Double
+import com.tuarua.frekotlin.FreException
 import com.tuarua.frekotlin.FreObjectKotlin
 
 open class FrePointKotlin() : FreObjectKotlin() {
@@ -37,11 +38,11 @@ open class FrePointKotlin() : FreObjectKotlin() {
 
     override val value: Point
         get() {
-            var x = 0
-            var y = 0
+            var x = 0.0
+            var y = 0.0
             try {
-                x = this.getProperty("x")?.value as Int
-                y = this.getProperty("y")?.value as Int
+                x = Double(this.getProperty("x")) ?: 0.0
+                y = Double(this.getProperty("y")) ?: 0.0
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }
@@ -52,4 +53,54 @@ open class FrePointKotlin() : FreObjectKotlin() {
         sourcePoint.rawValue?.let { this.callMethod("copyFrom", it) }
     }
 
+}
+
+
+class Point() {
+    var x: Double = 0.0
+    var y: Double = 0.0
+
+    constructor(x: Double, y: Double) : this() {
+        this.x = x
+        this.y = y
+    }
+
+    constructor(x: Int, y: Int) : this() {
+        this.x = x.toDouble()
+        this.y = y.toDouble()
+    }
+
+    constructor(rect : android.graphics.Rect) : this() {
+        this.x = rect.left.toDouble()
+        this.y = rect.top.toDouble()
+    }
+
+    fun toRect():android.graphics.Point{
+        return android.graphics.Point(this.x.toInt(),this.y.toInt())
+    }
+
+    fun set(x: Double, y: Double){
+        this.x = x
+        this.y = y
+    }
+
+    fun set(x: Int, y: Int){
+        this.x = x.toDouble()
+        this.y = x.toDouble()
+    }
+
+}
+
+fun Point(freObject: FREObject?): Point? = FrePointKotlin(value = freObject).value
+fun Point(freRectangleObject: FreRectangleKotlin?): Rect? = freRectangleObject?.value
+
+@Throws(FreException::class)
+fun Point.toFREObject():FREObject? {
+    return try {
+        FrePointKotlin(this).rawValue
+    } catch (e: FreException) {
+        e.getError(Thread.currentThread().stackTrace)
+    } catch (e: Exception) {
+        FreException(e).getError(Thread.currentThread().stackTrace)
+    }
 }
