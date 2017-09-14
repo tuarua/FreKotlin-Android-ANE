@@ -17,9 +17,7 @@ package com.tuarua.frekotlin.geom
 
 import android.util.Log
 import com.adobe.fre.FREObject
-import com.tuarua.frekotlin.Double
-import com.tuarua.frekotlin.FreException
-import com.tuarua.frekotlin.FreObjectKotlin
+import com.tuarua.frekotlin.*
 
 open class FrePointKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FrePointKotlin"
@@ -33,7 +31,7 @@ open class FrePointKotlin() : FreObjectKotlin() {
     }
 
     constructor(value: Point) : this() {
-        rawValue = FreObjectKotlin("flash.geom.Point", value.x, value.y).rawValue
+        rawValue = FREObject("flash.geom.Point", value.x, value.y)
     }
 
     override val value: Point
@@ -41,8 +39,11 @@ open class FrePointKotlin() : FreObjectKotlin() {
             var x = 0.0
             var y = 0.0
             try {
-                x = Double(this.getProperty("x")) ?: 0.0
-                y = Double(this.getProperty("y")) ?: 0.0
+                val rv =  rawValue
+                if (rv != null) {
+                    x = Double(FreKotlinHelper.getProperty(rv, "x")) ?: 0.0
+                    y = Double( FreKotlinHelper.getProperty(rv, "y")) ?: 0.0
+                }
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }
@@ -50,7 +51,7 @@ open class FrePointKotlin() : FreObjectKotlin() {
         }
 
     fun copyFrom(sourcePoint: FrePointKotlin) {
-        sourcePoint.rawValue?.let { this.callMethod("copyFrom", it) }
+        sourcePoint.rawValue?.let { FreKotlinHelper.call(it, "copyFrom") }
     }
 
 }
@@ -86,7 +87,7 @@ class Point() {
 
     fun set(x: Int, y: Int){
         this.x = x.toDouble()
-        this.y = x.toDouble()
+        this.y = y.toDouble()
     }
 
 }

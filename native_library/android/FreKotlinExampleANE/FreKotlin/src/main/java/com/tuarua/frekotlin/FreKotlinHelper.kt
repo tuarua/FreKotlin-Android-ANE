@@ -118,7 +118,8 @@ object FreKotlinHelper {
         return ret
     }
 
-    fun getAsObject(rawValue: FREObject): Any? {
+    fun getAsObject(rawValue: FREObject?): Any? {
+        rawValue ?: return null
         try {
             when (getType(rawValue)) {
                 FreObjectTypeKotlin.STRING -> return getAsString(rawValue)
@@ -222,24 +223,23 @@ object FreKotlinHelper {
     }
 
     @Throws(FreException::class)
-    fun setProperty(rawValue: FREObject, name: String, prop: FREObject?): FREObject? {
+    fun setProperty(rawValue: FREObject, name: String, prop: FREObject?) {
         try {
             rawValue.setProperty(name, prop)
         } catch (e: Exception) {
             throw FreException(e)
         }
-        return null
     }
 
     @Throws(FreException::class)
-    fun callMethod(rawValue: FREObject, name: String, args: Array<out Any>): FREObject? {
+    fun call(rawValue: FREObject, method: String, args: Array<out Any>): FREObject? {
         val argsArray = arrayOfNulls<FREObject>(args.size)
         for ((i, item) in args.withIndex()) {
             argsArray[i] = FreObjectKotlin(item).rawValue
         }
         val ret: FREObject?
         try {
-            ret = rawValue.callMethod(name, argsArray)
+            ret = rawValue.callMethod(method, argsArray)
         } catch (e: Exception) {
             throw FreException(e)
         }
@@ -247,7 +247,7 @@ object FreKotlinHelper {
     }
 
     @Throws(FreException::class)
-    fun callMethod(rawValue: FREObject, name: String): FREObject? {
+    fun call(rawValue: FREObject, name: String): FREObject? {
         val argsArray = arrayOfNulls<FREObject>(0)
         val ret: FREObject?
         try {

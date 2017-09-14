@@ -15,7 +15,6 @@
  */
 package com.tuarua.frekotlin
 
-import android.graphics.Color
 import com.adobe.fre.FREObject
 import com.adobe.fre.FREWrongThreadException
 import java.util.*
@@ -79,7 +78,7 @@ open class FreObjectKotlin {
 
         if (any is Date) {
             //Log.d(TAG,"item is a Date")
-            rawValue = FreObjectKotlin("Date", any.time).rawValue
+            rawValue = FREObject("Date", any.time)
             return
         }
 
@@ -97,41 +96,7 @@ open class FreObjectKotlin {
             return rv.let { FreKotlinHelper.getAsObject(it) } as Any
         }
 
-    @Throws(FreException::class)
-    constructor(value: String) {
-        try {
-            rawValue = FREObject.newObject(value)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot create new object from String")
-        }
-    }
 
-    @Throws(FreException::class)
-    constructor(value: Int) {
-        try {
-            rawValue = FREObject.newObject(value)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot create new object from Int")
-        }
-    }
-
-    @Throws(FreException::class)
-    constructor(value: Double) {
-        try {
-            rawValue = FREObject.newObject(value)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot create new object from Double")
-        }
-    }
-
-    @Throws(FreException::class)
-    constructor(value: Boolean) {
-        try {
-            rawValue = FREObject.newObject(value)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot create new object from Boolean")
-        }
-    }
 
     constructor(freObjectKotlin: FreObjectKotlin?) {
         rawValue = freObjectKotlin?.rawValue
@@ -139,92 +104,6 @@ open class FreObjectKotlin {
 
     constructor(freObject: FREObject?) {
         rawValue = freObject
-    }
-
-    @Throws(FreException::class)
-    constructor(name: String, vararg args: Any) {
-        val argsArr = arrayOfNulls<FREObject>(args.size)
-        for (i in args.indices) {
-            argsArr[i] = FreObjectKotlin(args[i]).rawValue
-        }
-        try {
-            rawValue = FREObject.newObject(name, argsArr)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot create new object named $name")
-        }
-    }
-
-    @Throws(FreException::class)
-    fun getProperty(name: String): FreObjectKotlin? {
-        val rv = rawValue ?: return null
-        try {
-            val ret = FreKotlinHelper.getProperty(rv, name)
-            return FreObjectKotlin(ret)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot get property $name")
-        }
-    }
-
-    @Throws(FreException::class)
-    fun setProperty(name: String, prop: FreObjectKotlin?): FreObjectKotlin? {
-        val rv = rawValue ?: return null
-        val prv: FREObject? = if (prop is FreObjectKotlin) {
-            prop.rawValue
-        } else {
-            null
-        }
-        try {
-            val ret = FreKotlinHelper.setProperty(rv, name, prv)
-            return FreObjectKotlin(ret)
-        } catch (e: Exception) {
-            throw FreException(e, "cannot create set property $name")
-        }
-    }
-
-    fun getType(): FreObjectTypeKotlin {
-        return FreKotlinHelper.getType(rawValue)
-    }
-
-    @Throws(FreException::class)
-    fun callMethod(name: String, vararg args: Any): FreObjectKotlin? {
-        val rv = rawValue ?: return null
-        val ret = FreKotlinHelper.callMethod(rv, name, args)
-        return if (ret is FREObject) {
-            FreObjectKotlin(ret)
-        } else null
-    }
-
-    @Throws(FreException::class)
-    fun callMethod(name: String, vararg args: FREObject): FreObjectKotlin? {
-        val rv = rawValue ?: return null
-        val ret = FreKotlinHelper.callMethod(rv, name, args)
-        return if (ret is FREObject) {
-            FreObjectKotlin(ret)
-        } else null
-    }
-
-    fun callMethod(name: String): FreObjectKotlin? {
-        val rv = rawValue ?: return null
-        val ret = FreKotlinHelper.callMethod(rv, name)
-        return if (ret is FREObject) {
-            FreObjectKotlin(ret)
-        } else null
-    }
-
-    fun toColor(alpha: Int = 255): Int {
-        val freColor = this.value as Int
-        val ret:Int = Color.argb(alpha, Color.red(freColor), Color.green(freColor), Color.blue(freColor))
-        return ret
-    }
-
-    fun toHSV(alpha: Int = 255): Float {
-        val hsv = FloatArray(3)
-        Color.colorToHSV(toColor(alpha), hsv)
-        return hsv[0]
-    }
-
-    companion object {
-        internal var TAG = "com.tuarua.FreObjectKotlin"
     }
 
 }

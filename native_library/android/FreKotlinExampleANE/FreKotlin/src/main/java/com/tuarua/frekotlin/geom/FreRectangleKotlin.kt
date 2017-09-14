@@ -19,9 +19,7 @@
 package com.tuarua.frekotlin.geom
 import android.util.Log
 import com.adobe.fre.FREObject
-import com.tuarua.frekotlin.FreObjectKotlin
-import com.tuarua.frekotlin.Double
-import com.tuarua.frekotlin.FreException
+import com.tuarua.frekotlin.*
 
 @Suppress("unused")
 open class FreRectangleKotlin() : FreObjectKotlin() {
@@ -36,11 +34,11 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
     }
 
     constructor(value: Rect) : this() {
-        rawValue = FreObjectKotlin("flash.geom.Rectangle",
+        rawValue = FREObject("flash.geom.Rectangle",
                 value.x,
                 value.y,
                 value.width,
-                value.height).rawValue
+                value.height)
     }
 
     override val value: Rect
@@ -50,10 +48,13 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
             var w = 0.0
             var h = 0.0
             try {
-                x = Double(this.getProperty("x")) ?: 0.0
-                y = Double(this.getProperty("y")) ?: 0.0
-                w = Double(this.getProperty("width")) ?: 0.0
-                h = Double(this.getProperty("height")) ?: 0.0
+                val rv =  rawValue
+                if (rv != null) {
+                    x = Double(FreKotlinHelper.getProperty(rv, "x")) ?: 0.0
+                    y = Double( FreKotlinHelper.getProperty(rv, "y")) ?: 0.0
+                    w = Double(FreKotlinHelper.getProperty(rv, "width")) ?: 0.0
+                    h = Double( FreKotlinHelper.getProperty(rv, "height")) ?: 0.0
+                }
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }

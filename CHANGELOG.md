@@ -1,3 +1,5 @@
+### 0.0.10 
+
 ### 0.0.9  
 - Extensions for conversion to IntArray, DoubleArray, BooleanArray
 

@@ -18,11 +18,10 @@
 
 package com.tuarua.frekotlin
 
+import android.graphics.Color
 import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
-import com.tuarua.frekotlin.geom.FrePointKotlin
-import com.tuarua.frekotlin.geom.Point
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -45,24 +44,24 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
 }
 
 fun Double(freObject: FREObject?): Double? {
-    val v = FreObjectKotlin(freObject = freObject).value
+    val v = FreKotlinHelper.getAsObject(freObject)
     return (v as? Int)?.toDouble() ?: v as Double?
 }
 
-fun Double(freObjectKotlin: FreObjectKotlin?): Double? {
-    val v = freObjectKotlin?.value
+/*fun Double(freObjectKotlin: FreObjectKotlin?): Double? {
+    val v = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue)
     return (v as? Int)?.toDouble() ?: v as Double?
-}
+}*/
 
 fun Float(freObject: FREObject?): Float? {
-    val v = FreObjectKotlin(freObject = freObject).value
+    val v = FreKotlinHelper.getAsObject(freObject)
     return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
 }
 
-fun Float(freObjectKotlin: FreObjectKotlin?): Float? {
-    val v = freObjectKotlin?.value
+/*fun Float(freObjectKotlin: FreObjectKotlin?): Float? {
+    val v = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue)
     return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
-}
+}*/
 
 fun IntArray(freArray: FREArray?): IntArray? {
     if (freArray != null) {
@@ -72,8 +71,8 @@ fun IntArray(freArray: FREArray?): IntArray? {
         for (i in 0 until count) {
             val v = al[i]
             if (v is Int) {
-                kotArr.set(index = i,value = v)
-            }else{
+                kotArr.set(index = i, value = v)
+            } else {
                 return null
             }
         }
@@ -90,8 +89,8 @@ fun IntArray(freObject: FREObject?): IntArray? {
         for (i in 0 until count) {
             val v = al[i]
             if (v is Int) {
-                kotArr.set(index = i,value = v)
-            }else{
+                kotArr.set(index = i, value = v)
+            } else {
                 return null
             }
         }
@@ -108,8 +107,8 @@ fun IntArray(freArrayKotlin: FreArrayKotlin?): IntArray? {
         for (i in 0 until count) {
             val v = al[i]
             if (v is Int) {
-                kotArr.set(index = i,value = v)
-            }else{
+                kotArr.set(index = i, value = v)
+            } else {
                 return null
             }
         }
@@ -213,58 +212,190 @@ fun BooleanArray(freArrayKotlin: FreArrayKotlin?): BooleanArray? {
     }
     return null
 }
+
+
+fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsObject(freObject) as Int?
+//fun Int(freObjectKotlin: FreObjectKotlin?): Int? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue) as Int?
+
+fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsObject(freObject).toString()
+//fun String(freObjectKotlin: FreObjectKotlin?): String? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue)
+        .toString()
+
+fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsObject(freObject) as Boolean?
+//fun Boolean(freObjectKotlin: FreObjectKotlin?): Boolean? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue) as
+        //Boolean?
+
+fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsObject(freObject) as Date?
+//fun Date(freObjectKotlin: FreObjectKotlin?): Date? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue) as Date?
+
 @Throws(FreException::class)
-fun Int.toFREObject():FREObject? {
-    return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
+fun FREObject?.call(method: String, vararg args: Any): FREObject? {
+    val rv = this ?: return null
+    return FreKotlinHelper.call(rv, method, args)
+}
+
+@Throws(FreException::class)
+fun FREObject?.call(method: String): FREObject? {
+    val rv = this ?: return null
+    return FreKotlinHelper.call(rv, method)
+}
+
+@Throws(FreException::class)
+fun FREObject?.call(method: String, vararg args: FREObject): FREObject? {
+    val rv = this ?: return null
+    return FreKotlinHelper.call(rv, method, args)
+}
+
+var FREObject.type: FreObjectTypeKotlin
+    get() {
+        return FreKotlinHelper.getType(this)
+    }
+    set(value) {}
+
+
+fun FREObject(name: String, vararg args: Any): FREObject {
+    val argsArr = arrayOfNulls<FREObject>(args.size)
+    for (i in args.indices) {
+        argsArr[i] = FreObjectKotlin(args[i]).rawValue
+    }
+    try {
+        return FREObject.newObject(name, argsArr)
     } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
+        throw FreException(e, "cannot create new object named $name")
     }
 }
 
 @Throws(FreException::class)
-fun Boolean.toFREObject():FREObject? {
-    return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
-    } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
+fun FREObject.setProp(name: String, value: Any?) {
+    if (value is FREObject) {
+        FreKotlinHelper.setProperty(this, name, value)
+        return
+    }
+
+    if (value is FreObjectKotlin) {
+        FreKotlinHelper.setProperty(this, name, value.rawValue)
+        return
+    }
+
+    if (value is String) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+    if (value is Int) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+
+    if (value is Double) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+
+    if (value is Long) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+
+    if (value is Short) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+
+    if (value is Boolean) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+
+    if (value is Date) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
+
+    if (value is Any) {
+        //Log.e(TAG, "any is an Any - NOT FOUND")
+        return
     }
 }
 
 @Throws(FreException::class)
-fun String.toFREObject():FREObject? {
-    return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
+fun FREObject.getProp(name: String):FREObject? {
+    return FreKotlinHelper.getProperty(this, name)
+}
+
+fun FREObject.toColor(alpha: Int = 255): Int {
+    if (this.type != FreObjectTypeKotlin.INT) return 0
+    val freColor = Int(this) ?: return 0
+    return Color.argb(alpha, Color.red(freColor), Color.green(freColor), Color.blue(freColor))
+}
+
+fun FREObject.toHSV(alpha: Int = 255): Float {
+    if (this.type != FreObjectTypeKotlin.INT) return 0.0F
+    val hsv = FloatArray(3)
+    Color.colorToHSV(toColor(alpha), hsv)
+    return hsv[0]
+}
+
+// ************ toFREObject **************//
+@Throws(FreException::class)
+fun Int.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this)
     } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
+        throw FreException(e, "cannot create new object from Int")
     }
 }
 
 @Throws(FreException::class)
-fun Double.toFREObject():FREObject? {
-    return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
+fun Short.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this.toInt())
     } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
+        throw FreException(e, "cannot create new object from Int")
     }
 }
 
 @Throws(FreException::class)
-fun Float.toFREObject():FREObject? {
-    return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
+fun Boolean.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this)
     } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
+        throw FreException(e, "cannot create new object from Boolean")
+    }
+}
+
+@Throws(FreException::class)
+fun String.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from String")
+    }
+}
+
+@Throws(FreException::class)
+fun Double.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from Double")
+    }
+}
+
+@Throws(FreException::class)
+fun Long.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this.toDouble())
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from Double")
+    }
+}
+
+@Throws(FreException::class)
+fun Float.toFREObject(): FREObject? {
+    try {
+        return FREObject.newObject(this.toDouble())
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from Double")
     }
 }
 
@@ -279,15 +410,6 @@ fun Date.toFREObject(): FREObject? {
     }
 }
 
-fun IntArray.toFREObject():FREArray? {
+fun IntArray.toFREObject(): FREArray? {
     return FreArrayKotlin(this).rawValue
 }
-
-fun Int(freObject: FREObject?): Int? = FreObjectKotlin(freObject = freObject).value as Int?
-fun Int(freObjectKotlin: FreObjectKotlin?): Int? = freObjectKotlin?.value as Int?
-fun String(freObject: FREObject?): String? = FreObjectKotlin(freObject = freObject).value?.toString()
-fun String(freObjectKotlin: FreObjectKotlin?): String? = freObjectKotlin?.value?.toString()
-fun Boolean(freObject: FREObject?): Boolean? = FreObjectKotlin(freObject = freObject).value as Boolean?
-fun Boolean(freObjectKotlin: FreObjectKotlin?): Boolean? = freObjectKotlin?.value as Boolean?
-fun Date(freObject: FREObject?): Date? = FreObjectKotlin(freObject = freObject).value as Date?
-fun Date(freObjectKotlin: FreObjectKotlin?): Date? = freObjectKotlin?.value as Date?

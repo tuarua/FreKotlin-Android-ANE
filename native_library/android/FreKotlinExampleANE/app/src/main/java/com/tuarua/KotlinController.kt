@@ -17,6 +17,7 @@
 package com.tuarua
 
 import android.graphics.Bitmap
+import android.graphics.Color
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
@@ -55,10 +56,17 @@ class KotlinController : FreKotlinMainController {
         val airInt = Int(argv[0])
         val airIntAsDouble = Double(argv[0])
         val airUInt: Int? = Int(argv[1])
+        val airColor = argv[2].toColor(255)
+        val airHSV = argv[2].toHSV(255)
+        //val airColour: Int? = Int(argv[2])
 
         trace("Int passed from AIR:", airInt)
         trace("UInt passed from AIR:", airUInt)
         trace("Int passed from AIR as Double:", airIntAsDouble)
+        trace("Colour passed from AIR as Int:", airColor)
+        trace("Colour passed from AIR as Color: ${Color.red(airColor)} ${Color.green(airColor)} ${Color.blue(airColor)}")
+        trace("Colour passed from AIR as HSV: $airHSV")
+
 
         val kotlinInt: Int = -666
         val kotlinUInt = 888
@@ -82,23 +90,30 @@ class KotlinController : FreKotlinMainController {
 
     fun runObjectTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Object test***********")
+        val personFRE = argv[0]
+
         val person = FreObjectKotlin(argv[0])
-        val oldAge = Int(person.getProperty("age"))
+        val oldAge = Int(personFRE.getProp("age"))
+
+        val newPerson = FREObject("com.tuarua.Person")
+        trace("We created a new person. type =", newPerson.type)
+
 
         trace("current person age is", oldAge)
 
         if (oldAge is Int) {
-            val newAge = FreObjectKotlin(oldAge + 10)
-            person.setProperty("age", newAge)
+            personFRE.setProp("age", oldAge + 10)
         }
 
-        val addition = person.callMethod("add", 100, 31)
-        if (addition is FreObjectKotlin) {
-            val sum = addition.value
-            if (sum is Int) {
-                trace("addition result:", sum)
+        try {
+            val addition = personFRE.call("add", 100, 31)
+            if (addition != null) {
+                trace("addition result:", Int(addition))
             }
+        } catch (e: Exception) {
+            Log.e(TAG, "ERROR: " + e.message)
         }
+
 
         try {
             val dictionary: Map<String, Any>?
@@ -183,8 +198,7 @@ class KotlinController : FreKotlinMainController {
         val inFRE0 = argv[0].guard {
             trace("Rectangle passed to runExtensibleTests cannot be null");return null
         }
-        val point = Point(0.0,50.0)
-        //var ret: FREObject? = null
+        val point = Point(0.0, 50.0)
         try {
             val rectangle = Rect(inFRE0)
             rectangle?.set(0, 0, 999, 111)
@@ -200,7 +214,6 @@ class KotlinController : FreKotlinMainController {
             Log.e(TAG, e.message)
         }
         return null
-        //return ret
     }
 
     fun runByteArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
@@ -210,22 +223,19 @@ class KotlinController : FreKotlinMainController {
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Error Handling test***********")
         argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
-        val inFRE0 = argv[0].guard {
-            return ArgException().getError(Thread.currentThread().stackTrace)
-        }
-        val person = FreObjectKotlin(freObject = inFRE0).guard {
+        val person = argv[0].guard {
             return ArgException().getError(Thread.currentThread().stackTrace)
         }
 
         try {
-            person.callMethod("add", 100) //not passing enough args
+            person.call("add", 100) //not passing enough args
         } catch (e: FreException) {
             Log.e(TAG, e.message)
             Log.e(TAG, e.stackTrace)
         }
 
         try {
-            person.getProperty("doNotExist") //calling a property that doesn't exist
+            val p: FREObject? = person.getProp("doNotExist") //calling a property that doesn't exist
         } catch (e: FreException) {
             return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
         }
@@ -238,8 +248,8 @@ class KotlinController : FreKotlinMainController {
         val inFRE0 = argv[0].guard {
             return ArgException().getError(Thread.currentThread().stackTrace)
         }
-        val expectInt = FreObjectKotlin(inFRE0)
-        if (expectInt.getType() != FreObjectTypeKotlin.INT) {
+
+        if (inFRE0.type != FreObjectTypeKotlin.INT) {
             trace("Oops, we expected the FREObject to be passed as an int but it's not")
         }
 
@@ -283,6 +293,14 @@ class KotlinController : FreKotlinMainController {
             _context = value
         }
 }
+
+
+
+
+
+
+
+
 
 
 
