@@ -45,7 +45,6 @@ public class Main extends Sprite {
             textField.multiline = true;
             textField.wordWrap = true;
 
-
             var person:Person = new Person();
             person.age = 21;
             person.name = "Tom";
@@ -94,7 +93,6 @@ public class Main extends Sprite {
                 bmp.y = 400;
                 addChild(bmp);
             }
-
             try {
                 ane.runErrorTests(person);
             } catch (e:ANEError) {

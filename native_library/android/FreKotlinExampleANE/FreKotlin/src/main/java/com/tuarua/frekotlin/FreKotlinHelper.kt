@@ -54,7 +54,7 @@ object FreKotlinHelper {
 
     @Throws(FreException::class)
     private fun getAsDate(rawValue: FREObject): Date {
-        val ret:Date
+        val ret: Date
         try {
             ret = Date(rawValue.getProperty("time").asDouble.toLong())
         } catch (e: Exception) {
@@ -90,7 +90,7 @@ object FreKotlinHelper {
                     i++
                 }
             }
-        }catch (e:Exception) {
+        } catch (e: Exception) {
             throw FreException(e)
         }
         return ret
@@ -165,7 +165,7 @@ object FreKotlinHelper {
             Log.e(TAG, e.message)
         } catch (e: FREInvalidObjectException) {
             Log.e(TAG, e.message)
-        } catch (e:Exception) {
+        } catch (e: Exception) {
             Log.e(TAG, e.message)
         }
 

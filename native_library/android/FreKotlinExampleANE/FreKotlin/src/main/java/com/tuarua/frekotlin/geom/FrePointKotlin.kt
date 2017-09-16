@@ -22,10 +22,6 @@ import com.tuarua.frekotlin.*
 open class FrePointKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FrePointKotlin"
 
-    constructor(value: FreObjectKotlin) : this() {
-        this.rawValue = value.rawValue
-    }
-
     constructor(value: FREObject?) : this() {
         this.rawValue = value
     }
@@ -49,11 +45,6 @@ open class FrePointKotlin() : FreObjectKotlin() {
             }
             return Point(x, y)
         }
-
-    fun copyFrom(sourcePoint: FrePointKotlin) {
-        sourcePoint.rawValue?.let { FreKotlinHelper.call(it, "copyFrom") }
-    }
-
 }
 
 
@@ -71,12 +62,7 @@ class Point() {
         this.y = y.toDouble()
     }
 
-    constructor(rect : android.graphics.Rect) : this() {
-        this.x = rect.left.toDouble()
-        this.y = rect.top.toDouble()
-    }
-
-    fun toRect():android.graphics.Point{
+    fun toPoint():android.graphics.Point{
         return android.graphics.Point(this.x.toInt(),this.y.toInt())
     }
 
@@ -93,7 +79,7 @@ class Point() {
 }
 
 fun Point(freObject: FREObject?): Point? = FrePointKotlin(value = freObject).value
-fun Point(freRectangleObject: FreRectangleKotlin?): Rect? = freRectangleObject?.value
+fun Point(frePointObject: FrePointKotlin?): Point? = frePointObject?.value
 
 @Throws(FreException::class)
 fun Point.toFREObject():FREObject? {

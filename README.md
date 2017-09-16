@@ -55,6 +55,8 @@ The following table shows the primitive as3 types which can easily be converted 
 | Rectangle | Rect | `val rect = Rect(argv[0])` | `return rect.toFREObject()`|
 | Point | Point | `val pnt = Point(argv[0])` | `return pnt.toFREObject()`|
 | Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREObject()`|
+| Vector String | ArrayList | `val al = ArrayList<String>(FREArray(argv[0]))` | N/A |
+| Object | Map<String, Any>? | `val dictionary: Map<String, Any>? = Map(argv[0])` | N/A |
 
 
 Example
@@ -70,11 +72,11 @@ return kotlinString.toFREObject()
 Example - Call a method on an FREObject
 
 ```` Kotlin
-val addition: FreObjectKotlin? = person.callMethod("add", 100, 31)
+val person = argv[0]
+val addition = person.call("add", 100, 31)
 if (addition is FreObjectKotlin) {
-    val sum = addition.value
-    if (sum is Int) {
-       trace("addition result:", sum)
+    if (addition != null) {
+        trace("addition result: ${Int(addition)}")
     }
 }
 `````
@@ -82,7 +84,7 @@ if (addition is FreObjectKotlin) {
 Example - Error handling
 ```` kotlin
 try {
-    person.getProperty("doNotExist")
+    person.getProp("doNotExist")
 } catch (e: FreException) {
     return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
 }

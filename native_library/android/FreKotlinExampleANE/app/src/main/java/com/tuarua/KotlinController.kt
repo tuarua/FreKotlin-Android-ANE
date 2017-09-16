@@ -21,6 +21,7 @@ import android.graphics.Color
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
@@ -36,10 +37,9 @@ class KotlinController : FreKotlinMainController {
     private var airView: ViewGroup? = null
     private var container: FrameLayout? = null
 
-
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val airString = String(argv[0]).guard {
             return ArgException().getError(Thread.currentThread().stackTrace)
         }
@@ -58,7 +58,6 @@ class KotlinController : FreKotlinMainController {
         val airUInt: Int? = Int(argv[1])
         val airColor = argv[2].toColor(255)
         val airHSV = argv[2].toHSV(255)
-        //val airColour: Int? = Int(argv[2])
 
         trace("Int passed from AIR:", airInt)
         trace("UInt passed from AIR:", airUInt)
@@ -67,14 +66,7 @@ class KotlinController : FreKotlinMainController {
         trace("Colour passed from AIR as Color: ${Color.red(airColor)} ${Color.green(airColor)} ${Color.blue(airColor)}")
         trace("Colour passed from AIR as HSV: $airHSV")
 
-
         val kotlinInt: Int = -666
-        val kotlinUInt = 888
-
-        val test: Any? = FreObjectKotlin(kotlinUInt).value
-        if (test is Int) { //to test for null
-            trace("test is an Int")
-        }
         return kotlinInt.toFREObject()
     }
 
@@ -90,42 +82,34 @@ class KotlinController : FreKotlinMainController {
 
     fun runObjectTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Object test***********")
-        val personFRE = argv[0]
-
-        val person = FreObjectKotlin(argv[0])
-        val oldAge = Int(personFRE.getProp("age"))
+        val person = argv[0]
+        val oldAge = Int(person.getProp("age"))
 
         val newPerson = FREObject("com.tuarua.Person")
-        trace("We created a new person. type =", newPerson.type)
-
-
-        trace("current person age is", oldAge)
+        trace("We created a new person. type = ${newPerson.type}")
+        trace("current person age is $oldAge")
 
         if (oldAge is Int) {
-            personFRE.setProp("age", oldAge + 10)
+            person.setProp("age", oldAge + 10)
         }
 
         try {
-            val addition = personFRE.call("add", 100, 31)
+            val addition = person.call("add", 100, 31)
             if (addition != null) {
-                trace("addition result:", Int(addition))
+                trace("addition result: ${Int(addition)}")
             }
         } catch (e: Exception) {
-            Log.e(TAG, "ERROR: " + e.message)
+            Log.e(TAG, "ERROR: ${e.message}")
         }
-
 
         try {
-            val dictionary: Map<String, Any>?
-            if (person.value is Map<*, *>) {
-                dictionary = person.value as Map<String, Any>
-                Log.d(TAG, dictionary.keys.toString() + dictionary.values.toString())
-            }
+            val dictionary: Map<String, Any>? = Map(person)
+            trace("keys: ${dictionary?.keys.toString()} values: ${dictionary?.values.toString()}")
         } catch (e: Exception) {
-            Log.e(TAG, "ERROR: " + e.message)
+            Log.e(TAG, "ERROR: ${e.message}")
         }
 
-        return person.rawValue
+        return person
     }
 
     fun runDateTests(ctx: FREContext, argv: FREArgv): FREObject? {
@@ -137,33 +121,37 @@ class KotlinController : FreKotlinMainController {
 
     fun runArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Array test ***********")
+        try {
+            val airArray: FREArray? = FREArray(freObject = argv[0])
+            val airArrayLen = airArray?.length
+            trace("AIR Array length:", airArrayLen)
 
-        val airArray: FreArrayKotlin? = FreArrayKotlin(argv[0])
-        val airArrayLen = airArray?.length
-        trace("Array passed from AIR:", airArray?.value)
-        trace("AIR Array length:", airArrayLen)
+            val itemZero: FREObject? = airArray?.at(0)
+            val itemZeroVal: Int? = Int(itemZero)
+            if (itemZeroVal is Int) {
+                trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+                airArray?.set(0, 56)
+            }
 
-        val airVector: FreArrayKotlin? = FreArrayKotlin(argv[1])
-        val airVectorLen = airVector?.length
+            val airVector: FREArray? = FREArray(freObject = argv[1])
+            val airVectorLen = airVector?.length
 
-        trace("Vector.<String> passed from AIR:", airVector?.value)
-        trace("AIR Vector.<String> length:", airVectorLen)
+            trace("air vector len: ", airVectorLen)
 
-        val airIntArray: IntArray? = IntArray(argv[0])
-        trace("Array passed from AIR as IntArray size:", airIntArray?.size)
+            val al = List<String>(airVector)
+            for (s in al) {
+                trace("Vector.<String> passed from AIR elem:", s)
+            }
 
-        val kotArr: IntArray = intArrayOf(1, 2, 3)
-        val kotArrayFre = FreArrayKotlin(kotArr)
-        trace("Kotlin array converted:", kotArrayFre.value)
+            val kotArr: IntArray = intArrayOf(1, 2, 3)
+            val kotArrayFre = FREArray(kotArr)
+            val kotArrBack = IntArray(kotArrayFre)
 
-        val itemZero: FreObjectKotlin? = airArray?.getObjectAt(0)
-        Log.d(TAG, "itemZero is FreObjectKotlin")
-        val itemZeroVal: Int? = itemZero?.value as Int?
-        if (itemZeroVal is Int) {
-            trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
-            val newVal = FreObjectKotlin(56)
-            airArray?.setObjectAt(0, newVal)
-            return airIntArray?.toFREObject()
+            return airArray
+
+        } catch (e: FreException) {
+            trace(e.message)
+            trace(e.stackTrace)
         }
         return null
     }
@@ -194,7 +182,7 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runExtensibleTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val inFRE0 = argv[0].guard {
             trace("Rectangle passed to runExtensibleTests cannot be null");return null
         }
@@ -204,12 +192,7 @@ class KotlinController : FreKotlinMainController {
             rectangle?.set(0, 0, 999, 111)
             val frePoint = FrePointKotlin(point)
             trace("frePoint is", frePoint.value.x, frePoint.value.y)
-            val targetPoint = FrePointKotlin(Point(100, 444))
-            frePoint.copyFrom(targetPoint)
-            trace("frePoint is now", frePoint.value.x, frePoint.value.y)
-
             return rectangle?.toFREObject()
-
         } catch (e: Exception) {
             Log.e(TAG, e.message)
         }
@@ -222,7 +205,7 @@ class KotlinController : FreKotlinMainController {
 
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Error Handling test***********")
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val person = argv[0].guard {
             return ArgException().getError(Thread.currentThread().stackTrace)
         }
@@ -244,7 +227,7 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runErrorTests2(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size == 1 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace) //check number of args is 1
+        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         val inFRE0 = argv[0].guard {
             return ArgException().getError(Thread.currentThread().stackTrace)
         }

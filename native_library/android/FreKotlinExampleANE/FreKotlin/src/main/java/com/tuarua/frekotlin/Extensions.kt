@@ -23,7 +23,7 @@ import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import java.util.*
-import kotlin.collections.ArrayList
+//import kotlin.collections.ArrayList
 
 typealias FREArgv = ArrayList<FREObject>
 fun FREContext.sendEvent(name: String, value: String) {
@@ -48,185 +48,114 @@ fun Double(freObject: FREObject?): Double? {
     return (v as? Int)?.toDouble() ?: v as Double?
 }
 
-/*fun Double(freObjectKotlin: FreObjectKotlin?): Double? {
-    val v = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue)
-    return (v as? Int)?.toDouble() ?: v as Double?
-}*/
-
 fun Float(freObject: FREObject?): Float? {
     val v = FreKotlinHelper.getAsObject(freObject)
     return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
 }
 
-/*fun Float(freObjectKotlin: FreObjectKotlin?): Float? {
-    val v = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue)
-    return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
-}*/
-
-fun IntArray(freArray: FREArray?): IntArray? {
-    if (freArray != null) {
-        val al = FreArrayKotlin(freArray).value
-        val count = al.count()
-        val kotArr = IntArray(count)
-        for (i in 0 until count) {
-            val v = al[i]
-            if (v is Int) {
-                kotArr.set(index = i, value = v)
-            } else {
-                return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-fun IntArray(freObject: FREObject?): IntArray? {
-    if (freObject != null) {
-        val al = FreArrayKotlin(freObject).value
-        val count = al.count()
-        val kotArr = IntArray(count)
-        for (i in 0 until count) {
-            val v = al[i]
-            if (v is Int) {
-                kotArr.set(index = i, value = v)
-            } else {
-                return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-fun IntArray(freArrayKotlin: FreArrayKotlin?): IntArray? {
-    if (freArrayKotlin != null) {
-        val al = freArrayKotlin.value
-        val count = al.count()
-        val kotArr = IntArray(count)
-        for (i in 0 until count) {
-            val v = al[i]
-            if (v is Int) {
-                kotArr.set(index = i, value = v)
-            } else {
-                return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-fun DoubleArray(freArray: FREArray?): DoubleArray? {
-    if (freArray != null) {
-        val al = FreArrayKotlin(freArray).value
-        val count = al.count()
-        val kotArr: DoubleArray = kotlin.DoubleArray(count)
-        for (i in 0 until count) if (al[i] is Double) {
-            val v: Double = al[i] as Double
-            kotArr[i] = v
-        } else {
-            return null
-        }
-        return kotArr
-    }
-    return null
-}
-
-fun DoubleArray(freObject: FREObject?): DoubleArray? {
-    if (freObject != null) {
-        val al = FreArrayKotlin(freObject).value
-        val count = al.count()
-        val kotArr: DoubleArray = kotlin.DoubleArray(count)
-        for (i in 0 until count) if (al[i] is Double) {
-            val v: Double = al[i] as Double
-            kotArr[i] = v
-        } else {
-            return null
-        }
-        return kotArr
-    }
-    return null
-}
-
-fun DoubleArray(freArrayKotlin: FreArrayKotlin?): DoubleArray? {
-    if (freArrayKotlin != null) {
-        val al = freArrayKotlin.value
-        val count = al.count()
-        val kotArr: DoubleArray = kotlin.DoubleArray(count)
-        for (i in 0 until count) if (al[i] is Double) {
-            val v: Double = al[i] as Double
-            kotArr[i] = v
-        } else {
-            return null
-        }
-        return kotArr
-    }
-    return null
-}
-
+@Throws(FreException::class)
 fun BooleanArray(freArray: FREArray?): BooleanArray? {
     if (freArray != null) {
-        val al = FreArrayKotlin(freArray).value
-        val count = al.count()
-        val kotArr = BooleanArray(count)
-        for (i in 0 until count) if (al[i] is Boolean) {
-            val v: Boolean = al[i] as Boolean
-            kotArr[i] = v
-        } else {
-            return null
+        val count = freArray.length.toInt()
+        val kotArr: BooleanArray = kotlin.BooleanArray(count)
+        for (i in 0 until count) {
+            val fre = freArray.getObjectAt(i.toLong())
+            val b = Boolean(FreObjectKotlin(fre).rawValue)
+            when {
+                b != null -> kotArr[i] = b
+                else -> return null
+            }
         }
         return kotArr
     }
     return null
 }
 
+@Throws(FreException::class)
 fun BooleanArray(freObject: FREObject?): BooleanArray? {
     if (freObject != null) {
-        val al = FreArrayKotlin(freObject).value
-        val count = al.count()
-        val kotArr = BooleanArray(count)
-        for (i in 0 until count) if (al[i] is Boolean) {
-            val v: Boolean = al[i] as Boolean
-            kotArr[i] = v
-        } else {
-            return null
+        return BooleanArray(FREArray(freObject))
+    }
+    return null
+}
+
+@Throws(FreException::class)
+fun DoubleArray(freArray: FREArray?): DoubleArray? {
+    if (freArray != null) {
+        val count = freArray.length.toInt()
+        val kotArr: DoubleArray = kotlin.DoubleArray(count)
+        for (i in 0 until count) {
+            val fre = freArray.getObjectAt(i.toLong())
+            val b = Double(FreObjectKotlin(fre).rawValue)
+            when {
+                b != null -> kotArr[i] = b
+                else -> return null
+            }
         }
         return kotArr
     }
     return null
 }
 
-fun BooleanArray(freArrayKotlin: FreArrayKotlin?): BooleanArray? {
-    if (freArrayKotlin != null) {
-        val al = freArrayKotlin.value
-        val count = al.count()
-        val kotArr = BooleanArray(count)
-        for (i in 0 until count) if (al[i] is Boolean) {
-            val v: Boolean = al[i] as Boolean
-            kotArr[i] = v
-        } else {
-            return null
+@Throws(FreException::class)
+fun DoubleArray(freObject: FREObject?): DoubleArray? {
+    if (freObject != null) {
+        return DoubleArray(FREArray(freObject))
+    }
+    return null
+}
+
+@Throws(FreException::class)
+fun IntArray(freArray: FREArray?): IntArray? {
+    if (freArray != null) {
+        val count = freArray.length.toInt()
+        val kotArr: IntArray = kotlin.IntArray(count)
+        for (i in 0 until count) {
+            val fre = freArray.getObjectAt(i.toLong())
+            val b = Int(FreObjectKotlin(fre).rawValue)
+            when {
+                b != null -> kotArr[i] = b
+                else -> return null
+            }
         }
         return kotArr
     }
     return null
 }
 
+@Throws(FreException::class)
+fun IntArray(freObject: FREObject?): IntArray? {
+    if (freObject != null) {
+        return IntArray(FREArray(freObject))
+    }
+    return null
+}
+
+@Suppress("UNCHECKED_CAST", "unused")
+fun <String> List(freArray: FREArray?): List<String> {
+    if (freArray != null) {
+        return freArray.let { FreKotlinHelper.getAsObject(it) as List<String> }
+    }
+    return listOf()
+}
+
+//private var deviceList: List<String>? = null
+
+@Suppress("UNCHECKED_CAST", "unused")
+fun <String, Any>Map(freObject: FREObject?): Map<String, Any>? {
+    if (freObject != null) {
+        return FreKotlinHelper.getAsObject(freObject) as Map<String, Any>?
+    }
+    return null
+}
 
 fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsObject(freObject) as Int?
-//fun Int(freObjectKotlin: FreObjectKotlin?): Int? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue) as Int?
 
 fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsObject(freObject).toString()
-//fun String(freObjectKotlin: FreObjectKotlin?): String? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue)
-        .toString()
 
 fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsObject(freObject) as Boolean?
-//fun Boolean(freObjectKotlin: FreObjectKotlin?): Boolean? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue) as
-        //Boolean?
 
 fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsObject(freObject) as Date?
-//fun Date(freObjectKotlin: FreObjectKotlin?): Date? = FreKotlinHelper.getAsObject(freObjectKotlin?.rawValue) as Date?
 
 @Throws(FreException::class)
 fun FREObject?.call(method: String, vararg args: Any): FREObject? {
@@ -252,7 +181,7 @@ var FREObject.type: FreObjectTypeKotlin
     }
     set(value) {}
 
-
+@Throws(FreException::class)
 fun FREObject(name: String, vararg args: Any): FREObject {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
@@ -263,6 +192,55 @@ fun FREObject(name: String, vararg args: Any): FREObject {
     } catch (e: Exception) {
         throw FreException(e, "cannot create new object named $name")
     }
+}
+
+fun FREArray(freObject: FREObject): FREArray {
+    return freObject as FREArray
+}
+
+@Throws(FreException::class)
+fun FREArray(value: IntArray): FREArray {
+    val rv = FREArray.newArray(value.size)
+    for (i in value.indices) {
+        rv.set(i, value[i])
+    }
+    return rv
+}
+
+@Throws(FreException::class)
+fun FREArray(value: DoubleArray): FREArray {
+    val rv = FREArray.newArray(value.size)
+    for (i in value.indices) {
+        rv.set(i, value[i])
+    }
+    return rv
+}
+
+fun FREArray(value: BooleanArray): FREArray {
+    val rv = FREArray.newArray(value.size)
+    for (i in value.indices) {
+        rv.set(i, value[i])
+    }
+    return rv
+}
+
+@Throws(FreException::class)
+fun FREArray(value: java.util.ArrayList<Any>): FREArray {
+    val rv = FREArray.newArray(value.size)
+    for (i in value.indices) {
+        rv.set(i, value[i])
+    }
+    return rv
+}
+
+@Throws(FreException::class)
+fun FREArray.at(index: Int): FREObject? {
+    return this.getObjectAt(index.toLong())
+}
+
+@Throws(FreException::class)
+fun FREArray.set(index: Int, value: Any?) {
+    this.setObjectAt(index.toLong(), FreObjectKotlin(value).rawValue)
 }
 
 @Throws(FreException::class)
@@ -318,7 +296,7 @@ fun FREObject.setProp(name: String, value: Any?) {
 }
 
 @Throws(FreException::class)
-fun FREObject.getProp(name: String):FREObject? {
+fun FREObject.getProp(name: String): FREObject? {
     return FreKotlinHelper.getProperty(this, name)
 }
 
@@ -408,8 +386,4 @@ fun Date.toFREObject(): FREObject? {
     } catch (e: Exception) {
         FreException(e).getError(Thread.currentThread().stackTrace)
     }
-}
-
-fun IntArray.toFREObject(): FREArray? {
-    return FreArrayKotlin(this).rawValue
 }

@@ -1,4 +1,6 @@
 ### 0.0.10 
+- Extensions for conversion to ArrayList, Map
+- Extensions for FREObject, FREArray
 
 ### 0.0.9  
 - Extensions for conversion to IntArray, DoubleArray, BooleanArray
