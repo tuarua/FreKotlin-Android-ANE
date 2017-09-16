@@ -225,7 +225,7 @@ fun FREArray(value: BooleanArray): FREArray {
 }
 
 @Throws(FreException::class)
-fun FREArray(value: java.util.ArrayList<Any>): FREArray {
+fun FREArray(value: List<Any>): FREArray {
     val rv = FREArray.newArray(value.size)
     for (i in value.indices) {
         rv.set(i, value[i])
