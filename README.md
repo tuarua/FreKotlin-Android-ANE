@@ -46,17 +46,17 @@ The following table shows the primitive as3 types which can easily be converted 
 
 | AS3 type | Kotlin type | AS3 param->Kotlin | return Kotlin->AS3 |
 |:--------:|:--------:|:--------------|:-----------|
-| String | String | `val str = String(argv[0])` | `return str.toFREObject()`|
+| String | String | `val s = String(argv[0])` | `return s.toFREObject()`|
 | int | Int | `val i = Int(argv[0])` | `return i.toFREObject()`|
 | Boolean | Boolean | `val b = Boolean(argv[0])` | `return b.toFREObject()`|
-| Number | Double | `val dbl = Double(argv[0])` | `return dbl.toFREObject()`|
+| Number | Double | `val d = Double(argv[0])` | `return d.toFREObject()`|
 | Number | Float | `val fl = Float(argv[0])` | `return fl.toFREObject()`|
 | Date | Date | `val dt = Date(argv[0])` | `return dt.toFREObject()`|
 | Rectangle | Rect | `val r = Rect(argv[0])` | `return r.toFREObject()`|
 | Point | Point | `val pnt = Point(argv[0])` | `return pnt.toFREObject()`|
 | Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREObject()`|
 | Vector String | ArrayList | `val al = ArrayList<String>(FREArray(argv[0]))` | N/A |
-| Object | Map<String, Any>? | `val dictionary: Map<String, Any>? = Map(argv[0])` | N/A |
+| Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | N/A |
 
 
 Example
