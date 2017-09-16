@@ -74,10 +74,8 @@ Example - Call a method on an FREObject
 ```` Kotlin
 val person = argv[0]
 val addition = person.call("add", 100, 31)
-if (addition is FreObjectKotlin) {
-    if (addition != null) {
-        trace("addition result: ${Int(addition)}")
-    }
+if (addition != null) {
+    trace("addition result: ${Int(addition)}")
 }
 `````
 
