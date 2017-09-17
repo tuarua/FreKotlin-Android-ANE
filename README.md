@@ -55,7 +55,7 @@ The following table shows the primitive as3 types which can easily be converted 
 | Rectangle | Rect | `val r = Rect(argv[0])` | `return r.toFREObject()`|
 | Point | Point | `val pnt = Point(argv[0])` | `return pnt.toFREObject()`|
 | Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREObject()`|
-| Vector String | ArrayList | `val al = ArrayList<String>(FREArray(argv[0]))` | N/A |
+| Vector String | List | `val al = List<String>(FREArray(argv[0]))` | N/A |
 | Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | N/A |
 
 
