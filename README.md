@@ -46,15 +46,17 @@ The following table shows the primitive as3 types which can easily be converted 
 
 | AS3 type | Kotlin type | AS3 param->Kotlin | return Kotlin->AS3 |
 |:--------:|:--------:|:--------------|:-----------|
-| String | String | val str = String(argv[0]) | return str.toFREObject()|
-| int | Int | val i = Int(argv[0]) | return i.toFREObject()|
-| Boolean | Boolean | val b = Boolean(argv[0]) | return b.toFREObject()|
-| Number | Double | val dbl = Double(argv[0]) | return dbl.toFREObject()|
-| Number | Float | val fl = Float(argv[0]) | return fl.toFREObject()|
-| Date | Date | val date = Date(argv[0]) | return date.toFREObject()|
-| Rectangle | Rect | val rect = Rect(argv[0]) | return rect.toFREObject()|
-| Point | Point | val pnt = Point(argv[0]) | return pnt.toFREObject()|
-| Vector Int | IntArray | val arr = IntArray(argv[0]) | return arr.toFREObject()|
+| String | String | `val s = String(argv[0])` | `return s.toFREObject()`|
+| int | Int | `val i = Int(argv[0])` | `return i.toFREObject()`|
+| Boolean | Boolean | `val b = Boolean(argv[0])` | `return b.toFREObject()`|
+| Number | Double | `val d = Double(argv[0])` | `return d.toFREObject()`|
+| Number | Float | `val fl = Float(argv[0])` | `return fl.toFREObject()`|
+| Date | Date | `val dt = Date(argv[0])` | `return dt.toFREObject()`|
+| Rectangle | Rect | `val r = Rect(argv[0])` | `return r.toFREObject()`|
+| Point | Point | `val pnt = Point(argv[0])` | `return pnt.toFREObject()`|
+| Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREObject()`|
+| Vector String | List | `val al = List<String>(FREArray(argv[0]))` | N/A |
+| Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | N/A |
 
 
 Example
@@ -70,19 +72,17 @@ return kotlinString.toFREObject()
 Example - Call a method on an FREObject
 
 ```` Kotlin
-val addition: FreObjectKotlin? = person.callMethod("add", 100, 31)
-if (addition is FreObjectKotlin) {
-    val sum = addition.value
-    if (sum is Int) {
-       trace("addition result:", sum)
-    }
+val person = argv[0]
+val addition = person.call("add", 100, 31)
+if (addition != null) {
+    trace("addition result: ${Int(addition)}")
 }
 `````
 
 Example - Error handling
 ```` kotlin
 try {
-    person.getProperty("doNotExist")
+    person.getProp("doNotExist")
 } catch (e: FreException) {
     return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
 }
@@ -99,11 +99,7 @@ class FreCoordinateKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FreCoordinateKotlin"
 
     constructor(value: LatLng) : this() {
-        rawValue = FreObjectKotlin("com.tuarua.googlemaps.Coordinate", value.longitude, value.latitude).rawValue
-    }
-
-    constructor(freObjectKotlin: FreObjectKotlin?) : this() {
-        rawValue = freObjectKotlin?.rawValue
+        rawValue = FREObject("com.tuarua.googlemaps.Coordinate", value.longitude, value.latitude)
     }
 
     constructor(freObject: FREObject?) : this() {
@@ -115,25 +111,30 @@ class FreCoordinateKotlin() : FreObjectKotlin() {
         get() {
             var lat = 0.0
             var lng = 0.0
-            if (this.rawValue == null) return LatLng(lat, lng)
-            try {
-                val latFre = Double(this.getProperty("latitude"))
-                val lngFre = Double(this.getProperty("longitude"))
-                if (latFre != null && lngFre != null) {
-                    lat = latFre
-                    lng = lngFre
+
+            val rv = rawValue
+            if (rv == null) {
+                return LatLng(lat, lng)
+            } else {
+                try {
+                    val latFre = Double(rv.getProp("latitude"))
+                    val lngFre = Double(rv.getProp("longitude"))
+                    if (latFre != null && lngFre != null) {
+                        lat = latFre
+                        lng = lngFre
+                    }
+                } catch (e: FreException) {
+                    throw e
+                } catch (e: Exception) {
+                    throw FreException(e)
                 }
-            } catch (e: FreException) {
-                throw e
-            } catch (e: Exception) {
-                throw FreException(e)
+                return LatLng(lat, lng)
             }
-            return LatLng(lat, lng)
+
         }
 }
 
 fun LatLng(freObject: FREObject?): LatLng = FreCoordinateKotlin(freObject = freObject).value
-fun LatLng(freObjectKotlin: FreObjectKotlin?): LatLng = FreCoordinateKotlin(freObjectKotlin = freObjectKotlin).value
 `````
 
 ### Prerequisites

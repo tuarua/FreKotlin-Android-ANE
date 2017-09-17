@@ -78,7 +78,8 @@ open class FreException : Exception {
         val methodName = stackTraceElements[2].methodName
         val lineNumber = stackTraceElements[2].lineNumber
         try {
-            _aneError = FreObjectKotlin("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions." + type, "$className.$methodName():$lineNumber", stackTrace)
+            _aneError = FreObjectKotlin(FREObject("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions." + type,
+                    "$className.$methodName():$lineNumber", stackTrace))
         } catch (e: FREWrongThreadException) {
             // e.printStackTrace();
         }

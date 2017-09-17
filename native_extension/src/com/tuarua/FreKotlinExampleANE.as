@@ -41,8 +41,8 @@ public class FreKotlinExampleANE extends EventDispatcher {
         return ctx.call("runNumberTests", value) as Number;
     }
 
-    public function runIntTests(value:int, value2:uint):int {
-        return ctx.call("runIntTests", value, value2) as int;
+    public function runIntTests(value:int, value2:uint, value3:uint):int {
+        return ctx.call("runIntTests", value, value2, value3) as int;
     }
 
     public function runArrayTests(value:Array, value2:Vector.<String>):Array {

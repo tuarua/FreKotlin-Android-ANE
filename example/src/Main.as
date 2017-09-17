@@ -45,7 +45,6 @@ public class Main extends Sprite {
             textField.multiline = true;
             textField.wordWrap = true;
 
-
             var person:Person = new Person();
             person.age = 21;
             person.name = "Tom";
@@ -54,11 +53,10 @@ public class Main extends Sprite {
             var resultString:String = ane.runStringTests("I am a string from AIR with new interface");
             textField.text += resultString + "\n";
 
-
             var resultNumber:Number = ane.runNumberTests(31.99);
             textField.text += "Number: " + resultNumber + "\n";
 
-            var resultInt:int = ane.runIntTests(-54, 66);
+            var resultInt:int = ane.runIntTests(-54, 66, 0xFF3300);
             textField.text += "Int: " + resultInt + "\n";
 
             var resultObject:Person = ane.runObjectTests(person) as Person;
@@ -95,7 +93,6 @@ public class Main extends Sprite {
                 bmp.y = 400;
                 addChild(bmp);
             }
-
             try {
                 ane.runErrorTests(person);
             } catch (e:ANEError) {

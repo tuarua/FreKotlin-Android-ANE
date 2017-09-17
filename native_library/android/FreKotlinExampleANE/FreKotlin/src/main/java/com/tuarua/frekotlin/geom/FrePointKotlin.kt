@@ -17,23 +17,17 @@ package com.tuarua.frekotlin.geom
 
 import android.util.Log
 import com.adobe.fre.FREObject
-import com.tuarua.frekotlin.Double
-import com.tuarua.frekotlin.FreException
-import com.tuarua.frekotlin.FreObjectKotlin
+import com.tuarua.frekotlin.*
 
 open class FrePointKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FrePointKotlin"
-
-    constructor(value: FreObjectKotlin) : this() {
-        this.rawValue = value.rawValue
-    }
 
     constructor(value: FREObject?) : this() {
         this.rawValue = value
     }
 
     constructor(value: Point) : this() {
-        rawValue = FreObjectKotlin("flash.geom.Point", value.x, value.y).rawValue
+        rawValue = FREObject("flash.geom.Point", value.x, value.y)
     }
 
     override val value: Point
@@ -41,18 +35,16 @@ open class FrePointKotlin() : FreObjectKotlin() {
             var x = 0.0
             var y = 0.0
             try {
-                x = Double(this.getProperty("x")) ?: 0.0
-                y = Double(this.getProperty("y")) ?: 0.0
+                val rv =  rawValue
+                if (rv != null) {
+                    x = Double(FreKotlinHelper.getProperty(rv, "x")) ?: 0.0
+                    y = Double( FreKotlinHelper.getProperty(rv, "y")) ?: 0.0
+                }
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
             }
             return Point(x, y)
         }
-
-    fun copyFrom(sourcePoint: FrePointKotlin) {
-        sourcePoint.rawValue?.let { this.callMethod("copyFrom", it) }
-    }
-
 }
 
 
@@ -70,12 +62,7 @@ class Point() {
         this.y = y.toDouble()
     }
 
-    constructor(rect : android.graphics.Rect) : this() {
-        this.x = rect.left.toDouble()
-        this.y = rect.top.toDouble()
-    }
-
-    fun toRect():android.graphics.Point{
+    fun toPoint():android.graphics.Point{
         return android.graphics.Point(this.x.toInt(),this.y.toInt())
     }
 
@@ -86,13 +73,13 @@ class Point() {
 
     fun set(x: Int, y: Int){
         this.x = x.toDouble()
-        this.y = x.toDouble()
+        this.y = y.toDouble()
     }
 
 }
 
 fun Point(freObject: FREObject?): Point? = FrePointKotlin(value = freObject).value
-fun Point(freRectangleObject: FreRectangleKotlin?): Rect? = freRectangleObject?.value
+fun Point(frePointObject: FrePointKotlin?): Point? = frePointObject?.value
 
 @Throws(FreException::class)
 fun Point.toFREObject():FREObject? {
