@@ -15,7 +15,9 @@
  */
 package com.tuarua.frekotlin.display
 
-import android.graphics.Bitmap
+import android.graphics.*
+import android.graphics.Bitmap.Config.ARGB_8888
+import android.graphics.Bitmap.createBitmap
 
 import com.adobe.fre.FREASErrorException
 import com.adobe.fre.FREBitmapData
@@ -49,14 +51,34 @@ class FreBitmapDataKotlin {
         rawValue = value
     }
 
+    private fun doSwapColors(inBitmap: Bitmap): Bitmap {
+        val matrix = floatArrayOf(0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f)
+        val rbSwap = ColorMatrix(matrix)
+        val paint = Paint(Paint.FILTER_BITMAP_FLAG)
+        paint.colorFilter = ColorMatrixColorFilter(rbSwap)
+
+        val outBitmap = createBitmap(inBitmap.width, inBitmap.height, ARGB_8888)
+        val canvas = Canvas(outBitmap)
+        canvas.drawBitmap(inBitmap, 0.0F, 0.0F, paint)
+        return outBitmap
+    }
+
     @Throws(FREASErrorException::class, FREWrongThreadException::class, FREInvalidObjectException::class)
-    constructor(bitmap: Bitmap) {
+    constructor(bitmap: Bitmap, swapColors: Boolean = true) {
         val fillColor = arrayOf<Byte>(0, 0, 0, 0)
         rawValue = FREBitmapData.newBitmapData(bitmap.width,
                 bitmap.height, bitmap.hasAlpha(), fillColor)
+
+        val bmp: Bitmap?
+        when {
+            swapColors -> bmp = doSwapColors(bitmap)
+            else -> bmp = bitmap
+        }
         acquire()
+        bmp.copyPixelsToBuffer(bits32)
+        invalidateRect(0, 0, bmp.width, bmp.height)
         release()
-        bitmap.recycle()
+        bmp.recycle()
     }
 
     @Throws(FREWrongThreadException::class, FREInvalidObjectException::class)

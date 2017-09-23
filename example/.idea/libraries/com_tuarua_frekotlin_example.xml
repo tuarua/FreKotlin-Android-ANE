@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="com.tuarua.frekotlin.example" type="flex">
     <CLASSES>
-      <root url="jar://$DOCUMENTS$/FreKotlin/native_extension/ane/com.tuarua.frekotlin.example.ane!/" />
+      <root url="jar://$DOCUMENTS$/FreKotlin-Android-ANE/native_extension/ane/com.tuarua.frekotlin.example.ane!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

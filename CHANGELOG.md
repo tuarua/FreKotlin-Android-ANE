@@ -1,4 +1,8 @@
-### 0.0.10 
+### 0.0.11
+- Added correct conversion from Bitmap to FreBitmapKotlin
+- Minor corrections to FREArray
+
+### 0.0.10
 - Extensions for conversion to ArrayList, Map
 - Extensions for FREObject, FREArray
 

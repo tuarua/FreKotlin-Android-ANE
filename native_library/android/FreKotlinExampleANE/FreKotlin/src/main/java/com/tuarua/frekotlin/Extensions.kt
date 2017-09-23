@@ -23,7 +23,6 @@ import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import java.util.*
-//import kotlin.collections.ArrayList
 
 typealias FREArgv = ArrayList<FREObject>
 fun FREContext.sendEvent(name: String, value: String) {
@@ -139,7 +138,12 @@ fun <String> List(freArray: FREArray?): List<String> {
     return listOf()
 }
 
-//private var deviceList: List<String>? = null
+fun <String> List(freObject: FREObject?): List<String> {
+    if (freObject != null) {
+        return List(FREArray(freObject))
+    }
+    return listOf()
+}
 
 @Suppress("UNCHECKED_CAST", "unused")
 fun <String, Any>Map(freObject: FREObject?): Map<String, Any>? {
@@ -225,7 +229,7 @@ fun FREArray(value: BooleanArray): FREArray {
 }
 
 @Throws(FreException::class)
-fun FREArray(value: List<Any>): FREArray {
+fun FREArray(value: List<String>): FREArray {
     val rv = FREArray.newArray(value.size)
     for (i in value.indices) {
         rv.set(i, value[i])
@@ -385,5 +389,42 @@ fun Date.toFREObject(): FREObject? {
         e.getError(Thread.currentThread().stackTrace)
     } catch (e: Exception) {
         FreException(e).getError(Thread.currentThread().stackTrace)
+    }
+}
+
+@Throws(FreException::class)
+fun IntArray.toFREArray(): FREArray? {
+    try {
+        return FREArray(this)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from IntArray")
+    }
+}
+
+@Throws(FreException::class)
+fun BooleanArray.toFREArray(): FREArray? {
+    try {
+        return FREArray(this)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from BooleanArray")
+    }
+}
+
+
+@Throws(FreException::class)
+fun DoubleArray.toFREArray(): FREArray? {
+    try {
+        return FREArray(this)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from BooleanArray")
+    }
+}
+
+@Throws(FreException::class)
+fun List<String>.toFREArray(): FREArray? {
+    try {
+        return FREArray(this)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new object from List<String>")
     }
 }

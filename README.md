@@ -5,6 +5,7 @@ Example Android Studio project showing how to create Air Native Extensions for A
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
 [AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
+[WebViewANE](https://github.com/tuarua/WebViewANE )
 
 
 -------------
@@ -54,9 +55,11 @@ The following table shows the primitive as3 types which can easily be converted 
 | Date | Date | `val dt = Date(argv[0])` | `return dt.toFREObject()`|
 | Rectangle | Rect | `val r = Rect(argv[0])` | `return r.toFREObject()`|
 | Point | Point | `val pnt = Point(argv[0])` | `return pnt.toFREObject()`|
-| Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREObject()`|
-| Vector String | List | `val al = List<String>(FREArray(argv[0]))` | N/A |
-| Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | N/A |
+| Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREArray()`|
+| Vector Boolean | BooleanArray | `val arr = BooleanArray(argv[0])` | `return arr.toFREArray()`|
+| Vector Number | DoubleArray | `val arr = DoubleArray(argv[0])` | `return arr.toFREArray()`|
+| Vector String | List | `val al = List<String>(argv[0])` | `return al.toFREArray()`|
+| Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | TODO |
 
 
 Example
@@ -79,6 +82,31 @@ if (addition != null) {
 }
 `````
 
+Example - Get a property of a FREObject
+
+```` Kotlin
+val person = argv[0]
+val age = Int(person.getProp("age"))
+if (age != null) {
+    trace("person is: $age" years old)
+}
+`````
+
+Example - Convert a FREObject Object into a Map
+
+```` Kotlin
+val person = argv[0]
+val dictionary: Map<String, Any>? = Map(person)
+trace("keys: ${dictionary?.keys.toString()} values: ${dictionary?.values.toString()}")
+`````
+
+Example - Create a new FREObject
+
+```` Kotlin
+val newPerson = FREObject("com.tuarua.Person")
+trace("We created a new person. type = ${newPerson.type}")
+`````
+
 Example - Error handling
 ```` kotlin
 try {
@@ -88,7 +116,7 @@ try {
 }
 `````
 
-Example - Extending. Convert to/from LatLng
+Advanced Example - Extending. Convert to/from LatLng
 ```` kotlin
 package com.tuarua.frekotlin
 

@@ -31,7 +31,6 @@ open class FreException : Exception {
     var type = ""
 
     constructor(e: Any, message: String? = null) : super() {
-        //Log.e(TAG, "type?: " + e.getClass().getName());
         val exception = e as Exception
         type = e.javaClass.simpleName
         this.message = when {
@@ -41,7 +40,7 @@ open class FreException : Exception {
 
         if (e is FREASErrorException) {
             stackTrace = getActionscriptException(e.thrownException)
-        } else/* if (e is FREInvalidObjectException || e is FRENoSuchNameException || e is FREReadOnlyException || e is FRETypeMismatchException || e is FREWrongThreadException)*/ {
+        } else {
             val st = exception.stackTrace
             st.indices.forEach { i ->
                 val elem: StackTraceElement = st[i]
@@ -50,7 +49,6 @@ open class FreException : Exception {
         }
     }
 
-    //message:String, errorID:int, type:String, source:String, stackTrace:String
     constructor(message: String, type: String = "", stackTrace: String = "") {
         this.message = message
         this.type = type
