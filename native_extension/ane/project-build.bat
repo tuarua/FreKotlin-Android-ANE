@@ -32,7 +32,7 @@ call %AIR_PATH%adt.bat -package -target ane %pathtome%%ANE_NAME%.ane extension.x
 -swc %projectName%.swc ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^
-com.tuarua.%FreKotlinExampleANE%-res/. ^
+com.tuarua.%projectName%-res/. ^
 -platformoptions platforms/android/platform.xml
 
 del %pathtome%platforms\\android\\classes.jar

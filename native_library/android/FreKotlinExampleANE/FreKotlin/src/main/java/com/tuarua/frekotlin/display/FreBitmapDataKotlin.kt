@@ -13,6 +13,8 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+@file:Suppress("unused")
+
 package com.tuarua.frekotlin.display
 
 import android.graphics.*
@@ -24,6 +26,7 @@ import com.adobe.fre.FREBitmapData
 import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FREObject
 import com.adobe.fre.FREWrongThreadException
+import com.tuarua.frekotlin.FreException
 
 import java.nio.ByteBuffer
 
@@ -51,18 +54,6 @@ class FreBitmapDataKotlin {
         rawValue = value
     }
 
-    private fun doSwapColors(inBitmap: Bitmap): Bitmap {
-        val matrix = floatArrayOf(0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f)
-        val rbSwap = ColorMatrix(matrix)
-        val paint = Paint(Paint.FILTER_BITMAP_FLAG)
-        paint.colorFilter = ColorMatrixColorFilter(rbSwap)
-
-        val outBitmap = createBitmap(inBitmap.width, inBitmap.height, ARGB_8888)
-        val canvas = Canvas(outBitmap)
-        canvas.drawBitmap(inBitmap, 0.0F, 0.0F, paint)
-        return outBitmap
-    }
-
     @Throws(FREASErrorException::class, FREWrongThreadException::class, FREInvalidObjectException::class)
     constructor(bitmap: Bitmap, swapColors: Boolean = true) {
         val fillColor = arrayOf<Byte>(0, 0, 0, 0)
@@ -70,9 +61,9 @@ class FreBitmapDataKotlin {
                 bitmap.height, bitmap.hasAlpha(), fillColor)
 
         val bmp: Bitmap?
-        when {
-            swapColors -> bmp = doSwapColors(bitmap)
-            else -> bmp = bitmap
+        bmp = when {
+            swapColors -> Companion.doSwapColors(bitmap)
+            else -> bitmap
         }
         acquire()
         bmp.copyPixelsToBuffer(bits32)
@@ -105,5 +96,44 @@ class FreBitmapDataKotlin {
         rawValue?.invalidateRect(x, y, width, height)
     }
 
+    companion object {
+        fun doSwapColors(inBitmap: Bitmap): Bitmap {
+            val matrix = floatArrayOf(0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f)
+            val rbSwap = ColorMatrix(matrix)
+            val paint = Paint(Paint.FILTER_BITMAP_FLAG)
+            paint.colorFilter = ColorMatrixColorFilter(rbSwap)
 
+            val outBitmap = createBitmap(inBitmap.width, inBitmap.height, ARGB_8888)
+            val canvas = Canvas(outBitmap)
+            canvas.drawBitmap(inBitmap, 0.0F, 0.0F, paint)
+            return outBitmap
+        }
+    }
+
+}
+
+@Throws(FreException::class)
+fun Bitmap(freObject: FREObject?, swapColors: Boolean = true): Bitmap? {
+    var ret: Bitmap? = null
+    if (freObject != null) {
+        try {
+            val bmd = FreBitmapDataKotlin(freObject)
+            bmd.acquire()
+            if (bmd.bits32 is ByteBuffer) {
+                ret = Bitmap.createBitmap(bmd.width, bmd.height, Bitmap.Config.ARGB_8888)
+                ret.copyPixelsFromBuffer(bmd.bits32)
+            }
+            bmd.release()
+            return if (swapColors && ret != null) {
+                FreBitmapDataKotlin.doSwapColors(ret)
+            } else {
+                ret
+            }
+        } catch (e: FreException) {
+            throw e
+        } catch (e: Exception) {
+            throw FreException(e)
+        }
+    }
+    return ret
 }

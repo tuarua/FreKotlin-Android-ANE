@@ -14,7 +14,7 @@
  *  limitations under the License.
  */
 
-@file:Suppress("unused")
+@file:Suppress("unused", "FunctionName")
 
 package com.tuarua.frekotlin
 
@@ -318,66 +318,60 @@ fun FREObject.toHSV(alpha: Int = 255): Float {
 }
 
 // ************ toFREObject **************//
-@Throws(FreException::class)
 fun Int.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this)
+    return try {
+        FREObject.newObject(this)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from Int")
+        FreException(e, "cannot create new object from Int").getError(Thread.currentThread().stackTrace)
     }
 }
 
-@Throws(FreException::class)
 fun Short.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this.toInt())
+    return try {
+        FREObject.newObject(this.toInt())
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from Int")
+        FreException(e, "cannot create new object from Short").getError(Thread.currentThread().stackTrace)
     }
 }
 
-@Throws(FreException::class)
 fun Boolean.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this)
+    return try {
+        FREObject.newObject(this)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from Boolean")
+        FreException(e, "cannot create new object from Boolean").getError(Thread.currentThread().stackTrace)
     }
 }
 
-@Throws(FreException::class)
 fun String.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this)
+    return try {
+        FREObject.newObject(this)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from String")
+        FreException(e, "cannot create new object from String").getError(Thread.currentThread().stackTrace)
     }
 }
 
-@Throws(FreException::class)
 fun Double.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this)
+    return try {
+        FREObject.newObject(this)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from Double")
+        FreException(e, "cannot create new object from Double").getError(Thread.currentThread().stackTrace)
     }
 }
 
-@Throws(FreException::class)
 fun Long.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this.toDouble())
+    return try {
+        FREObject.newObject(this.toDouble())
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from Double")
+        FreException(e, "cannot create new object from Long").getError(Thread.currentThread().stackTrace)
     }
 }
 
 @Throws(FreException::class)
 fun Float.toFREObject(): FREObject? {
-    try {
-        return FREObject.newObject(this.toDouble())
+    return try {
+        FREObject.newObject(this.toDouble())
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from Double")
+        FreException(e, "cannot create new object from Float").getError(Thread.currentThread().stackTrace)
     }
 }
 

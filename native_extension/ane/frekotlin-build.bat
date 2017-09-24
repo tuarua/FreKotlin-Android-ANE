@@ -4,7 +4,7 @@ SET SZIP="C:\Program Files\7-Zip\7z.exe"
 SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_26\bin\"
 SET ANDROID_STUDIO_REPO="D:\dev\Android-Studio-Preview\gradle\m2repository\"
 
-SET KOTLIN_VERSION="1.1.4-3"
+SET KOTLIN_VERSION="1.1.50"
 SET PROJECT_NAME=FreKotlinExampleANE
 SET SWC_NAME=DummyANE
 SET ANE_NAME=com.tuarua.frekotlin
