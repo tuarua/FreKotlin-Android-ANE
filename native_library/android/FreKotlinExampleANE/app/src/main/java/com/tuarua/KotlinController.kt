@@ -25,6 +25,7 @@ import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
+import com.tuarua.frekotlin.display.Bitmap
 import com.tuarua.frekotlin.display.FreBitmapDataKotlin
 import com.tuarua.frekotlin.geom.FrePointKotlin
 import com.tuarua.frekotlin.geom.Point
@@ -143,8 +144,11 @@ class KotlinController : FreKotlinMainController {
                 trace("Vector.<String> passed from AIR elem:", s)
             }
 
+
+
             val kotArr: IntArray = intArrayOf(1, 2, 3)
             val kotArrayFre = FREArray(kotArr)
+            @Suppress("UNUSED_VARIABLE")
             val kotArrBack = IntArray(kotArrayFre)
 
             return airArray
@@ -157,6 +161,9 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runBitmapTests(ctx: FREContext, argv: FREArgv): FREObject? {
+        //var icon: Bitmap? = Bitmap(argv[0]) //to convert bitmapdata into Android Bitmap
+
+        //To manipulate the bitmapdata passed in
         val bmd = FreBitmapDataKotlin(argv[0])
         bmd.acquire()
         trace("bmd", bmd.width, bmd.height)
@@ -167,7 +174,8 @@ class KotlinController : FreKotlinMainController {
             val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
             bmp.copyPixelsFromBuffer(bmd.bits32)
 
-            val bmpSepia = BitmapUtils.sepiaFilter(image = bmp)
+            var bmpSepia = BitmapUtils.sepiaFilter(image = bmp)
+            bmpSepia = FreBitmapDataKotlin.doSwapColors(bmpSepia)
             bmd.release()
             bmp.recycle()
 
