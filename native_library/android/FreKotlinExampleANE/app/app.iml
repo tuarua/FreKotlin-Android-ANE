@@ -97,7 +97,6 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/intermediate-jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/javaPrecompile" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/lint" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/manifests" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/res" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/rs" />
@@ -111,10 +110,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="runtimeClasses" level="project" />
-    <orderEntry type="library" name="kotlin-stdlib-1.1.50" level="project" />
-    <orderEntry type="library" name="annotations-13.0" level="project" />
-    <orderEntry type="library" name="FlashRuntimeExtensions" level="project" />
+    <orderEntry type="library" name="__local_aars__:D.\dev\flash\FreKotlin-Android-ANE\native_library\android\FreKotlinExampleANE\app\libs\runtimeClasses.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:D.\dev\flash\FreKotlin-Android-ANE\native_library\android\FreKotlinExampleANE\app\libs\FlashRuntimeExtensions.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
+    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.1.51@jar" level="project" />
     <orderEntry type="module" module-name="FreKotlin" />
   </component>
 </module>

@@ -27,6 +27,10 @@ open class FreObjectKotlin {
 
     @Throws(FREWrongThreadException::class)
     constructor(any: Any?) {
+        if (any == null) {
+            rawValue = null
+            return
+        }
         if (any is FREObject) {
             rawValue = any
             return
@@ -63,10 +67,10 @@ open class FreObjectKotlin {
             rawValue = FREObject("Date", any.time)
             return
         }
-        if (any is Any) {
+/*        if (any is Any) {
             //Log.e(TAG, "any is an Any - NOT FOUND")
             return
-        }
+        }*/
         // Log.d(TAG, "can't find type")
         return
     }
