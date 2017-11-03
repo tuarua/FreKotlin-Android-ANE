@@ -110,10 +110,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="__local_aars__:D.\dev\flash\FreKotlin-Android-ANE\native_library\android\FreKotlinExampleANE\app\libs\runtimeClasses.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="__local_aars__:D.\dev\flash\FreKotlin-Android-ANE\native_library\android\FreKotlinExampleANE\app\libs\FlashRuntimeExtensions.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:/Users/User/flash/FreKotlin-Android-ANE/native_library/android/FreKotlinExampleANE/shared/libs/FlashRuntimeExtensions.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.1.51@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:/Users/User/flash/FreKotlin-Android-ANE/native_library/android/FreKotlinExampleANE/shared/libs/runtimeClasses.jar:unspecified@jar" level="project" />
     <orderEntry type="module" module-name="FreKotlin" />
   </component>
 </module>
