@@ -9,9 +9,9 @@ echo $pathtome
 
 AIR_SDK="/Users/User/sdks/AIR/AIRSDK_27"
 
-KOTLIN_VERSION="1.1.50"
+KOTLIN_VERSION="1.1.51"
 PROJECTNAME=FreKotlinExampleANE
-SWC_NAME=DummyANE
+SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin
 
 #Copy SWC into place.

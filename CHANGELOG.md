@@ -1,3 +1,7 @@
+### 0.0.12
+- Fix bug converting null String to Kotlin String
+- Upgraded to Kotlin 1.1.51
+
 ### 0.0.11
 - Added correct conversion from Bitmap to FreBitmapKotlin
 - Minor corrections to FREArray

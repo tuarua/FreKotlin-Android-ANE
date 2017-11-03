@@ -47,6 +47,11 @@ fun Double(freObject: FREObject?): Double? {
     return (v as? Int)?.toDouble() ?: v as Double?
 }
 
+fun Long(freObject: FREObject?): Long? {
+    val v = FreKotlinHelper.getAsObject(freObject)
+    return (v as? Int)?.toLong() ?: v as Long?
+}
+
 fun Float(freObject: FREObject?): Float? {
     val v = FreKotlinHelper.getAsObject(freObject)
     return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
@@ -155,7 +160,13 @@ fun <String, Any>Map(freObject: FREObject?): Map<String, Any>? {
 
 fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsObject(freObject) as Int?
 
-fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsObject(freObject).toString()
+fun String(freObject: FREObject?): String? {
+    val obj = FreKotlinHelper.getAsObject(freObject)
+    return when {
+        obj != null -> FreKotlinHelper.getAsObject(freObject).toString()
+        else -> null
+    }
+}
 
 fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsObject(freObject) as Boolean?
 
@@ -183,10 +194,10 @@ var FREObject.type: FreObjectTypeKotlin
     get() {
         return FreKotlinHelper.getType(this)
     }
-    set(value) {}
+    set(value) = Unit
 
 @Throws(FreException::class)
-fun FREObject(name: String, vararg args: Any): FREObject {
+fun FREObject(name: String, vararg args: Any?): FREObject {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
         argsArr[i] = FreObjectKotlin(args[i]).rawValue
