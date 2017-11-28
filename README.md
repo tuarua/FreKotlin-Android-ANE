@@ -10,33 +10,11 @@ This project is used as the basis for the following ANEs
 
 -------------
   
-https://kotlinlang.org/docs/reference/
 
-FreKotlinExampleANE.java is the entry point of the ANE. It acts as a thin layered API to your Kotlin controller.  
-Add the number of methods here 
+### Getting Started
 
-```` Java
-public static final String[] FUNCTIONS = {
-    "sayHello",
-    "isKotlinGreat"
-};
-`````
+A basic Hello World [starter project](/starter_project) is included 
 
-
-KotlinController.kt   
-Add Kotlin function(s) here   
-
-```` Kotlin
-fun sayHello(ctx: FREContext, argv: FREArgv): FREObject? {
-    //your code here
-    return null  
-}
-
-fun isKotlinGreat(ctx: FREContext, argv: FREArgv): FREObject? {
-    //your code here
-    return null  
-}
-`````
 
 ----------
 
@@ -169,6 +147,6 @@ fun LatLng(freObject: FREObject?): LatLng = FreCoordinateKotlin(freObject = freO
 
 You will need
 
-- Android Studio 3.0 Beta
+- Android Studio 3.0
 - IntelliJ IDEA
-- AIR 25+
+- AIR 27+
