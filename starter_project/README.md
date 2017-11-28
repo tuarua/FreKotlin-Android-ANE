@@ -41,6 +41,6 @@ fun isKotlinGreat(ctx: FREContext, argv: FREArgv): FREObject? {
 
 You will need
 
-- Android Studio 3.0 Beta
+- Android Studio 3.0
 - IntelliJ IDEA
-- AIR 25+
+- AIR 27+
