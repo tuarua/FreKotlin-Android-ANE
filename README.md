@@ -16,8 +16,6 @@ This project is used as the basis for the following ANEs
 A basic Hello World [starter project](/starter_project) is included 
 
 
-----------
-
 ### How to use 
 ###### Converting from FREObject args into Kotlin types, returning FREObjects
 The following table shows the primitive as3 types which can easily be converted to/from Kotlin types
