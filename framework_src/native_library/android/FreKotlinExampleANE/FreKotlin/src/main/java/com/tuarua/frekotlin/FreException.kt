@@ -23,6 +23,7 @@ import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 
 @Suppress("unused")
+
 open class FreException : Exception {
     private val TAG = "com.tuarua.frekotlin.FreException"
     private var _aneError: FreObjectKotlin? = null
@@ -55,6 +56,12 @@ open class FreException : Exception {
         this.stackTrace = stackTrace
     }
 
+    /**
+     *
+     * @param [thrownException] the FREObject for the exception
+     * @return returns the Exception as a String.
+     */
+
     private fun getActionscriptException(thrownException: FREObject): String {
         var ret = ""
         try {
@@ -70,6 +77,11 @@ open class FreException : Exception {
         return ret
     }
 
+    /**
+     *
+     * @param [stackTraceElements] the java stack trace
+     * @return returns the Exception as a FREObject to be passed back to AS3.
+     */
     fun getError(stackTraceElements: Array<StackTraceElement>): FREObject? {
         val fullClassName = stackTraceElements[2].className
         val className = fullClassName.substring(fullClassName.lastIndexOf("") + 1)

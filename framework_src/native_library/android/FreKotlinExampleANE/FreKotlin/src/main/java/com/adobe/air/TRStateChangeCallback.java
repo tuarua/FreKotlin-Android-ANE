@@ -15,7 +15,5 @@
  */
 
 package com.adobe.air;
-
-import com.adobe.air.AndroidActivityWrapper;
 public abstract interface TRStateChangeCallback extends AndroidActivityWrapper.StateChangeCallback {
 }

@@ -14,19 +14,63 @@
  *  limitations under the License.
  */
 package com.tuarua.frekotlin
+
+
 enum class FreObjectTypeKotlin {
+    /**
+     * @property OBJECT Object
+     */
     OBJECT,
+    /**
+     * @property NUMBER Number
+     */
     NUMBER,
+    /**
+     * @property STRING String
+     */
     STRING,
+    /**
+     * @property BYTEARRAY Bytearray
+     */
     BYTEARRAY,
+    /**
+     * @property ARRAY Array
+     */
     ARRAY,
+    /**
+     * @property VECTOR Vector
+     */
     VECTOR,
+    /**
+     * @property BITMAPDATA BitmapData
+     */
     BITMAPDATA,
+    /**
+     * @property BOOLEAN Boolean
+     */
     BOOLEAN,
+    /**
+     * @property NULL Null
+     */
     NULL,
+     /**
+     * @property INT int
+     */
     INT,
+     /**
+     * @property CLASS Class
+     */
     CLASS,
+    /**
+     * @property RECTANGLE flash.geom.Rectangle
+     */
     RECTANGLE,
+    /**
+     * @property POINT flash.geom.Point
+     */
     POINT,
+    /**
+     * @property DATE Date
+     */
     DATE
 }

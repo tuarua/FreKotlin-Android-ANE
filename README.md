@@ -62,9 +62,20 @@ Example - Get a property of a FREObject
 
 ```` Kotlin
 val person = argv[0]
-val age = Int(person.getProp("age"))
+val age = Int(person["age"])
 if (age != null) {
     trace("person is: $age" years old)
+}
+`````
+
+Example - Set a property of a FREObject
+
+```` Kotlin
+val person = argv[0]
+try {
+     person.setProp("age", 32)
+} catch (e: FreException) {
+
 }
 `````
 
@@ -81,6 +92,12 @@ Example - Create a new FREObject
 ```` Kotlin
 val newPerson = FREObject("com.tuarua.Person")
 trace("We created a new person. type = ${newPerson.type}")
+`````
+
+Example - Sending events back to AIR (replaces dispatchStatusEventAsync)
+
+```` Kotlin
+sendEvent("MY_EVENT", "this is a test")
 `````
 
 Example - Error handling
@@ -121,8 +138,8 @@ class FreCoordinateKotlin() : FreObjectKotlin() {
                 return LatLng(lat, lng)
             } else {
                 try {
-                    val latFre = Double(rv.getProp("latitude"))
-                    val lngFre = Double(rv.getProp("longitude"))
+                    val latFre = Double(rv["latitude"])
+                    val lngFre = Double(rv["longitude"])
                     if (latFre != null && lngFre != null) {
                         lat = latFre
                         lng = lngFre

@@ -19,6 +19,7 @@ import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 import com.tuarua.frekotlin.FreKotlinContext;
 
+@SuppressWarnings("unused")
 public class FreKotlinExampleANE implements FREExtension  {
     private String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {
