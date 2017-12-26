@@ -178,7 +178,9 @@ class FreBitmapDataKotlin {
     }
 
 }
-
+/**
+ * converts a FREObject of type BitmapData to a Bitmap
+ */
 @Suppress("FunctionName")
 @JvmOverloads
 @Throws(FreException::class)
@@ -205,4 +207,15 @@ fun Bitmap(freObject: FREObject?, swapColors: Boolean = true): Bitmap? {
         }
     }
     return ret
+}
+
+/**
+ * converts a Bitmap to a FREObject of type BitmapData
+ */
+fun Bitmap.toFREObject(): FREObject? {
+    return try {
+        FreBitmapDataKotlin(this,true).rawValue
+    } catch (e: Exception) {
+        FreException(e, "cannot create new object from Bitmap").getError(Thread.currentThread().stackTrace)
+    }
 }

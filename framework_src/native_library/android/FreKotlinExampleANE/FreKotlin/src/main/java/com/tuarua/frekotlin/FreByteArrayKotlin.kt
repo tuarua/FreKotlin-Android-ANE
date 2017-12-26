@@ -103,7 +103,9 @@ class FreByteArrayKotlin {
         rawValue?.release()
     }
 }
-
+/**
+ * converts a FREObject of type ByteArray to a ByteArray
+ */
 @Suppress("FunctionName")
 @Throws(FreException::class)
 fun ByteArray(freObject: FREObject?): ByteArray? {
@@ -126,4 +128,15 @@ fun ByteArray(freObject: FREObject?): ByteArray? {
         }
     }
     return ret
+}
+
+/**
+ * converts a ByteArray a FREObject of type ByteArray
+ */
+fun ByteArray.toFREObject(): FREObject? {
+    return try {
+        FreByteArrayKotlin(this).rawValue
+    } catch (e: Exception) {
+        FreException(e, "cannot create new object from ByteArray").getError(Thread.currentThread().stackTrace)
+    }
 }

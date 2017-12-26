@@ -1,5 +1,7 @@
 ### 1.0.0
 - Added conversion from ByteArray to FreByteArrayKotlin
+- Added ByteArray.toFREObject()
+- Added Bitmap.toFREObject()
 - Fix bug converting to Long
 - Handle ARGB in toColor(hasAlpha: Boolean) method
 - Upgraded to Kotlin 1.2.10
