@@ -27,7 +27,7 @@
         <compilerSettings />
         <compilerArguments>
           <option name="jvmTarget" value="1.8" />
-          <option name="languageVersion" value="1.1" />
+          <option name="languageVersion" value="1.2" />
           <option name="apiVersion" value="1.1" />
           <option name="pluginOptions">
             <array />
@@ -73,13 +73,6 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/rs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/shaders" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
-      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/res" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/resources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/assets" type="java-test-resource" />
@@ -87,6 +80,13 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/rs" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/shaders" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/res" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/resources" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/assets" type="java-test-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/aidl" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/rs" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/androidTest/shaders" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/attr" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
@@ -111,9 +111,9 @@
     <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="org.jetbrains:annotations:13.0@jar" level="project" />
-    <orderEntry type="library" name="__local_aars__:/Users/User/flash/FreKotlin-Android-ANE/native_library/android/FreKotlinExampleANE/shared/libs/FlashRuntimeExtensions.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.1.51@jar" level="project" />
-    <orderEntry type="library" name="__local_aars__:/Users/User/flash/FreKotlin-Android-ANE/native_library/android/FreKotlinExampleANE/shared/libs/runtimeClasses.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:/Users/User/flash/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/shared/libs/runtimeClasses.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="__local_aars__:/Users/User/flash/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/shared/libs/FlashRuntimeExtensions.jar:unspecified@jar" level="project" />
+    <orderEntry type="library" name="org.jetbrains.kotlin:kotlin-stdlib:1.2.10@jar" level="project" />
     <orderEntry type="module" module-name="FreKotlin" />
   </component>
 </module>

@@ -23,10 +23,18 @@ import com.adobe.fre.FRENoSuchNameException
 import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
+import com.tuarua.frekotlin.display.Bitmap
+import com.tuarua.frekotlin.display.FreBitmapDataKotlin
 import com.tuarua.frekotlin.geom.FrePointKotlin
 import com.tuarua.frekotlin.geom.FreRectangleKotlin
+import com.tuarua.frekotlin.geom.Point
+import com.tuarua.frekotlin.geom.Rect
 import java.util.*
 
+
+/**
+ * @suppress
+ */
 object FreKotlinHelper {
     internal var TAG = "com.tuarua.FreKotlinHelper"
 
@@ -124,19 +132,15 @@ object FreKotlinHelper {
             when (getType(rawValue)) {
                 FreObjectTypeKotlin.STRING -> return getAsString(rawValue)
                 FreObjectTypeKotlin.NUMBER -> return getAsDouble(rawValue)
-                FreObjectTypeKotlin.BYTEARRAY -> {
-                    TODO()
-                }
+                FreObjectTypeKotlin.BYTEARRAY -> return ByteArray(rawValue)
                 FreObjectTypeKotlin.ARRAY, FreObjectTypeKotlin.VECTOR -> return getAsArrayList(rawValue as FREArray)
-                FreObjectTypeKotlin.BITMAPDATA -> {
-                    TODO()
-                }
+                FreObjectTypeKotlin.BITMAPDATA -> return Bitmap(rawValue, true)
                 FreObjectTypeKotlin.BOOLEAN -> return getAsBoolean(rawValue)
                 FreObjectTypeKotlin.NULL -> return null
                 FreObjectTypeKotlin.INT -> return getAsInt(rawValue)
                 FreObjectTypeKotlin.CLASS, FreObjectTypeKotlin.OBJECT -> return getAsDictionary(rawValue)
-                FreObjectTypeKotlin.RECTANGLE -> return FreRectangleKotlin(rawValue).value
-                FreObjectTypeKotlin.POINT -> return FrePointKotlin(rawValue).value
+                FreObjectTypeKotlin.RECTANGLE -> return Rect(rawValue)
+                FreObjectTypeKotlin.POINT -> return Point(rawValue)
                 FreObjectTypeKotlin.DATE -> return getAsDate(rawValue)
             }
         } catch (e: FREInvalidObjectException) {

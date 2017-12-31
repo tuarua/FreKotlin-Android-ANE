@@ -15,6 +15,7 @@ import flash.net.URLRequest;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
+import flash.utils.ByteArray;
 
 [SWF(width="640", height="640", frameRate="60", backgroundColor="#F1F1F1")]
 public class Main extends Sprite {
@@ -57,7 +58,7 @@ public class Main extends Sprite {
             var resultInt:int = ane.runIntTests(-54, 66, 0xFF3300);
             textField.text += "Int: " + resultInt + "\n";
 
-            var resultObject:Person = ane.runObjectTests(person) as Person;
+            /*var resultObject:Person = ane.runObjectTests(person) as Person;
             if (resultObject) {
                 textField.text += "Person.age: " + resultObject.age.toString() + "\n";
             }
@@ -105,6 +106,12 @@ public class Main extends Sprite {
 
             var returnedDate:Date = ane.runDateTests(new Date());
             trace("returnedDate:", returnedDate);
+
+            var myByteArray:ByteArray = new ByteArray();
+            myByteArray.writeUTFBytes("Kotlin in an ANE. Say whaaaat!");
+            ane.runByteArrayTests(myByteArray);*/
+
+
 
             addChild(textField);
         }

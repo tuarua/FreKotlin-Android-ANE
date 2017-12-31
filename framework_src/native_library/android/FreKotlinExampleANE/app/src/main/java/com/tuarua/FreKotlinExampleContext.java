@@ -25,6 +25,7 @@ import com.tuarua.frekotlin.FreKotlinContext;
 import com.tuarua.frekotlin.FreKotlinMainController;
 
 //This file must remain as Java
+@SuppressWarnings("WeakerAccess")
 public class FreKotlinExampleContext extends FreKotlinContext implements TRActivityResultCallback, TRStateChangeCallback {
     private AndroidActivityWrapper aaw;
 

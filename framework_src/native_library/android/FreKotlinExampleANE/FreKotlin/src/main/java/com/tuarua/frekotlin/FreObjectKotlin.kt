@@ -20,11 +20,12 @@ import com.adobe.fre.FREWrongThreadException
 import java.util.*
 
 @Suppress("unused")
+/**
+ * @suppress
+ */
 open class FreObjectKotlin {
     var rawValue: FREObject? = null
-
     constructor()
-
     @Throws(FREWrongThreadException::class)
     constructor(any: Any?) {
         if (any == null) {
@@ -75,16 +76,16 @@ open class FreObjectKotlin {
         return
     }
 
+
+
     open val value: Any?
         get() {
             val rv = rawValue ?: return null
             return rv.let { FreKotlinHelper.getAsObject(it) } as Any
         }
-
     constructor(freObjectKotlin: FreObjectKotlin?) {
         rawValue = freObjectKotlin?.rawValue
     }
-
     constructor(freObject: FREObject?) {
         rawValue = freObject
     }

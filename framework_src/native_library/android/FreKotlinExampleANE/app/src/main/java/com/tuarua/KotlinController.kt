@@ -18,20 +18,24 @@ package com.tuarua
 
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Base64
 import android.util.Log
+import android.util.Xml
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
-import com.tuarua.frekotlin.display.Bitmap
 import com.tuarua.frekotlin.display.FreBitmapDataKotlin
 import com.tuarua.frekotlin.geom.FrePointKotlin
 import com.tuarua.frekotlin.geom.Point
 import com.tuarua.frekotlin.geom.Rect
 import com.tuarua.frekotlin.geom.toFREObject
 import java.nio.ByteBuffer
+import java.nio.charset.Charset
+import android.R.color
+
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinMainController {
@@ -57,14 +61,17 @@ class KotlinController : FreKotlinMainController {
         val airInt = Int(argv[0])
         val airIntAsDouble = Double(argv[0])
         val airUInt: Int? = Int(argv[1])
-        val airColor = argv[2].toColor(255)
-        val airHSV = argv[2].toHSV(255)
+        trace("argv2 type", argv[2].type)
+
+        val airColor = argv[2].toColor()
+        val airHSV = argv[2].toHSV()
 
         trace("Int passed from AIR:", airInt)
         trace("UInt passed from AIR:", airUInt)
         trace("Int passed from AIR as Double:", airIntAsDouble)
         trace("Colour passed from AIR as Int:", airColor)
-        trace("Colour passed from AIR as Color: ${Color.red(airColor)} ${Color.green(airColor)} ${Color.blue(airColor)}")
+        trace("Colour passed from AIR as Color: ${Color.alpha(airColor)} ${Color.red(airColor)} ${Color.green(airColor)
+        } ${Color.blue(airColor)}")
         trace("Colour passed from AIR as HSV: $airHSV")
 
         val kotlinInt: Int = -666
@@ -84,17 +91,16 @@ class KotlinController : FreKotlinMainController {
     fun runObjectTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Object test***********")
         val person = argv[0]
-        val oldAge = Int(person.getProp("age"))
+        val oldAge = Int(person["age"])
 
         val newPerson = FREObject("com.tuarua.Person")
         trace("We created a new person. type = ${newPerson.type}")
         trace("current person age is $oldAge")
 
-        if (oldAge is Int) {
-            person.setProp("age", oldAge + 10)
-        }
-
         try {
+            if (oldAge is Int) {
+                person.setProp("age", oldAge + 10)
+            }
             val addition = person.call("add", 100, 31)
             if (addition != null) {
                 trace("addition result: ${Int(addition)}")
@@ -124,14 +130,16 @@ class KotlinController : FreKotlinMainController {
         trace("***********Start Array test ***********")
         try {
             val airArray: FREArray? = FREArray(freObject = argv[0])
-            val airArrayLen = airArray?.length
-            trace("AIR Array length:", airArrayLen)
+            if (airArray != null) {
+                val airArrayLen = airArray.length
+                trace("AIR Array length:", airArrayLen)
 
-            val itemZero: FREObject? = airArray?.at(0)
-            val itemZeroVal: Int? = Int(itemZero)
-            if (itemZeroVal is Int) {
-                trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
-                airArray?.set(0, 56)
+                val itemZero: FREObject? = airArray[0]
+                val itemZeroVal: Int? = Int(itemZero)
+                if (itemZeroVal is Int) {
+                    trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+                    airArray[0] = 56.toFREObject()
+                }
             }
 
             val airVector: FREArray? = FREArray(freObject = argv[1])
@@ -143,7 +151,6 @@ class KotlinController : FreKotlinMainController {
             for (s in al) {
                 trace("Vector.<String> passed from AIR elem:", s)
             }
-
 
 
             val kotArr: IntArray = intArrayOf(1, 2, 3)
@@ -161,12 +168,11 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runBitmapTests(ctx: FREContext, argv: FREArgv): FREObject? {
+        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
         //var icon: Bitmap? = Bitmap(argv[0]) //to convert bitmapdata into Android Bitmap
-
         //To manipulate the bitmapdata passed in
         val bmd = FreBitmapDataKotlin(argv[0])
         bmd.acquire()
-        trace("bmd", bmd.width, bmd.height)
         if (bmd.bits32 is ByteBuffer) {
             val width = bmd.width
             val height = bmd.height
@@ -208,7 +214,14 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runByteArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        return null //TODO
+        trace("***********Start ByteArray test***********")
+        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        val byteArray = ByteArray(argv[0])
+        if (byteArray != null) {
+            val str = String(Base64.encode(byteArray, Base64.NO_WRAP), Charset.forName("utf-8"))
+            trace("Encoded to Base64:", str)
+        }
+        return null
     }
 
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
@@ -226,7 +239,7 @@ class KotlinController : FreKotlinMainController {
         }
 
         try {
-            val p: FREObject? = person.getProp("doNotExist") //calling a property that doesn't exist
+            val p: FREObject? = person["doNotExist"] //calling a property that doesn't exist
         } catch (e: FreException) {
             return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
         }
@@ -251,30 +264,7 @@ class KotlinController : FreKotlinMainController {
         return null
     }
 
-    override fun onStarted() {
-        super.onStarted()
-    }
-
-    override fun onRestarted() {
-        super.onRestarted()
-    }
-
-    override fun onResumed() {
-        super.onResumed()
-    }
-
-    override fun onPaused() {
-        super.onPaused()
-    }
-
-    override fun onStopped() {
-        super.onStopped()
-    }
-
-    override fun onDestroyed() {
-        super.onDestroyed()
-    }
-
+    @Suppress("PropertyName")
     override val TAG: String
         get() = "FreKotlinExampleANE"
     private var _context: FREContext? = null
@@ -284,19 +274,3 @@ class KotlinController : FreKotlinMainController {
             _context = value
         }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
