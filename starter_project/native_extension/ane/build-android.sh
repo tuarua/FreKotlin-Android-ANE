@@ -30,7 +30,7 @@ mv "$pathtome/platforms/android/res" "$pathtome/platforms/android/com.mycompany.
 #Run the build command.
 echo "Building ANE."
 "$AIR_SDK"/bin/adt -package \
--target ane "$pathtome/$ANENAME.ane" "$pathtome/extension_android.xml" \
+-target ane "$pathtome/$PROJECTNAME.ane" "$pathtome/extension_android.xml" \
 -swc "$pathtome/$PROJECTNAME.swc" \
 -platform Android-ARM \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
