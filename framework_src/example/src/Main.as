@@ -58,7 +58,7 @@ public class Main extends Sprite {
             var resultInt:int = ane.runIntTests(-54, 66, 0xFF3300);
             textField.text += "Int: " + resultInt + "\n";
 
-            /*var resultObject:Person = ane.runObjectTests(person) as Person;
+            var resultObject:Person = ane.runObjectTests(person) as Person;
             if (resultObject) {
                 textField.text += "Person.age: " + resultObject.age.toString() + "\n";
             }
@@ -92,6 +92,7 @@ public class Main extends Sprite {
                 bmp.y = 400;
                 addChild(bmp);
             }
+
             try {
                 ane.runErrorTests(person);
             } catch (e:ANEError) {
@@ -109,8 +110,7 @@ public class Main extends Sprite {
 
             var myByteArray:ByteArray = new ByteArray();
             myByteArray.writeUTFBytes("Kotlin in an ANE. Say whaaaat!");
-            ane.runByteArrayTests(myByteArray);*/
-
+            ane.runByteArrayTests(myByteArray);
 
 
             addChild(textField);

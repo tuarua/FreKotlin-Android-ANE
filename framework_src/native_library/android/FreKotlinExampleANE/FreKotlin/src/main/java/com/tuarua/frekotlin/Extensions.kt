@@ -47,32 +47,20 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
  * converts a FREObject to a Double
  *
  */
-fun Double(freObject: FREObject?): Double? {
-    val v = FreKotlinHelper.getAsObject(freObject)
-    return (v as? Int)?.toDouble() ?: v as Double?
-}
+fun Double(freObject: FREObject?): Double? =FreKotlinHelper.getAsDouble(freObject)
 
 /**
  * converts a FREObject to a Long
  *
  */
-fun Long(freObject: FREObject?): Long? {
-    val v = FreKotlinHelper.getAsObject(freObject)
-    return (v as? Double)?.toLong() ?: if (v is Int) {
-        v.toLong()
-    } else {
-        0
-    }
-}
+fun Long(freObject: FREObject?): Long? = FreKotlinHelper.getAsDouble(freObject)?.toLong()
 
 /**
  * converts a FREObject to a Float
  *
  */
-fun Float(freObject: FREObject?): Float? {
-    val v = FreKotlinHelper.getAsObject(freObject)
-    return (v as? Int)?.toFloat() ?: (v as Double?)?.toFloat()
-}
+fun Float(freObject: FREObject?): Float? = FreKotlinHelper.getAsDouble(freObject)?.toFloat()
+
 
 /**
  * converts a FREArray to a BooleanArray
@@ -206,28 +194,22 @@ fun <String, Any> Map(freObject: FREObject?): Map<String, Any>? {
 /**
  * converts a FREObject to a Int
  */
-fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsObject(freObject) as Int?
+fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsInt(freObject)
 
 /**
  * converts a FREObject to a String
  */
-fun String(freObject: FREObject?): String? {
-    val obj = FreKotlinHelper.getAsObject(freObject)
-    return when {
-        obj != null -> FreKotlinHelper.getAsObject(freObject).toString()
-        else -> null
-    }
-}
+fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsString(freObject)
 
 /**
  * converts a FREObject to a Boolean
  */
-fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsObject(freObject) as Boolean?
+fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsBoolean(freObject)
 
 /**
  * converts a FREObject to a Date
  */
-fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsObject(freObject) as Date?
+fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsDate(freObject)
 
 @Throws(FreException::class)
 fun FREObject?.call(method: String, vararg args: Any): FREObject? {
