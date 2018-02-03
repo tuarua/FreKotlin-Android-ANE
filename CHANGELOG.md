@@ -1,3 +1,6 @@
+### 1.1.0
+- Improved performance for conversions
+
 ### 1.0.0
 - Added conversion from ByteArray to FreByteArrayKotlin
 - Added ByteArray.toFREObject()
