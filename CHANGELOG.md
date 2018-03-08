@@ -1,3 +1,7 @@
+### 1.2.0
+- Upgraded to Kotlin 1.2.30
+- Upgraded to AIR 29
+
 ### 1.1.0
 - Improved performance for conversions
 

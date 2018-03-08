@@ -7,9 +7,9 @@ pathtome="${pathtome%/*}"
 
 echo $pathtome
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_28"
+AIR_SDK="/Users/User/sdks/AIR/AIRSDK_29"
 
-KOTLIN_VERSION="1.2.10"
+KOTLIN_VERSION="1.2.30"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin
