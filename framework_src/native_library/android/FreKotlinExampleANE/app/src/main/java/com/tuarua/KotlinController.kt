@@ -20,7 +20,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import android.util.Base64
 import android.util.Log
-import android.util.Xml
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import com.adobe.fre.FREArray
@@ -34,7 +33,6 @@ import com.tuarua.frekotlin.geom.Rect
 import com.tuarua.frekotlin.geom.toFREObject
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
-import android.R.color
 
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
@@ -44,10 +42,8 @@ class KotlinController : FreKotlinMainController {
 
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
-        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
-        val airString = String(argv[0]).guard {
-            return ArgException().getError(Thread.currentThread().stackTrace)
-        }
+        argv.takeIf { argv.size > 0 } ?: return FreArgException("runStringTests")
+        val airString = String(argv[0]) ?: return FreConversionException("airString")
 
         trace("This is AIR string", airString)
         sendEvent("MY_EVENT", "this is a test")
@@ -168,7 +164,7 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runBitmapTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        argv.takeIf { argv.size > 0 } ?: return FreArgException("runBitmapTests")
         //var icon: Bitmap? = Bitmap(argv[0]) //to convert bitmapdata into Android Bitmap
         //To manipulate the bitmapdata passed in
         val bmd = FreBitmapDataKotlin(argv[0])
@@ -196,10 +192,8 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runExtensibleTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
-        val inFRE0 = argv[0].guard {
-            trace("Rectangle passed to runExtensibleTests cannot be null");return null
-        }
+        argv.takeIf { argv.size > 0 } ?: return FreArgException("runExtensibleTests")
+        val inFRE0 = argv[0]
         val point = Point(0.0, 50.0)
         try {
             val rectangle = Rect(inFRE0)
@@ -215,7 +209,7 @@ class KotlinController : FreKotlinMainController {
 
     fun runByteArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start ByteArray test***********")
-        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        argv.takeIf { argv.size > 0 } ?: return FreArgException("runByteArrayTests")
         val byteArray = ByteArray(argv[0])
         if (byteArray != null) {
             val str = String(Base64.encode(byteArray, Base64.NO_WRAP), Charset.forName("utf-8"))
@@ -226,10 +220,8 @@ class KotlinController : FreKotlinMainController {
 
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Error Handling test***********")
-        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
-        val person = argv[0].guard {
-            return ArgException().getError(Thread.currentThread().stackTrace)
-        }
+        argv.takeIf { argv.size > 0 } ?: return FreArgException("runErrorTests")
+        val person = argv[0]
 
         try {
             person.call("add", 100) //not passing enough args
@@ -248,10 +240,8 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runErrorTests2(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 0 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
-        val inFRE0 = argv[0].guard {
-            return ArgException().getError(Thread.currentThread().stackTrace)
-        }
+        argv.takeIf { argv.size > 0 } ?: return FreArgException("runErrorTests2")
+        val inFRE0 = argv[0]
 
         if (inFRE0.type != FreObjectTypeKotlin.INT) {
             trace("Oops, we expected the FREObject to be passed as an int but it's not")

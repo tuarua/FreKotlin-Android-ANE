@@ -22,7 +22,7 @@ import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 
-@Suppress("unused")
+@Suppress("unused", "PrivatePropertyName")
 
 open class FreException : Exception {
     private val TAG = "com.tuarua.frekotlin.FreException"
@@ -47,6 +47,7 @@ open class FreException : Exception {
                 val elem: StackTraceElement = st[i]
                 stackTrace = stackTrace + "\n" + elem.toString()
             }
+            stackTrace = stackTrace + "\n" + e.cause.toString()
         }
     }
 
@@ -67,7 +68,6 @@ open class FreException : Exception {
         try {
             ret = thrownException.callMethod("getStackTrace", null).asString
         } catch (e: FRETypeMismatchException) {
-            // e.printStackTrace();
         } catch (e: FREWrongThreadException) {
         } catch (e: FRENoSuchNameException) {
         } catch (e: FREASErrorException) {
@@ -82,16 +82,22 @@ open class FreException : Exception {
      * @param [stackTraceElements] the java stack trace
      * @return returns the Exception as a FREObject to be passed back to AS3.
      */
-    fun getError(stackTraceElements: Array<StackTraceElement>): FREObject? {
-        val fullClassName = stackTraceElements[2].className
-        val className = fullClassName.substring(fullClassName.lastIndexOf("") + 1)
-        val methodName = stackTraceElements[2].methodName
-        val lineNumber = stackTraceElements[2].lineNumber
+    fun getError(stackTraceElements: Array<StackTraceElement> = arrayOf()): FREObject? {
+        var className = ""
+        var methodName = ""
+        var lineNumber = 0
+
+        if (stackTraceElements.size > 2) {
+            val fullClassName = stackTraceElements[2].className
+            className = fullClassName.substring(fullClassName.lastIndexOf("") + 1)
+            methodName = stackTraceElements[2].methodName
+            lineNumber = stackTraceElements[2].lineNumber
+        }
+
         try {
             _aneError = FreObjectKotlin(FREObject("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions." + type,
                     "$className.$methodName():$lineNumber", stackTrace))
         } catch (e: FREWrongThreadException) {
-            // e.printStackTrace();
         }
 
         return _aneError?.rawValue

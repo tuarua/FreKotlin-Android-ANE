@@ -536,3 +536,24 @@ fun List<String>.toFREArray(): FREArray? {
     }
 }
 
+/**
+ * returns an ANEError stating which variable could not be converted
+ */
+fun FreConversionException(variableName: String, stackTrace: kotlin.Array<java.lang.StackTraceElement> = arrayOf()): FREObject? {
+    return try {
+        FreException("Cannot convert $variableName").getError(stackTrace)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**
+ * returns an ANEError stating which function has not received enough parameters
+ */
+fun FreArgException(functionName: String, stackTrace: kotlin.Array<java.lang.StackTraceElement> = arrayOf()): FREObject? {
+    return try {
+        FreException("Not enough arguments passed to $functionName").getError(stackTrace)
+    } catch (e: Exception) {
+        null
+    }
+}

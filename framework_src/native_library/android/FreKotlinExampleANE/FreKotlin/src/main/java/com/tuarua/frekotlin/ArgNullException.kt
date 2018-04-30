@@ -15,6 +15,7 @@
  */
 
 package com.tuarua.frekotlin
+@Deprecated("Use FreArgException instead")
 class NullArgsException : FreException(message = "Non null argument(s) passed") {
 
 }

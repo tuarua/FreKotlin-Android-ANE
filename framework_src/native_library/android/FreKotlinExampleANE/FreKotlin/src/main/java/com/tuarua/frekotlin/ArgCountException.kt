@@ -15,7 +15,7 @@
  */
 
 package com.tuarua.frekotlin
-
+@Deprecated("Use FreArgException instead")
 class ArgCountException : FreException(message = "Not enough arguments") {
 
 }
