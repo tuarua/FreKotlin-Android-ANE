@@ -28,7 +28,7 @@ open class FreException : Exception {
     private val TAG = "com.tuarua.frekotlin.FreException"
     private var _aneError: FreObjectKotlin? = null
     var stackTrace = ""
-    override var message = ""
+    final override var message = ""
     var type = ""
 
     constructor(e: Any, message: String? = null) : super() {

@@ -231,6 +231,7 @@ class KotlinController : FreKotlinMainController {
         }
 
         try {
+            @Suppress("UNUSED_VARIABLE")
             val p: FREObject? = person["doNotExist"] //calling a property that doesn't exist
         } catch (e: FreException) {
             return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
