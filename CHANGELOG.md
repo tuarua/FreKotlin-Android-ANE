@@ -1,3 +1,14 @@
+### 1.3.0
+- Upgraded to Kotlin 1.2.41
+- Upgraded to AIR 29
+- Extensions for LongArray
+- Deprecate ArgCountException
+- Deprecate ArgException
+- Deprecate NullArgsException
+- Added FreArgException
+- Added FreConversionException
+- Added generic catch for FREFunction calls
+
 ### 1.2.0
 - Upgraded to Kotlin 1.2.30
 - Upgraded to AIR 29

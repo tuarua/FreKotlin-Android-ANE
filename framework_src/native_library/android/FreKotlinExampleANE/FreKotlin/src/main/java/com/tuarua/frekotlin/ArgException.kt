@@ -15,6 +15,7 @@
  */
 
 package com.tuarua.frekotlin
+@Deprecated("Use FreConversionException instead")
 class ArgException : FreException(message = "invalid arguments", type = "FreInvalidArgumentException") {
 
 }

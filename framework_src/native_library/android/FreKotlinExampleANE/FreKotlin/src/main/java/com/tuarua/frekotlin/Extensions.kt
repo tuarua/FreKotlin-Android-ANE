@@ -24,18 +24,20 @@ import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import java.util.*
 
+/** Alias for param in fun */
 typealias FREArgv = ArrayList<FREObject>
+
+/** Sends an asynchronous event to the ANE */
 fun FREContext.sendEvent(name: String, value: String) {
     this.dispatchStatusEventAsync(value, name)
 }
 
+/** Sends a trace event to the ANE */
 fun FREContext.trace(TAG: String, args: Array<out Any?>) {
-    @Suppress("LocalVariableName")
-    val TRACE = "TRACE"
     var traceStr = "$TAG: "
     for (v in args)
         traceStr = traceStr + "$v" + " "
-    this.sendEvent(TRACE, traceStr)
+    this.sendEvent("TRACE", traceStr)
 }
 
 // Declare an extension function that calls a lambda called block if the value is null
@@ -43,29 +45,16 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
 
-/**
- * converts a FREObject to a Double
- *
- */
-fun Double(freObject: FREObject?): Double? =FreKotlinHelper.getAsDouble(freObject)
+/** Converts a FREObject to a Double */
+fun Double(freObject: FREObject?): Double? = FreKotlinHelper.getAsDouble(freObject)
 
-/**
- * converts a FREObject to a Long
- *
- */
+/** converts a FREObject to a Long */
 fun Long(freObject: FREObject?): Long? = FreKotlinHelper.getAsDouble(freObject)?.toLong()
 
-/**
- * converts a FREObject to a Float
- *
- */
+/** Converts a FREObject to a Float */
 fun Float(freObject: FREObject?): Float? = FreKotlinHelper.getAsDouble(freObject)?.toFloat()
 
-
-/**
- * converts a FREArray to a BooleanArray
- *
- */
+/** Converts a FREArray to a BooleanArray */
 @Throws(FreException::class)
 fun BooleanArray(freArray: FREArray?): BooleanArray? {
     if (freArray != null) {
@@ -83,10 +72,7 @@ fun BooleanArray(freArray: FREArray?): BooleanArray? {
     return null
 }
 
-/**
- * converts a FREObject to a BooleanArray
- *
- */
+/** Converts a FREObject to a BooleanArray */
 @Throws(FreException::class)
 fun BooleanArray(freObject: FREObject?): BooleanArray? {
     if (freObject != null) {
@@ -95,10 +81,7 @@ fun BooleanArray(freObject: FREObject?): BooleanArray? {
     return null
 }
 
-/**
- * converts a FREArray to a DoubleArray
- *
- */
+/** Converts a FREArray to a DoubleArray */
 @Throws(FreException::class)
 fun DoubleArray(freArray: FREArray?): DoubleArray? {
     if (freArray != null) {
@@ -116,10 +99,7 @@ fun DoubleArray(freArray: FREArray?): DoubleArray? {
     return null
 }
 
-/**
- * converts a FREObject to a DoubleArray
- *
- */
+/** Converts a FREArray to a DoubleArray */
 @Throws(FreException::class)
 fun DoubleArray(freObject: FREObject?): DoubleArray? {
     if (freObject != null) {
@@ -128,10 +108,7 @@ fun DoubleArray(freObject: FREObject?): DoubleArray? {
     return null
 }
 
-/**
- * converts a FREArray to an IntArray
- *
- */
+/** Converts a FREArray to an IntArray */
 @Throws(FreException::class)
 fun IntArray(freArray: FREArray?): IntArray? {
     if (freArray != null) {
@@ -149,10 +126,7 @@ fun IntArray(freArray: FREArray?): IntArray? {
     return null
 }
 
-/**
- * converts a FREObject to an IntArray
- *
- */
+/** Converts a FREObject to an IntArray */
 @Throws(FreException::class)
 fun IntArray(freObject: FREObject?): IntArray? {
     if (freObject != null) {
@@ -161,10 +135,32 @@ fun IntArray(freObject: FREObject?): IntArray? {
     return null
 }
 
-/**
- * converts a FREArray to an List<String>
- *
- */
+/** Converts a FREArray to a LongArray */
+fun LongArray(freArray: FREArray?): LongArray? {
+    if (freArray != null) {
+        val count = freArray.length.toInt()
+        val kotArr: LongArray = kotlin.LongArray(count)
+        for (i in 0 until count) {
+            val v = Long(freArray.getObjectAt(i.toLong()))
+            when {
+                v != null -> kotArr[i] = v
+                else -> return null
+            }
+        }
+        return kotArr
+    }
+    return null
+}
+
+/** Converts a FREObject to an LongArray */
+fun LongArray(freObject: FREObject?): LongArray? {
+    if (freObject != null) {
+        return LongArray(FREArray(freObject))
+    }
+    return null
+}
+
+/** Converts a FREArray to an List<String> */
 @Suppress("UNCHECKED_CAST", "unused")
 fun <String> List(freArray: FREArray?): List<String> {
     if (freArray != null) {
@@ -172,10 +168,8 @@ fun <String> List(freArray: FREArray?): List<String> {
     }
     return listOf()
 }
-/**
- * converts a FREObject to an List<String>
- *
- */
+
+/** Converts a FREObject to an List<String>  */
 fun <String> List(freObject: FREObject?): List<String> {
     if (freObject != null) {
         return List(FREArray(freObject))
@@ -183,6 +177,7 @@ fun <String> List(freObject: FREObject?): List<String> {
     return listOf()
 }
 
+/** Converts a FREObject to a Map<String, Any> */
 @Suppress("UNCHECKED_CAST", "unused")
 fun <String, Any> Map(freObject: FREObject?): Map<String, Any>? {
     if (freObject != null) {
@@ -191,44 +186,40 @@ fun <String, Any> Map(freObject: FREObject?): Map<String, Any>? {
     return null
 }
 
-/**
- * converts a FREObject to a Int
- */
+/** Converts a FREObject to a Int */
 fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsInt(freObject)
 
-/**
- * converts a FREObject to a String
- */
+/** Converts a FREObject to a String */
 fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsString(freObject)
 
-/**
- * converts a FREObject to a Boolean
- */
+/** Converts a FREObject to a Boolean */
 fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsBoolean(freObject)
 
-/**
- * converts a FREObject to a Date
- */
+/** Converts a FREObject to a Date */
 fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsDate(freObject)
 
+/** Calls the given method on a FREObject */
 @Throws(FreException::class)
 fun FREObject?.call(method: String, vararg args: Any): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.call(rv, method, args)
 }
 
+/**  Calls the given method on a FREObject */
 @Throws(FreException::class)
 fun FREObject?.call(method: String): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.call(rv, method)
 }
 
+/**  Calls the given method on a FREObject */
 @Throws(FreException::class)
 fun FREObject?.call(method: String, vararg args: FREObject): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.call(rv, method, args)
 }
 
+/**  calls the given method on a FREObject */
 var FREObject?.type: FreObjectTypeKotlin
     get() {
         return when {
@@ -257,6 +248,15 @@ fun FREArray(freObject: FREObject): FREArray {
 
 @Throws(FreException::class)
 fun FREArray(value: IntArray): FREArray {
+    val rv = FREArray.newArray(value.size)
+    for (i in value.indices) {
+        rv[i] = value[i].toFREObject()
+    }
+    return rv
+}
+
+@Throws(FreException::class)
+fun FREArray(value: LongArray): FREArray {
     val rv = FREArray.newArray(value.size)
     for (i in value.indices) {
         rv[i] = value[i].toFREObject()
@@ -372,10 +372,8 @@ operator fun FREObject.get(name: String): FREObject? {
         null
     }
 }
-/**
- * converts a FREObject of type uint to a Color
- *
- */
+
+/** Converts a FREObject of type uint to a Color */
 fun FREObject.toColor(hasAlpha: Boolean = false): Int {
     val freColor = Long(this)
     if (freColor != null) {
@@ -395,10 +393,7 @@ fun FREObject.toHSV(hasAlpha: Boolean = false): Float {
     return hsv[0]
 }
 
-/**
- * converts a Int to a FREObject of type int
- *
- */
+/** Converts a Int to a FREObject of type int */
 fun Int.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
@@ -407,9 +402,7 @@ fun Int.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a Short to a FREObject of type int
- */
+/** Converts a Short to a FREObject of type int */
 fun Short.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toInt())
@@ -418,9 +411,7 @@ fun Short.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a Boolean to a FREObject of type Boolean
- */
+/** Converts a Boolean to a FREObject of type Boolean */
 fun Boolean.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
@@ -429,9 +420,7 @@ fun Boolean.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a String to a FREObject of type String
- */
+/** Converts a String to a FREObject of type String */
 fun String.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
@@ -440,9 +429,7 @@ fun String.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a Double to a FREObject of type Number
- */
+/** Converts a Double to a FREObject of type Number */
 fun Double.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
@@ -451,9 +438,7 @@ fun Double.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a Long to a FREObject of type Number
- */
+/** Converts a Long to a FREObject of type Number */
 fun Long.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toDouble())
@@ -462,9 +447,7 @@ fun Long.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a Float to a FREObject of type Number
- */
+/** Converts a Float to a FREObject of type Number */
 @Throws(FreException::class)
 fun Float.toFREObject(): FREObject? {
     return try {
@@ -474,9 +457,7 @@ fun Float.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a Date to a FREObject of type Date
- */
+/** Converts a Date to a FREObject of type Date */
 @Throws(FreException::class)
 fun Date.toFREObject(): FREObject? {
     return try {
@@ -488,9 +469,7 @@ fun Date.toFREObject(): FREObject? {
     }
 }
 
-/**
- * converts a IntArray to a FREArray
- */
+/** Converts a IntArray to a FREArray */
 @Throws(FreException::class)
 fun IntArray.toFREArray(): FREArray? {
     try {
@@ -500,9 +479,7 @@ fun IntArray.toFREArray(): FREArray? {
     }
 }
 
-/**
- * converts a BooleanArray to a FREArray
- */
+/** Converts a BooleanArray to a FREArray */
 @Throws(FreException::class)
 fun BooleanArray.toFREArray(): FREArray? {
     try {
@@ -512,9 +489,7 @@ fun BooleanArray.toFREArray(): FREArray? {
     }
 }
 
-/**
- * converts a DoubleArray to a FREArray
- */
+/** Converts a DoubleArray to a FREArray */
 @Throws(FreException::class)
 fun DoubleArray.toFREArray(): FREArray? {
     try {
@@ -524,9 +499,7 @@ fun DoubleArray.toFREArray(): FREArray? {
     }
 }
 
-/**
- * converts a List<String> to a FREArray
- */
+/** Converts a List<String> to a FREArray */
 @Throws(FreException::class)
 fun List<String>.toFREArray(): FREArray? {
     try {
@@ -536,3 +509,20 @@ fun List<String>.toFREArray(): FREArray? {
     }
 }
 
+/**  returns an ANEError stating which variable could not be converted */
+fun FreConversionException(variableName: String, stackTrace: kotlin.Array<java.lang.StackTraceElement> = arrayOf()): FREObject? {
+    return try {
+        FreException("[FreKotlin] Cannot convert $variableName").getError(stackTrace)
+    } catch (e: Exception) {
+        null
+    }
+}
+
+/**  returns an ANEError stating which function has not received enough parameters */
+fun FreArgException(functionName: String, stackTrace: kotlin.Array<java.lang.StackTraceElement> = arrayOf()): FREObject? {
+    return try {
+        FreException("[FreKotlin] Not enough arguments passed to $functionName").getError(stackTrace)
+    } catch (e: Exception) {
+        null
+    }
+}

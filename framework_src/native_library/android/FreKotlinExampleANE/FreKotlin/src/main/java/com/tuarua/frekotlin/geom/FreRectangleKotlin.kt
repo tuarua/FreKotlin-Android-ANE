@@ -51,10 +51,10 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
             try {
                 val rv = rawValue
                 if (rv != null) {
-                    x = Double(FreKotlinHelper.getProperty(rv, "x")) ?: 0.0
-                    y = Double(FreKotlinHelper.getProperty(rv, "y")) ?: 0.0
-                    w = Double(FreKotlinHelper.getProperty(rv, "width")) ?: 0.0
-                    h = Double(FreKotlinHelper.getProperty(rv, "height")) ?: 0.0
+                    x = Double(rv["x"]) ?: 0.0
+                    y = Double(rv["y"]) ?: 0.0
+                    w = Double(rv["width"]) ?: 0.0
+                    h = Double(rv["height"]) ?: 0.0
                 }
             } catch (e: Exception) {
                 Log.e(TAG, e.message)
