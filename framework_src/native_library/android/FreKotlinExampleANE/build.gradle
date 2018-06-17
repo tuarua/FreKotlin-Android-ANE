@@ -13,6 +13,10 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
+
+        // Required plugins added to classpath to facilitate pushing to JCenter/Bintray
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     }
 }
 
@@ -25,4 +29,20 @@ allprojects {
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    targetSdkVersion = 27
+    minSdkVersion = 19
+    compileSdkVersion = targetSdkVersion
+    buildToolsVersion = '27.0.3'
+
+    // FreKotlin Library Info
+    libVersionCode = 1
+    libVersionName = '1.3.0'
+    libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
+    libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
+    libModuleName = 'FreKotlin'
+    libModuleDesc = 'Create Air Native Extensions for Android using Kotlin.'
+    libBintrayName = 'FreKotlin'
 }
