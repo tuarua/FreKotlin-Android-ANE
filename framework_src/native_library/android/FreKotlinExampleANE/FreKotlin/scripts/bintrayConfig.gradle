@@ -5,7 +5,7 @@
 
 >>>>> To publish with javadoc Fail on error flag set to false
 
-   ./gradlew clean build install bintrayUpload -Ppublish=true -PjavadocFlag=true
+   gradlew bintrayUpload -Ppublish=true -PjavadocFlag=false
 
 */
 
