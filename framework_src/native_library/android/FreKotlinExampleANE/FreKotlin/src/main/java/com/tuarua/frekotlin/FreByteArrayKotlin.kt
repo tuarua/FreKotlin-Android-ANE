@@ -32,32 +32,20 @@ class FreByteArrayKotlin {
     var length: Int = 0
     var bytes: ByteBuffer? = null
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor()
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor(value: FreByteArrayKotlin) {
         rawValue = value.rawValue
     }
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor(value: FREObject) {
         rawValue = value as FREByteArray
     }
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor(value: FREByteArray) {
         rawValue = value
     }

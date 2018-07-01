@@ -68,15 +68,8 @@ open class FreObjectKotlin {
             rawValue = FREObject("Date", any.time)
             return
         }
-/*        if (any is Any) {
-            //Log.e(TAG, "any is an Any - NOT FOUND")
-            return
-        }*/
-        // Log.d(TAG, "can't find type")
         return
     }
-
-
 
     open val value: Any?
         get() {

@@ -1,3 +1,9 @@
+### 1.4.0
+- Upgraded to Kotlin 1.2.50
+- Upgraded to AIR 30
+- Added iterator for FREArray i.e. for (fre: FREObject? in airArray) { }
+- Added subscript setter# for FREObject i.e. myFreObject["name"] = myFREObject
+
 ### 1.3.0
 - Upgraded to Kotlin 1.2.41
 - Upgraded to AIR 29

@@ -48,7 +48,8 @@ class KotlinController : FreKotlinMainController {
         trace("This is AIR string", airString)
         sendEvent("MY_EVENT", "this is a test")
 
-        val kotlinString = "I am a string from Kotlin"
+        val kotlinString = "I am a string from Kotlin with UTF-8: Björk Guðmundsdóttir Sinéad O’Connor " +
+                "久保田  利伸 Михаил Горбачёв Садриддин Айнӣ Tor Åge Bringsværd 章子怡 €"
         return kotlinString.toFREObject()
     }
 
@@ -95,6 +96,7 @@ class KotlinController : FreKotlinMainController {
 
         try {
             if (oldAge is Int) {
+                person["age"] = (oldAge + 10).toFREObject()
                 person.setProp("age", oldAge + 10)
             }
             val addition = person.call("add", 100, 31)
@@ -126,7 +128,12 @@ class KotlinController : FreKotlinMainController {
         trace("***********Start Array test ***********")
         try {
             val airArray: FREArray? = FREArray(freObject = argv[0])
+
             if (airArray != null) {
+                for (fre: FREObject? in airArray) {
+                    trace("iterate over FREArray", Int(fre))
+                }
+
                 val airArrayLen = airArray.length
                 trace("AIR Array length:", airArrayLen)
 

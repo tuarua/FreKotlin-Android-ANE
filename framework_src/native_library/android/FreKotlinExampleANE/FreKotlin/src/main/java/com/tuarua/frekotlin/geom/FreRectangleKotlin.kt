@@ -14,15 +14,13 @@
  *  limitations under the License.
  */
 
-@file:Suppress("unused", "FunctionName")
+@file:Suppress("unused", "FunctionName", "PrivatePropertyName")
 
 package com.tuarua.frekotlin.geom
 
-import android.util.Log
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
 
-@Suppress("unused")
 open class FreRectangleKotlin() : FreObjectKotlin() {
     private var TAG = "com.tuarua.FreRectangleKotlin"
 
@@ -34,6 +32,7 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
         this.rawValue = value
     }
 
+    @Throws(FreException::class)
     constructor(value: Rect) : this() {
         rawValue = FREObject("flash.geom.Rectangle",
                 value.x,
@@ -44,22 +43,10 @@ open class FreRectangleKotlin() : FreObjectKotlin() {
 
     override val value: Rect
         get() {
-            var x = 0.0
-            var y = 0.0
-            var w = 0.0
-            var h = 0.0
-            try {
-                val rv = rawValue
-                if (rv != null) {
-                    x = Double(rv["x"]) ?: 0.0
-                    y = Double(rv["y"]) ?: 0.0
-                    w = Double(rv["width"]) ?: 0.0
-                    h = Double(rv["height"]) ?: 0.0
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, e.message)
-            }
-            return Rect(x, y, w, h)
+            return Rect(Double(rawValue?.get("x")) ?: 0.0,
+                    Double(rawValue?.get("y")) ?: 0.0,
+                    Double(rawValue?.get("width")) ?: 0.0,
+                    Double(rawValue?.get("height")) ?: 0.0)
         }
 
 }

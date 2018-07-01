@@ -29,7 +29,7 @@ open class FreException : Exception {
     private var _aneError: FreObjectKotlin? = null
     var stackTrace = ""
     final override var message = ""
-    var type = ""
+    private var type = ""
 
     constructor(e: Any, message: String? = null) : super() {
         val exception = e as Exception
@@ -95,7 +95,7 @@ open class FreException : Exception {
         }
 
         try {
-            _aneError = FreObjectKotlin(FREObject("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions." + type,
+            _aneError = FreObjectKotlin(FREObject("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions.$type",
                     "$className.$methodName():$lineNumber", stackTrace))
         } catch (e: FREWrongThreadException) {
         }
