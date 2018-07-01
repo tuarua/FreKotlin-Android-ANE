@@ -1,4 +1,4 @@
-# Android Kotlin ANE
+# FreKotlin
 
 Example Android Studio project showing how to create Air Native Extensions for Android using Kotlin.  
   
@@ -98,6 +98,17 @@ Example - Sending events back to AIR (replaces dispatchStatusEventAsync)
 
 ```kotlin
 sendEvent("MY_EVENT", "this is a test")
+```
+
+Example - Reading items in array
+
+```kotlin
+val airArray: FREArray? = FREArray(freObject = argv[0])
+for (fre: FREObject? in airArray) {
+    trace("iterate over FREArray", Int(fre))
+}
+airArray[0] = 123.toFREObject()
+val itemZero: FREObject? = airArray[0]
 ```
 
 Example - Error handling
