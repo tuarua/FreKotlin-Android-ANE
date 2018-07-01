@@ -40,77 +40,77 @@ The following table shows the primitive as3 types which can easily be converted 
 
 Example
 
-```` Kotlin
+```kotlin
 val airString: String? = String(argv[0])
 trace("String passed from AIR:", airString) //As3 style trace!
 
 val kotlinString = "I am a string from Kotlin"
 return kotlinString.toFREObject()
-`````
+```
 
 Example - Call a method on an FREObject
 
-```` Kotlin
+```kotlin
 val person = argv[0]
 val addition = person.call("add", 100, 31)
 if (addition != null) {
     trace("addition result: ${Int(addition)}")
 }
-`````
+```
 
 Example - Get a property of a FREObject
 
-```` Kotlin
+```kotlin
 val person = argv[0]
 val age = Int(person["age"])
 if (age != null) {
     trace("person is: $age" years old)
 }
-`````
+```
 
 Example - Set a property of a FREObject
 
-```` Kotlin
+```kotlin
 val person = argv[0]
 try {
      person.setProp("age", 32)
 } catch (e: FreException) {
 
 }
-`````
+```
 
 Example - Convert a FREObject Object into a Map
 
-```` Kotlin
+```kotlin
 val person = argv[0]
 val dictionary: Map<String, Any>? = Map(person)
 trace("keys: ${dictionary?.keys.toString()} values: ${dictionary?.values.toString()}")
-`````
+```
 
 Example - Create a new FREObject
 
-```` Kotlin
+```kotlin
 val newPerson = FREObject("com.tuarua.Person")
 trace("We created a new person. type = ${newPerson.type}")
-`````
+```
 
 Example - Sending events back to AIR (replaces dispatchStatusEventAsync)
 
-```` Kotlin
+```kotlin
 sendEvent("MY_EVENT", "this is a test")
-`````
+```
 
 Example - Error handling
-```` kotlin
+```kotlin
 try {
     person.getProp("doNotExist")
 } catch (e: FreException) {
     return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
 }
-`````
+```
 
 Advanced Example - Extending. Convert to/from LatLng
-```` kotlin
+```kotlin
 package com.tuarua.frekotlin
 
 import com.adobe.fre.FREObject
@@ -128,35 +128,14 @@ class FreCoordinateKotlin() : FreObjectKotlin() {
     }
 
     override val value: LatLng
-        @Throws(FreException::class)
         get() {
-            var lat = 0.0
-            var lng = 0.0
-
-            val rv = rawValue
-            if (rv == null) {
-                return LatLng(lat, lng)
-            } else {
-                try {
-                    val latFre = Double(rv["latitude"])
-                    val lngFre = Double(rv["longitude"])
-                    if (latFre != null && lngFre != null) {
-                        lat = latFre
-                        lng = lngFre
-                    }
-                } catch (e: FreException) {
-                    throw e
-                } catch (e: Exception) {
-                    throw FreException(e)
-                }
-                return LatLng(lat, lng)
-            }
-
+            return LatLng(Double(rawValue?.get("latitude")) ?: 0.0,
+                    Double(rawValue?.get("longitude")) ?: 0.0)
         }
 }
 
 fun LatLng(freObject: FREObject?): LatLng = FreCoordinateKotlin(freObject = freObject).value
-`````
+```
 
 ### Prerequisites
 
