@@ -70,6 +70,15 @@ fun FREArray(value: List<String>): FREArray {
 }
 
 @Throws(FreException::class)
+fun FREArray(className: String, length: Int = 0, fixed: Boolean = false): FREArray {
+    try {
+        return FREArray.newArray(className, length, fixed)
+    } catch (e: Exception) {
+        throw FreException(e, "cannot create new array of $className")
+    }
+}
+
+@Throws(FreException::class)
 fun FREArray.at(index: Int): FREObject? {
     return this.getObjectAt(index.toLong())
 }

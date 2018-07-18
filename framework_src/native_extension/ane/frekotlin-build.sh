@@ -9,7 +9,7 @@ echo $pathtome
 
 AIR_SDK="/Users/User/sdks/AIR/AIRSDK_29"
 
-KOTLIN_VERSION="1.2.41"
+KOTLIN_VERSION="1.2.51"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin

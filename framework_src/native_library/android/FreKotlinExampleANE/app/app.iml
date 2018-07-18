@@ -120,8 +120,8 @@
     <orderEntry type="jdk" jdkName="Android API 27 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: __local_aars__:D.\dev\flash\FreKotlin-Android-ANE\framework_src\native_library\android\FreKotlinExampleANE\shared\libs\FlashRuntimeExtensions.jar:unspecified@jar" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.50@jar" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.50@jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.2.51@jar" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.2.51@jar" level="project" />
     <orderEntry type="library" name="Gradle: __local_aars__:D.\dev\flash\FreKotlin-Android-ANE\framework_src\native_library\android\FreKotlinExampleANE\shared\libs\runtimeClasses.jar:unspecified@jar" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0@jar" level="project" />
     <orderEntry type="module" module-name="FreKotlin" />

@@ -1,8 +1,11 @@
 ### 1.4.0
-- Upgraded to Kotlin 1.2.50
+- Upgraded to Kotlin 1.2.51
 - Upgraded to AIR 30
+- Added Kotlin version of FREArray.newArray
 - Added iterator for FREArray i.e. for (fre: FREObject? in airArray) { }
 - Added subscript setter# for FREObject i.e. myFreObject["name"] = myFREObject
+- deprecate sendEvent, use dispatchEvent instead
+- handle Float param in call() method
 
 ### 1.3.0
 - Upgraded to Kotlin 1.2.41

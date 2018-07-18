@@ -46,7 +46,7 @@ class KotlinController : FreKotlinMainController {
         val airString = String(argv[0]) ?: return FreConversionException("airString")
 
         trace("This is AIR string", airString)
-        sendEvent("MY_EVENT", "this is a test")
+        dispatchEvent("MY_EVENT", "this is a test")
 
         val kotlinString = "I am a string from Kotlin with UTF-8: Björk Guðmundsdóttir Sinéad O’Connor " +
                 "久保田  利伸 Михаил Горбачёв Садриддин Айнӣ Tor Åge Bringsværd 章子怡 €"

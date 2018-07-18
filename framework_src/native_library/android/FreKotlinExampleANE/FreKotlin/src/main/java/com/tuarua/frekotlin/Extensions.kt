@@ -26,8 +26,13 @@ import java.util.*
 /** Alias for param in fun */
 typealias FREArgv = ArrayList<FREObject>
 
-/** Sends an asynchronous event to the ANE */
+@Deprecated("Use dispatchEvent instead", ReplaceWith("this.dispatchEvent(name, value)"))
 fun FREContext.sendEvent(name: String, value: String) {
+    this.dispatchStatusEventAsync(value, name)
+}
+
+/** Sends an asynchronous event to the ANE */
+fun FREContext.dispatchEvent(name: String, value: String) {
     this.dispatchStatusEventAsync(value, name)
 }
 
@@ -36,7 +41,7 @@ fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
         traceStr = traceStr + "$v" + " "
-    this.sendEvent("TRACE", traceStr)
+    this.dispatchEvent("TRACE", traceStr)
 }
 
 // Declare an extension function that calls a lambda called block if the value is null
@@ -107,15 +112,15 @@ var FREObject?.type: FreObjectTypeKotlin
     set(value) = Unit
 
 @Throws(FreException::class)
-fun FREObject(name: String, vararg args: Any?): FREObject {
+fun FREObject(className: String, vararg args: Any?): FREObject {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
         argsArr[i] = FreObjectKotlin(args[i]).rawValue
     }
     try {
-        return FREObject.newObject(name, argsArr)
+        return FREObject.newObject(className, argsArr)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object named $name")
+        throw FreException(e, "cannot create new object named $className")
     }
 }
 
@@ -125,7 +130,6 @@ fun FREObject.setProp(name: String, value: Any?) {
         FreKotlinHelper.setProperty(this, name, value)
         return
     }
-
     if (value is FreObjectKotlin) {
         FreKotlinHelper.setProperty(this, name, value.rawValue)
         return
@@ -139,32 +143,30 @@ fun FREObject.setProp(name: String, value: Any?) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Double) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
+    if (value is Float) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
     if (value is Long) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Short) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Boolean) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Date) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Any) {
         //Log.e(TAG, "any is an Any - NOT FOUND")
         return
@@ -276,11 +278,9 @@ fun Float.toFREObject(): FREObject? {
 @Throws(FreException::class)
 fun Date.toFREObject(): FREObject? {
     return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
+        FREObject("Date", this.time)
     } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
+        FreException(e, "cannot create new object from Float").getError(Thread.currentThread().stackTrace)
     }
 }
 

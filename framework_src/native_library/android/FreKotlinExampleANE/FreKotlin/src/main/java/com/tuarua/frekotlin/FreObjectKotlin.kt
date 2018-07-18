@@ -52,6 +52,10 @@ open class FreObjectKotlin {
             rawValue = FREObject.newObject(any)
             return
         }
+        if (any is Float) {
+            rawValue = FREObject.newObject(any.toDouble())
+            return
+        }
         if (any is Long) {
             rawValue = FREObject.newObject(any.toDouble())
             return

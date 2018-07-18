@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.2.50'
+    ext.kotlin_version = '1.2.51'
     ext.dokka_version = '0.9.16'
     repositories {
         google()
@@ -39,7 +39,7 @@ ext {
 
     // FreKotlin Library Info
     libVersionCode = 1
-    libVersionName = '1.4.0'
+    libVersionName = '1.4.0-beta3'
     libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
     libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
     libModuleName = 'FreKotlin'
