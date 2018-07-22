@@ -13,11 +13,10 @@
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
-@file:Suppress("FunctionName", "unused")
+@file:Suppress("FunctionName", "unused", "PrivatePropertyName")
 
 package com.tuarua.frekotlin.geom
 
-import android.util.Log
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
 
@@ -28,24 +27,15 @@ open class FrePointKotlin() : FreObjectKotlin() {
         this.rawValue = value
     }
 
+    @Throws(FreException::class)
     constructor(value: Point) : this() {
         rawValue = FREObject("flash.geom.Point", value.x, value.y)
     }
 
     override val value: Point
         get() {
-            var x = 0.0
-            var y = 0.0
-            try {
-                val rv =  rawValue
-                if (rv != null) {
-                    x = Double(rv["x"]) ?: 0.0
-                    y = Double(rv["y"]) ?: 0.0
-                }
-            } catch (e: Exception) {
-                Log.e(TAG, e.message)
-            }
-            return Point(x, y)
+            return Point(Double(rawValue?.get("x")) ?: 0.0,
+                    Double(rawValue?.get("y")) ?: 0.0)
         }
 }
 

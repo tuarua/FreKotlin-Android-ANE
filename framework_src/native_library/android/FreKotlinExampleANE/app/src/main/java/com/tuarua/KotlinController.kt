@@ -46,9 +46,10 @@ class KotlinController : FreKotlinMainController {
         val airString = String(argv[0]) ?: return FreConversionException("airString")
 
         trace("This is AIR string", airString)
-        sendEvent("MY_EVENT", "this is a test")
+        dispatchEvent("MY_EVENT", "this is a test")
 
-        val kotlinString = "I am a string from Kotlin"
+        val kotlinString = "I am a string from Kotlin with UTF-8: Björk Guðmundsdóttir Sinéad O’Connor " +
+                "久保田  利伸 Михаил Горбачёв Садриддин Айнӣ Tor Åge Bringsværd 章子怡 €"
         return kotlinString.toFREObject()
     }
 
@@ -95,6 +96,7 @@ class KotlinController : FreKotlinMainController {
 
         try {
             if (oldAge is Int) {
+                person["age"] = (oldAge + 10).toFREObject()
                 person.setProp("age", oldAge + 10)
             }
             val addition = person.call("add", 100, 31)
@@ -125,20 +127,25 @@ class KotlinController : FreKotlinMainController {
     fun runArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Array test ***********")
         try {
-            val airArray: FREArray? = FREArray(freObject = argv[0])
+            val airArray: FREArray? = FREArray(argv[0])
+
             if (airArray != null) {
+                for (fre: FREObject? in airArray) {
+                    trace("iterate over FREArray", Int(fre))
+                }
+
                 val airArrayLen = airArray.length
                 trace("AIR Array length:", airArrayLen)
 
                 val itemZero: FREObject? = airArray[0]
                 val itemZeroVal: Int? = Int(itemZero)
                 if (itemZeroVal is Int) {
-                    trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+                    trace("AIR Array elem at 0 type: $itemZeroVal")
                     airArray[0] = 56.toFREObject()
                 }
             }
 
-            val airVector: FREArray? = FREArray(freObject = argv[1])
+            val airVector: FREArray? = FREArray(argv[1])
             val airVectorLen = airVector?.length
 
             trace("air vector len: ", airVectorLen)

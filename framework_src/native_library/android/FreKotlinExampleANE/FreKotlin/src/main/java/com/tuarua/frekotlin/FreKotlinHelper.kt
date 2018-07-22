@@ -24,9 +24,6 @@ import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 import com.tuarua.frekotlin.display.Bitmap
-import com.tuarua.frekotlin.display.FreBitmapDataKotlin
-import com.tuarua.frekotlin.geom.FrePointKotlin
-import com.tuarua.frekotlin.geom.FreRectangleKotlin
 import com.tuarua.frekotlin.geom.Point
 import com.tuarua.frekotlin.geom.Rect
 import java.util.*
@@ -36,7 +33,7 @@ import java.util.*
  * @suppress
  */
 object FreKotlinHelper {
-    internal var TAG = "com.tuarua.FreKotlinHelper"
+    private var TAG = "com.tuarua.FreKotlinHelper"
 
     fun getAsString(rawValue: FREObject?): String? {
         try {

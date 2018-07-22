@@ -19,7 +19,6 @@
 package com.tuarua.frekotlin
 
 import android.graphics.Color
-import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import java.util.*
@@ -27,8 +26,13 @@ import java.util.*
 /** Alias for param in fun */
 typealias FREArgv = ArrayList<FREObject>
 
-/** Sends an asynchronous event to the ANE */
+@Deprecated("Use dispatchEvent instead", ReplaceWith("this.dispatchEvent(name, value)"))
 fun FREContext.sendEvent(name: String, value: String) {
+    this.dispatchStatusEventAsync(value, name)
+}
+
+/** Sends an asynchronous event to the ANE */
+fun FREContext.dispatchEvent(name: String, value: String) {
     this.dispatchStatusEventAsync(value, name)
 }
 
@@ -37,7 +41,7 @@ fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
         traceStr = traceStr + "$v" + " "
-    this.sendEvent("TRACE", traceStr)
+    this.dispatchEvent("TRACE", traceStr)
 }
 
 // Declare an extension function that calls a lambda called block if the value is null
@@ -53,129 +57,6 @@ fun Long(freObject: FREObject?): Long? = FreKotlinHelper.getAsDouble(freObject)?
 
 /** Converts a FREObject to a Float */
 fun Float(freObject: FREObject?): Float? = FreKotlinHelper.getAsDouble(freObject)?.toFloat()
-
-/** Converts a FREArray to a BooleanArray */
-@Throws(FreException::class)
-fun BooleanArray(freArray: FREArray?): BooleanArray? {
-    if (freArray != null) {
-        val count = freArray.length.toInt()
-        val kotArr: BooleanArray = kotlin.BooleanArray(count)
-        for (i in 0 until count) {
-            val b = Boolean(freArray.getObjectAt(i.toLong()))
-            when {
-                b != null -> kotArr[i] = b
-                else -> return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-/** Converts a FREObject to a BooleanArray */
-@Throws(FreException::class)
-fun BooleanArray(freObject: FREObject?): BooleanArray? {
-    if (freObject != null) {
-        return BooleanArray(FREArray(freObject))
-    }
-    return null
-}
-
-/** Converts a FREArray to a DoubleArray */
-@Throws(FreException::class)
-fun DoubleArray(freArray: FREArray?): DoubleArray? {
-    if (freArray != null) {
-        val count = freArray.length.toInt()
-        val kotArr: DoubleArray = kotlin.DoubleArray(count)
-        for (i in 0 until count) {
-            val b = Double(freArray.getObjectAt(i.toLong()))
-            when {
-                b != null -> kotArr[i] = b
-                else -> return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-/** Converts a FREArray to a DoubleArray */
-@Throws(FreException::class)
-fun DoubleArray(freObject: FREObject?): DoubleArray? {
-    if (freObject != null) {
-        return DoubleArray(FREArray(freObject))
-    }
-    return null
-}
-
-/** Converts a FREArray to an IntArray */
-@Throws(FreException::class)
-fun IntArray(freArray: FREArray?): IntArray? {
-    if (freArray != null) {
-        val count = freArray.length.toInt()
-        val kotArr: IntArray = kotlin.IntArray(count)
-        for (i in 0 until count) {
-            val b = Int(freArray.getObjectAt(i.toLong()))
-            when {
-                b != null -> kotArr[i] = b
-                else -> return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-/** Converts a FREObject to an IntArray */
-@Throws(FreException::class)
-fun IntArray(freObject: FREObject?): IntArray? {
-    if (freObject != null) {
-        return IntArray(FREArray(freObject))
-    }
-    return null
-}
-
-/** Converts a FREArray to a LongArray */
-fun LongArray(freArray: FREArray?): LongArray? {
-    if (freArray != null) {
-        val count = freArray.length.toInt()
-        val kotArr: LongArray = kotlin.LongArray(count)
-        for (i in 0 until count) {
-            val v = Long(freArray.getObjectAt(i.toLong()))
-            when {
-                v != null -> kotArr[i] = v
-                else -> return null
-            }
-        }
-        return kotArr
-    }
-    return null
-}
-
-/** Converts a FREObject to an LongArray */
-fun LongArray(freObject: FREObject?): LongArray? {
-    if (freObject != null) {
-        return LongArray(FREArray(freObject))
-    }
-    return null
-}
-
-/** Converts a FREArray to an List<String> */
-@Suppress("UNCHECKED_CAST", "unused")
-fun <String> List(freArray: FREArray?): List<String> {
-    if (freArray != null) {
-        return freArray.let { FreKotlinHelper.getAsObject(it) as List<String> }
-    }
-    return listOf()
-}
-
-/** Converts a FREObject to an List<String>  */
-fun <String> List(freObject: FREObject?): List<String> {
-    if (freObject != null) {
-        return List(FREArray(freObject))
-    }
-    return listOf()
-}
 
 /** Converts a FREObject to a Map<String, Any> */
 @Suppress("UNCHECKED_CAST", "unused")
@@ -219,7 +100,8 @@ fun FREObject?.call(method: String, vararg args: FREObject): FREObject? {
     return FreKotlinHelper.call(rv, method, args)
 }
 
-/**  calls the given method on a FREObject */
+@Suppress("UNUSED_PARAMETER")
+        /**  Returns the type of an FREObject */
 var FREObject?.type: FreObjectTypeKotlin
     get() {
         return when {
@@ -230,81 +112,15 @@ var FREObject?.type: FreObjectTypeKotlin
     set(value) = Unit
 
 @Throws(FreException::class)
-fun FREObject(name: String, vararg args: Any?): FREObject {
+fun FREObject(className: String, vararg args: Any?): FREObject {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
         argsArr[i] = FreObjectKotlin(args[i]).rawValue
     }
     try {
-        return FREObject.newObject(name, argsArr)
+        return FREObject.newObject(className, argsArr)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object named $name")
-    }
-}
-
-fun FREArray(freObject: FREObject): FREArray {
-    return freObject as FREArray
-}
-
-@Throws(FreException::class)
-fun FREArray(value: IntArray): FREArray {
-    val rv = FREArray.newArray(value.size)
-    for (i in value.indices) {
-        rv[i] = value[i].toFREObject()
-    }
-    return rv
-}
-
-@Throws(FreException::class)
-fun FREArray(value: LongArray): FREArray {
-    val rv = FREArray.newArray(value.size)
-    for (i in value.indices) {
-        rv[i] = value[i].toFREObject()
-    }
-    return rv
-}
-
-@Throws(FreException::class)
-fun FREArray(value: DoubleArray): FREArray {
-    val rv = FREArray.newArray(value.size)
-    for (i in value.indices) {
-        rv[i] = value[i].toFREObject()
-    }
-    return rv
-}
-
-fun FREArray(value: BooleanArray): FREArray {
-    val rv = FREArray.newArray(value.size)
-    for (i in value.indices) {
-        rv[i] = value[i].toFREObject()
-    }
-    return rv
-}
-
-@Throws(FreException::class)
-fun FREArray(value: List<String>): FREArray {
-    val rv = FREArray.newArray(value.size)
-    for (i in value.indices) {
-        rv[i] = value[i].toFREObject()
-    }
-    return rv
-}
-
-@Throws(FreException::class)
-fun FREArray.at(index: Int): FREObject? {
-    return this.getObjectAt(index.toLong())
-}
-
-@Throws(FreException::class)
-operator fun FREArray.set(index: Int, value: FREObject?) {
-    this.setObjectAt(index.toLong(), value)
-}
-
-operator fun FREArray.get(index: Int): FREObject? {
-    return try {
-        this.getObjectAt(index.toLong())
-    } catch (e: Exception) {
-        null
+        throw FreException(e, "cannot create new object named $className")
     }
 }
 
@@ -314,7 +130,6 @@ fun FREObject.setProp(name: String, value: Any?) {
         FreKotlinHelper.setProperty(this, name, value)
         return
     }
-
     if (value is FreObjectKotlin) {
         FreKotlinHelper.setProperty(this, name, value.rawValue)
         return
@@ -328,32 +143,30 @@ fun FREObject.setProp(name: String, value: Any?) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Double) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
+    if (value is Float) {
+        FreKotlinHelper.setProperty(this, name, value.toFREObject())
+        return
+    }
     if (value is Long) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Short) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Boolean) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Date) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
     }
-
     if (value is Any) {
         //Log.e(TAG, "any is an Any - NOT FOUND")
         return
@@ -371,6 +184,10 @@ operator fun FREObject.get(name: String): FREObject? {
     } catch (e: Exception) {
         null
     }
+}
+
+operator fun FREObject.set(name: String, value: FREObject?) {
+    this.setProperty(name, value)
 }
 
 /** Converts a FREObject of type uint to a Color */
@@ -393,7 +210,7 @@ fun FREObject.toHSV(hasAlpha: Boolean = false): Float {
     return hsv[0]
 }
 
-/** Converts a Int to a FREObject of type int */
+/** Converts an Int to a FREObject of type int */
 fun Int.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
@@ -461,51 +278,9 @@ fun Float.toFREObject(): FREObject? {
 @Throws(FreException::class)
 fun Date.toFREObject(): FREObject? {
     return try {
-        FreObjectKotlin(this).rawValue
-    } catch (e: FreException) {
-        e.getError(Thread.currentThread().stackTrace)
+        FREObject("Date", this.time)
     } catch (e: Exception) {
-        FreException(e).getError(Thread.currentThread().stackTrace)
-    }
-}
-
-/** Converts a IntArray to a FREArray */
-@Throws(FreException::class)
-fun IntArray.toFREArray(): FREArray? {
-    try {
-        return FREArray(this)
-    } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from IntArray")
-    }
-}
-
-/** Converts a BooleanArray to a FREArray */
-@Throws(FreException::class)
-fun BooleanArray.toFREArray(): FREArray? {
-    try {
-        return FREArray(this)
-    } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from BooleanArray")
-    }
-}
-
-/** Converts a DoubleArray to a FREArray */
-@Throws(FreException::class)
-fun DoubleArray.toFREArray(): FREArray? {
-    try {
-        return FREArray(this)
-    } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from BooleanArray")
-    }
-}
-
-/** Converts a List<String> to a FREArray */
-@Throws(FreException::class)
-fun List<String>.toFREArray(): FREArray? {
-    try {
-        return FREArray(this)
-    } catch (e: Exception) {
-        throw FreException(e, "cannot create new object from List<String>")
+        FreException(e, "cannot create new object from Float").getError(Thread.currentThread().stackTrace)
     }
 }
 

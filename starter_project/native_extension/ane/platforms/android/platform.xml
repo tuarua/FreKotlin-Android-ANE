@@ -2,7 +2,7 @@
 <platform xmlns="http://ns.adobe.com/air/extension/19.0">
 	<packagedResources>
 		<packagedResource>
-			<packageName>com.mycompany.HelloWorldANE</packageName>
+			<packageName>com.mycompany.helloworldane</packageName>
 			<folderName>com.mycompany.HelloWorldANE-res</folderName>
 		</packagedResource>
 	</packagedResources>

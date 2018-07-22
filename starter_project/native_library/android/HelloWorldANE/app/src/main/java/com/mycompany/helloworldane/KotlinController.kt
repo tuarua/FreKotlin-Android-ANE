@@ -14,14 +14,14 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun sayHello(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 2 } ?: return ArgCountException().getError(Thread.currentThread().stackTrace)
+        argv.takeIf { argv.size > 2 } ?: return FreArgException("sayHello")
 
         val myString = String(argv[0])
         val uppercase = Boolean(argv[1])
         val numRepeats = Int(argv[2])
 
         if (myString != null && uppercase != null && numRepeats != null) {
-            sendEvent("MY_EVENT", "ok")
+            dispatchEvent("MY_EVENT", "ok")
 
             for (i in 0 until numRepeats) {
                 trace("hello $i")

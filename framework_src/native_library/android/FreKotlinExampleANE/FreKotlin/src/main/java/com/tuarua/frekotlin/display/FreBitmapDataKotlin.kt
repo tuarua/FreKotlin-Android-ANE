@@ -67,40 +67,25 @@ class FreBitmapDataKotlin {
     var isInvertedY: Boolean = false
     var bits32: ByteBuffer? = null
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor()
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor(value: FreBitmapDataKotlin) {
         rawValue = value.rawValue
     }
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor(value: FREObject) {
         rawValue = value as FREBitmapData
     }
 
-    /**
-     *
-     *
-     */
+    /** */
     constructor(value: FREBitmapData) {
         rawValue = value
     }
 
-    /**
-     *
-     *
-     */
+    /** */
     @Throws(FREASErrorException::class, FREWrongThreadException::class, FREInvalidObjectException::class)
     constructor(bitmap: Bitmap, swapColors: Boolean = true) {
         val fillColor = arrayOf<Byte>(0, 0, 0, 0)

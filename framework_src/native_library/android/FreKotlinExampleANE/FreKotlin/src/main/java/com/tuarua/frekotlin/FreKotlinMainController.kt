@@ -18,6 +18,7 @@ package com.tuarua.frekotlin
 
 import com.adobe.fre.FREContext
 
+@Suppress("PropertyName")
 interface FreKotlinMainController {
 
     val TAG:String
@@ -40,8 +41,13 @@ interface FreKotlinMainController {
         context?.trace(TAG, value)
     }
 
+    @Deprecated("Use dispatchEvent instead", ReplaceWith("dispatchEvent(name, value)"))
     fun sendEvent(name: String, value: String) {
-        context?.sendEvent(name, value)
+        context?.dispatchEvent(name, value)
+    }
+
+    fun dispatchEvent(name: String, value: String) {
+        context?.dispatchEvent(name, value)
     }
 
 }

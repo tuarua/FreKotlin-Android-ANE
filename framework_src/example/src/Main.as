@@ -39,7 +39,7 @@ public class Main extends Sprite {
             tf.color = 0x333333;
             tf.align = TextFormatAlign.LEFT;
             textField.defaultTextFormat = tf;
-            textField.width = 1600;
+            textField.width = stage.fullScreenWidth;
             textField.height = 1200;
             textField.multiline = true;
             textField.wordWrap = true;
@@ -71,6 +71,7 @@ public class Main extends Sprite {
             myArray.push(3, 1, 4, 2, 6, 5);
 
             var myVector:Vector.<String> = new <String>[];
+            myVector.fixed = true;
             myVector.push("abc", "xyz");
 
             var resultArray:Array = ane.runArrayTests(myArray, myVector);
@@ -78,7 +79,7 @@ public class Main extends Sprite {
                 textField.text += "Array: " + resultArray.toString() + "\n";
             }
 
-            const IMAGE_URL:String = "https://scontent.cdninstagram.com/t/s320x320/17126819_1827746530776184_5999931637335326720_n.jpg";
+            const IMAGE_URL:String = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin-logo.svg/600px-Kotlin-logo.svg.png";
 
             var ldr:Loader = new Loader();
             ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, ldr_complete);
@@ -89,7 +90,7 @@ public class Main extends Sprite {
                 var bmp:Bitmap = ldr.content as Bitmap;
                 ane.runBitmapTests(bmp.bitmapData);
                 bmp.x = 20;
-                bmp.y = 400;
+                bmp.y = 600;
                 addChild(bmp);
             }
 
