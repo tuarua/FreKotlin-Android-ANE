@@ -41,7 +41,7 @@ The following table shows the primitive as3 types which can easily be converted 
 
 #### Basic Types
 
-```java
+```kotlin
 val myString: String? = String(argv[0])
 val myInt = Int(argv[1]);
 val myBool = Boolean(argv[2]);
@@ -52,7 +52,7 @@ return kotlinString.toFREObject()
 
 #### Creating new FREObjects
 
-```java
+```kotlin
 val newPerson = FREObject("com.tuarua.Person")
 
 // create a FREObject passing args
@@ -64,7 +64,7 @@ val frePerson = FREObject("com.tuarua.Person", "Bob", "Doe", 28, myFREObject);
 
 #### Calling Methods
 
-```java
+```kotlin
 // call a FREObject method passing args
 // 
 // The following param types are allowed: 
@@ -74,7 +74,7 @@ val addition = freCalculator.call("add", 100, 31)
 
 #### Getting / Setting Properties
 
-```java
+```kotlin
 val oldAge = Int(person["age"])
 val newAge = oldAge + 10
 
@@ -88,7 +88,7 @@ person.setProp("age", oldAge + 10)
 
 #### Arrays
 
-```java
+```kotlin
 val airArray: FREArray? = FREArray(argv[0])
 // convert to a Kotlin List<String>
 val airStringVector = List<String>(argv[0])
@@ -112,7 +112,7 @@ return kotArr.toFREArray()
 
 #### Sending Events back to AIR
 
-```java
+```kotlin
 trace("Hi", "There")
 
 // with interpolation
@@ -123,7 +123,7 @@ dispatchEvent("MY_EVENT", "this is a test")
 
 #### Bitmapdata
 
-```java
+```kotlin
 val icon: Bitmap? = Bitmap(argv[0])
 
 return icon.toFREObject()
@@ -131,7 +131,7 @@ return icon.toFREObject()
 
 #### ByteArrays
 
-```java
+```kotlin
 val byteArray = ByteArray(argv[0])
 if (byteArray != null) {
     val str = String(Base64.encode(byteArray, Base64.NO_WRAP), Charset.forName("utf-8"))
@@ -140,7 +140,7 @@ if (byteArray != null) {
 
 #### Error Handling
 
-```java
+```kotlin
 try {
     person.getProp("doNotExist")
 } catch (e: FreException) {
@@ -150,7 +150,7 @@ try {
 
 
 Advanced Example - Extending. Convert to/from LatLng
-```java
+```kotlin
 package com.tuarua.frekotlin
 
 import com.adobe.fre.FREObject
