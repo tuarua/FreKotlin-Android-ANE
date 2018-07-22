@@ -37,6 +37,7 @@ The following table shows the primitive as3 types which can easily be converted 
 | Vector Number | DoubleArray | `val arr = DoubleArray(argv[0])` | `return arr.toFREArray()`|
 | Vector String | List | `val al = List<String>(argv[0])` | `return al.toFREArray()`|
 | Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | TODO |
+| null | null | | |
 
 
 #### Basic Types
