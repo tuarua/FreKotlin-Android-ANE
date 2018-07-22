@@ -5,8 +5,9 @@ Example Android Studio project showing how to create Air Native Extensions for A
 This project is used as the basis for the following ANEs   
 [Google Maps ANE](https://github.com/tuarua/Google-Maps-ANE)   
 [AdMob ANE](https://github.com/tuarua/AdMob-ANE)  
-[WebViewANE](https://github.com/tuarua/WebViewANE )
-
+[WebViewANE](https://github.com/tuarua/WebViewANE)
+[FirebaseANE](https://github.com/tuarua/Firebase-ANE)
+[ZipANE](https://github.com/tuarua/Zip-ANE)
 
 -------------
   
@@ -38,81 +39,108 @@ The following table shows the primitive as3 types which can easily be converted 
 | Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | TODO |
 
 
-Example
+#### Basic Types
 
-```kotlin
-val airString: String? = String(argv[0])
-trace("String passed from AIR:", airString) //As3 style trace!
+```java
+val myString: String? = String(argv[0])
+val myInt = Int(argv[1]);
+val myBool = Boolean(argv[2]);
 
 val kotlinString = "I am a string from Kotlin"
 return kotlinString.toFREObject()
 ```
 
-Example - Call a method on an FREObject
+#### Creating new FREObjects
 
-```kotlin
-val person = argv[0]
-val addition = person.call("add", 100, 31)
-if (addition != null) {
-    trace("addition result: ${Int(addition)}")
-}
-```
-
-Example - Get a property of a FREObject
-
-```kotlin
-val person = argv[0]
-val age = Int(person["age"])
-if (age != null) {
-    trace("person is: $age" years old)
-}
-```
-
-Example - Set a property of a FREObject
-
-```kotlin
-val person = argv[0]
-try {
-     person.setProp("age", 32)
-} catch (e: FreException) {
-
-}
-```
-
-Example - Convert a FREObject Object into a Map
-
-```kotlin
-val person = argv[0]
-val dictionary: Map<String, Any>? = Map(person)
-trace("keys: ${dictionary?.keys.toString()} values: ${dictionary?.values.toString()}")
-```
-
-Example - Create a new FREObject
-
-```kotlin
+```java
 val newPerson = FREObject("com.tuarua.Person")
-trace("We created a new person. type = ${newPerson.type}")
+
+// create a FREObject passing args
+// 
+// The following param types are allowed: 
+// String, Int, Double, Float, Long, Short, Boolean, Date, FREObject
+val frePerson = FREObject("com.tuarua.Person", "Bob", "Doe", 28, myFREObject);
 ```
 
-Example - Sending events back to AIR (replaces dispatchStatusEventAsync)
+#### Calling Methods
 
-```kotlin
-sendEvent("MY_EVENT", "this is a test")
+```java
+// call a FREObject method passing args
+// 
+// The following param types are allowed: 
+// String, Int, Double, Float, Long, Short, Boolean, Date, FREObject
+val addition = freCalculator.call("add", 100, 31)
 ```
 
-Example - Reading items in array
+#### Getting / Setting Properties
 
-```kotlin
-val airArray: FREArray? = FREArray(freObject = argv[0])
+```java
+val oldAge = Int(person["age"])
+val newAge = oldAge + 10
+
+// Set property using braces access
+person["age"] = (oldAge + 10).toFREObject()
+
+// Set property using setProp
+person.setProp("age", oldAge + 10)
+
+```
+
+#### Arrays
+
+```java
+val airArray: FREArray? = FREArray(argv[0])
+// convert to a Kotlin List<String>
+val airStringVector = List<String>(argv[0])
+
+// create a Vector.<com.tuarua.Person> with fixed length of 5
+val newFreArray = FREArray("com.tuarua.Person", 5, true)
+val len = newFreArray.length
+
+// loop over FREArray
 for (fre: FREObject? in airArray) {
-    trace("iterate over FREArray", Int(fre))
+    trace(Int(fre))
 }
+
+// set element 1 to 123
 airArray[0] = 123.toFREObject()
-val itemZero: FREObject? = airArray[0]
+
+// return Kotlin IntArray to AIR
+val kotArr: IntArray = intArrayOf(99, 98, 92, 97, 95)
+return kotArr.toFREArray()
 ```
 
-Example - Error handling
-```kotlin
+#### Sending Events back to AIR
+
+```java
+trace("Hi", "There")
+
+// with interpolation
+trace("My name is: $name")
+
+dispatchEvent("MY_EVENT", "this is a test")
+```
+
+#### Bitmapdata
+
+```java
+val icon: Bitmap? = Bitmap(argv[0])
+
+return icon.toFREObject()
+```
+
+#### ByteArrays
+
+```java
+val byteArray = ByteArray(argv[0])
+if (byteArray != null) {
+    val str = String(Base64.encode(byteArray, Base64.NO_WRAP), Charset.forName("utf-8"))
+}
+```
+
+#### Error Handling
+
+```java
 try {
     person.getProp("doNotExist")
 } catch (e: FreException) {
@@ -120,8 +148,9 @@ try {
 }
 ```
 
+
 Advanced Example - Extending. Convert to/from LatLng
-```kotlin
+```java
 package com.tuarua.frekotlin
 
 import com.adobe.fre.FREObject

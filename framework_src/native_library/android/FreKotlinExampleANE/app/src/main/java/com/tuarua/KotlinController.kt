@@ -127,7 +127,7 @@ class KotlinController : FreKotlinMainController {
     fun runArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Array test ***********")
         try {
-            val airArray: FREArray? = FREArray(freObject = argv[0])
+            val airArray: FREArray? = FREArray(argv[0])
 
             if (airArray != null) {
                 for (fre: FREObject? in airArray) {
@@ -140,12 +140,12 @@ class KotlinController : FreKotlinMainController {
                 val itemZero: FREObject? = airArray[0]
                 val itemZeroVal: Int? = Int(itemZero)
                 if (itemZeroVal is Int) {
-                    trace("AIR Array elem at 0 type:", "value:", itemZeroVal)
+                    trace("AIR Array elem at 0 type: $itemZeroVal")
                     airArray[0] = 56.toFREObject()
                 }
             }
 
-            val airVector: FREArray? = FREArray(freObject = argv[1])
+            val airVector: FREArray? = FREArray(argv[1])
             val airVectorLen = airVector?.length
 
             trace("air vector len: ", airVectorLen)
