@@ -71,7 +71,6 @@ public class Main extends Sprite {
             myArray.push(3, 1, 4, 2, 6, 5);
 
             var myVector:Vector.<String> = new <String>[];
-            myVector.fixed = true;
             myVector.push("abc", "xyz");
 
             var resultArray:Array = ane.runArrayTests(myArray, myVector);
