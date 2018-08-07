@@ -36,8 +36,8 @@ The following table shows the primitive as3 types which can easily be converted 
 | Vector Boolean | BooleanArray | `val arr = BooleanArray(argv[0])` | `return arr.toFREArray()`|
 | Vector Number | DoubleArray | `val arr = DoubleArray(argv[0])` | `return arr.toFREArray()`|
 | Vector String | List | `val al = List<String>(argv[0])` | `return al.toFREArray()`|
-| Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | TODO |
-| null | null | | |
+| Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | |
+| null | null | | return null |
 
 
 #### Basic Types
