@@ -103,7 +103,7 @@ for (fre: FREObject? in airArray) {
     trace(Int(fre))
 }
 
-// set element 1 to 123
+// set element 0 to 123
 airArray[0] = 123.toFREObject()
 
 // return Kotlin IntArray to AIR
