@@ -44,8 +44,8 @@ The following table shows the primitive as3 types which can easily be converted 
 
 ```kotlin
 val myString: String? = String(argv[0])
-val myInt = Int(argv[1]);
-val myBool = Boolean(argv[2]);
+val myInt = Int(argv[1])
+val myBool = Boolean(argv[2])
 
 val kotlinString = "I am a string from Kotlin"
 return kotlinString.toFREObject()
@@ -60,7 +60,7 @@ val newPerson = FREObject("com.tuarua.Person")
 // 
 // The following param types are allowed: 
 // String, Int, Double, Float, Long, Short, Boolean, Date, FREObject
-val frePerson = FREObject("com.tuarua.Person", "Bob", "Doe", 28, myFREObject);
+val frePerson = FREObject("com.tuarua.Person", "Bob", "Doe", 28, myFREObject)
 ```
 
 #### Calling Methods
