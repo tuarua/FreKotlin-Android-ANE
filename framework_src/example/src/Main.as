@@ -22,6 +22,8 @@ public class Main extends Sprite {
     private var ane:FreKotlinExampleANE = new FreKotlinExampleANE();
     private var hasActivated:Boolean = false;
     private var textField:TextField = new TextField();
+    private static const GREEN:uint = 0x00FF00;
+    public static const HALF_GREEN:uint = 0x8000FF00;
 
     public function Main() {
         super();
@@ -47,23 +49,25 @@ public class Main extends Sprite {
             var person:Person = new Person();
             person.age = 21;
             person.name = "Tom";
-            person.city.name = "Dunleer";
+            person.city.name = "Boston";
 
-            var resultString:String = ane.runStringTests("I am a string from AIR with new interface");
+            var resultString:String = ane.runStringTests("Björk Guðmundsdóttir Sinéad O’Connor 久保田  " +
+                    "利伸 Михаил Горбачёв Садриддин Айнӣ Tor Åge Bringsværd 章子怡 €");
             textField.text += resultString + "\n";
 
             var resultNumber:Number = ane.runNumberTests(31.99);
             textField.text += "Number: " + resultNumber + "\n";
 
-            var resultInt:int = ane.runIntTests(-54, 66, 0xFF3300);
+            var resultInt:int = ane.runIntTests(-54, 66);
             textField.text += "Int: " + resultInt + "\n";
+            trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✓" : "❌");
 
             var resultObject:Person = ane.runObjectTests(person) as Person;
             if (resultObject) {
                 textField.text += "Person.age: " + resultObject.age.toString() + "\n";
             }
 
-            var inRect:Rectangle = new Rectangle(50, 60, 70, 80);
+            var inRect:Rectangle = new Rectangle(50.1, 60, 70.2, 80);
             var resultRectangle:Rectangle = ane.runExtensibleTests(inRect) as Rectangle;
             trace("resultRectangle", resultRectangle);
 
@@ -94,7 +98,7 @@ public class Main extends Sprite {
             }
 
             try {
-                ane.runErrorTests(person);
+                ane.runErrorTests(person, "Test String");
             } catch (e:ANEError) {
                 trace("Error captured in AS");
                 trace("e.message:", e.message);
@@ -103,10 +107,9 @@ public class Main extends Sprite {
                 trace("e.source:", e.source);
                 trace("e.getStackTrace():", e.getStackTrace());
             }
-            ane.runErrorTests2("Test String");
 
-            var returnedDate:Date = ane.runDateTests(new Date());
-            trace("returnedDate:", returnedDate);
+            var testDate:Date = new Date(1990, 5, 13, 8, 59, 3);
+            trace("Date returned is same", testDate.time == ane.runDateTests(testDate).time ? "✓" : "❌");
 
             var myByteArray:ByteArray = new ByteArray();
             myByteArray.writeUTFBytes("Kotlin in an ANE. Say whaaaat!");

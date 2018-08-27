@@ -57,9 +57,10 @@ class FreByteArrayKotlin {
     @Throws(FREASErrorException::class, FREWrongThreadException::class, FREInvalidObjectException::class)
     constructor(byteArray: ByteArray) {
         rawValue = FREByteArray.newByteArray()
-        rawValue?.setProp("length", byteArray.size)
+        val rv = rawValue ?: return
+        rv["length"] = byteArray.size.toFREObject()
         acquire()
-        (rawValue as FREByteArray).bytes.put(byteArray)
+        rv.bytes.put(byteArray)
         release()
     }
 

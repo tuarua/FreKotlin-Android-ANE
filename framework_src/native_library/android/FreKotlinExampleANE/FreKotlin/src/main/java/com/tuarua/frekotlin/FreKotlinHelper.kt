@@ -23,41 +23,61 @@ import com.adobe.fre.FRENoSuchNameException
 import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
+import com.tuarua.frekotlin.FreKotlinLogger.log
 import com.tuarua.frekotlin.display.Bitmap
 import com.tuarua.frekotlin.geom.Point
 import com.tuarua.frekotlin.geom.Rect
 import java.util.*
 
-
 /**
  * @suppress
  */
-object FreKotlinHelper {
+internal object FreKotlinHelper {
     private var TAG = "com.tuarua.FreKotlinHelper"
 
-    fun getAsString(rawValue: FREObject?): String? {
-        try {
-            return rawValue?.asString
+    internal fun getAsString(rawValue: FREObject?): String? {
+        val rv = rawValue ?: return null
+        return try {
+            rv.asString
         } catch (e: Exception) {
+            log("cannot get FREObject ${rv.toStr(true)} as String", e)
+            null
         }
-        return null
     }
 
-    fun getAsDouble(rawValue: FREObject?): Double? {
-        try {
-            return rawValue?.asDouble
+    internal fun getAsDouble(rawValue: FREObject?): Double? {
+        val rv = rawValue ?: return null
+        return try {
+            rv.asDouble
         } catch (e: Exception) {
+            log("cannot get FREObject ${rv.toStr()} as Double", e)
+            null
         }
-        return null
     }
 
-    fun getAsDate(rawValue: FREObject?): Date? {
-        try {
-            val l = rawValue?.getProperty("time")?.asDouble?.toLong() ?: return null
-            return Date(l)
+    internal fun getAsInt(rawValue: FREObject?): Int? {
+        val rv = rawValue ?: return null
+        return try {
+            rv.asInt
         } catch (e: Exception) {
+            log("cannot get FREObject ${rv.toStr()} as Int", e)
+            null
         }
-        return null
+    }
+
+    internal fun getAsBoolean(rawValue: FREObject?): Boolean? {
+        val rv = rawValue ?: return null
+        return try {
+            rv.asBool
+        } catch (e: Exception) {
+            log("cannot get FREObject ${rv.toStr()} as Boolean", e)
+            null
+        }
+    }
+
+    internal fun getAsDate(rawValue: FREObject?): Date? {
+        val l = rawValue?.getProperty("time")?.asDouble?.toLong() ?: return null
+        return Date(l)
     }
 
     @Throws(FreException::class, FREASErrorException::class, FREInvalidObjectException::class,
@@ -93,23 +113,7 @@ object FreKotlinHelper {
         return ret
     }
 
-    fun getAsInt(rawValue: FREObject?): Int? {
-        try {
-            return rawValue?.asInt
-        } catch (e: Exception) {
-        }
-        return null
-    }
-
-    fun getAsBoolean(rawValue: FREObject?): Boolean? {
-        try {
-            return rawValue?.asBool
-        } catch (e: Exception) {
-        }
-        return null
-    }
-
-    fun getAsObject(rawValue: FREObject?): Any? {
+    internal fun getAsObject(rawValue: FREObject?): Any? {
         rawValue ?: return null
         try {
             return when (getType(rawValue)) {
@@ -159,7 +163,7 @@ object FreKotlinHelper {
         return al
     }
 
-    fun getType(rawValue: FREObject?): FreObjectTypeKotlin {
+    internal fun getType(rawValue: FREObject?): FreObjectTypeKotlin {
         try {
             val aneUtils = FREObject.newObject("com.tuarua.fre.ANEUtils", null)
             val args = arrayOfNulls<FREObject>(1)
@@ -198,51 +202,44 @@ object FreKotlinHelper {
         }
     }
 
-    @Throws(FreException::class)
-    fun getProperty(rawValue: FREObject, name: String): FREObject? {
-        val ret: FREObject?
-        try {
-            ret = rawValue.getProperty(name)
+    internal fun getProperty(rawValue: FREObject, name: String): FREObject? {
+        return try {
+            rawValue.getProperty(name)
         } catch (e: Exception) {
-            throw FreException(e)
+            log( "cannot get property $name of ${rawValue.toStr()}", e)
+            null
         }
-        return ret
     }
 
-    @Throws(FreException::class)
-    fun setProperty(rawValue: FREObject, name: String, prop: FREObject?) {
+    internal fun setProperty(rawValue: FREObject, name: String, prop: FREObject?) {
         try {
             rawValue.setProperty(name, prop)
         } catch (e: Exception) {
-            throw FreException(e)
+            log( "cannot set property $name of ${rawValue.toStr()} to ", e)
         }
     }
 
-    @Throws(FreException::class)
-    fun call(rawValue: FREObject, method: String, args: Array<out Any>): FREObject? {
+    internal fun callMethod(rawValue: FREObject, name: String, args: Array<out Any>): FREObject? {
         val argsArray = arrayOfNulls<FREObject>(args.size)
         for ((i, item) in args.withIndex()) {
             argsArray[i] = FreObjectKotlin(item).rawValue
         }
-        val ret: FREObject?
-        try {
-            ret = rawValue.callMethod(method, argsArray)
+        return try {
+            rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
-            throw FreException(e)
+            log( "cannot callMethod method $name on ${rawValue.toStr()}", e)
+            null
         }
-        return ret
     }
 
-    @Throws(FreException::class)
-    fun call(rawValue: FREObject, name: String): FREObject? {
+    internal fun callMethod(rawValue: FREObject, name: String): FREObject? {
         val argsArray = arrayOfNulls<FREObject>(0)
-        val ret: FREObject?
-        try {
-            ret = rawValue.callMethod(name, argsArray)
+        return try {
+            rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
-            throw FreException(e)
+            log( "cannot callMethod method $name on ${rawValue.toStr()}", e)
+            null
         }
-        return ret
     }
 
 }

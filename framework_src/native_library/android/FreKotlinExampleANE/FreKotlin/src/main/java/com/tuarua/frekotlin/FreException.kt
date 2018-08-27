@@ -33,7 +33,7 @@ open class FreException : Exception {
 
     constructor(e: Any, message: String? = null) : super() {
         val exception = e as Exception
-        type = e.javaClass.simpleName
+        type = exception.javaClass.simpleName
         this.message = when {
             message != null -> message
             else -> exception.message.toString()

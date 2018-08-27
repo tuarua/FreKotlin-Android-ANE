@@ -41,11 +41,6 @@ interface FreKotlinMainController {
         context?.trace(TAG, value)
     }
 
-    @Deprecated("Use dispatchEvent instead", ReplaceWith("dispatchEvent(name, value)"))
-    fun sendEvent(name: String, value: String) {
-        context?.dispatchEvent(name, value)
-    }
-
     fun dispatchEvent(name: String, value: String) {
         context?.dispatchEvent(name, value)
     }

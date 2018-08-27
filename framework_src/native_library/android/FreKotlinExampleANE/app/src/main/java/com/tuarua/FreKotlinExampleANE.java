@@ -19,22 +19,22 @@ import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 import com.tuarua.frekotlin.FreKotlinContext;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "WeakerAccess", "FieldCanBeLocal"})
 public class FreKotlinExampleANE implements FREExtension  {
     private String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {
-            "runStringTests",
-            "runNumberTests",
-            "runIntTests",
-            "runObjectTests",
-            "runArrayTests",
-            "runBitmapTests",
-            "runExtensibleTests",
-            "runByteArrayTests",
-            "runErrorTests",
-            "runErrorTests2",
-            "runDataTests",
-            "runDateTests"
+             "runStringTests"
+            ,"runNumberTests"
+            ,"runIntTests"
+            ,"runObjectTests"
+            ,"runArrayTests"
+            ,"runBitmapTests"
+            ,"runExtensibleTests"
+            ,"runByteArrayTests"
+            ,"runErrorTests"
+            ,"runDataTests"
+            ,"runDateTests"
+            ,"runColorTests"
     };
     public static FreKotlinExampleContext extensionContext;
 

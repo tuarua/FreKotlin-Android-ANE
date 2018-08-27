@@ -26,11 +26,6 @@ import java.util.*
 /** Alias for param in fun */
 typealias FREArgv = ArrayList<FREObject>
 
-@Deprecated("Use dispatchEvent instead", ReplaceWith("this.dispatchEvent(name, value)"))
-fun FREContext.sendEvent(name: String, value: String) {
-    this.dispatchStatusEventAsync(value, name)
-}
-
 /** Sends an asynchronous event to the ANE */
 fun FREContext.dispatchEvent(name: String, value: String) {
     this.dispatchStatusEventAsync(value, name)
@@ -40,7 +35,7 @@ fun FREContext.dispatchEvent(name: String, value: String) {
 fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
-        traceStr = traceStr + "$v" + " "
+        traceStr = "$traceStr$v "
     this.dispatchEvent("TRACE", traceStr)
 }
 
@@ -80,28 +75,25 @@ fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsBoolean(freO
 fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsDate(freObject)
 
 /** Calls the given method on a FREObject */
-@Throws(FreException::class)
 fun FREObject?.call(method: String, vararg args: Any): FREObject? {
     val rv = this ?: return null
-    return FreKotlinHelper.call(rv, method, args)
+    return FreKotlinHelper.callMethod(rv, method, args)
 }
 
 /**  Calls the given method on a FREObject */
-@Throws(FreException::class)
 fun FREObject?.call(method: String): FREObject? {
     val rv = this ?: return null
-    return FreKotlinHelper.call(rv, method)
+    return FreKotlinHelper.callMethod(rv, method)
 }
 
 /**  Calls the given method on a FREObject */
-@Throws(FreException::class)
 fun FREObject?.call(method: String, vararg args: FREObject): FREObject? {
     val rv = this ?: return null
-    return FreKotlinHelper.call(rv, method, args)
+    return FreKotlinHelper.callMethod(rv, method, args)
 }
 
 @Suppress("UNUSED_PARAMETER")
-        /**  Returns the type of an FREObject */
+/**  Returns the type of an FREObject */
 var FREObject?.type: FreObjectTypeKotlin
     get() {
         return when {
@@ -111,20 +103,20 @@ var FREObject?.type: FreObjectTypeKotlin
     }
     set(value) = Unit
 
-@Throws(FreException::class)
-fun FREObject(className: String, vararg args: Any?): FREObject {
+fun FREObject(className: String, vararg args: Any?): FREObject? {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
         argsArr[i] = FreObjectKotlin(args[i]).rawValue
     }
-    try {
-        return FREObject.newObject(className, argsArr)
+    return try {
+        FREObject.newObject(className, argsArr)
     } catch (e: Exception) {
-        throw FreException(e, "cannot create new object named $className")
+        FreKotlinLogger.log("cannot create new class $className", e)
+        null
     }
 }
 
-@Throws(FreException::class)
+@Deprecated("Use accessor  instead", ReplaceWith("FREObject.set(name: String)"))
 fun FREObject.setProp(name: String, value: Any?) {
     if (value is FREObject) {
         FreKotlinHelper.setProperty(this, name, value)
@@ -134,7 +126,6 @@ fun FREObject.setProp(name: String, value: Any?) {
         FreKotlinHelper.setProperty(this, name, value.rawValue)
         return
     }
-
     if (value is String) {
         FreKotlinHelper.setProperty(this, name, value.toFREObject())
         return
@@ -168,30 +159,28 @@ fun FREObject.setProp(name: String, value: Any?) {
         return
     }
     if (value is Any) {
-        //Log.e(TAG, "any is an Any - NOT FOUND")
+        FreKotlinLogger.log("FREObject.setProp - no automatic conversion type found")
         return
     }
 }
 
-@Throws(FreException::class)
+@Deprecated("Use accessor  instead", ReplaceWith("FREObject.get(name: String)"))
 fun FREObject.getProp(name: String): FREObject? {
     return FreKotlinHelper.getProperty(this, name)
 }
 
-operator fun FREObject.get(name: String): FREObject? {
-    return try {
-        this.getProp(name)
-    } catch (e: Exception) {
-        null
-    }
+operator fun FREObject?.get(name: String): FREObject? {
+    val rv = this ?: return null
+    return FreKotlinHelper.getProperty(rv, name)
 }
 
-operator fun FREObject.set(name: String, value: FREObject?) {
-    this.setProperty(name, value)
+operator fun FREObject?.set(name: String, value: FREObject?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value)
 }
 
 /** Converts a FREObject of type uint to a Color */
-fun FREObject.toColor(hasAlpha: Boolean = false): Int {
+fun FREObject.toColor(hasAlpha: Boolean = true): Int {
     val freColor = Long(this)
     if (freColor != null) {
         var alpha = 255
@@ -204,7 +193,7 @@ fun FREObject.toColor(hasAlpha: Boolean = false): Int {
     return Color.BLACK
 }
 
-fun FREObject.toHSV(hasAlpha: Boolean = false): Float {
+fun FREObject.toHSV(hasAlpha: Boolean = true): Float {
     val hsv = FloatArray(3)
     Color.colorToHSV(toColor(hasAlpha), hsv)
     return hsv[0]
@@ -215,7 +204,8 @@ fun Int.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Int").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
@@ -224,7 +214,8 @@ fun Short.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toInt())
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Short").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
@@ -233,7 +224,8 @@ fun Boolean.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Boolean").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
@@ -242,7 +234,8 @@ fun String.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from String").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
@@ -251,7 +244,8 @@ fun Double.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Double").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
@@ -260,27 +254,28 @@ fun Long.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toDouble())
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Long").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
 /** Converts a Float to a FREObject of type Number */
-@Throws(FreException::class)
 fun Float.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toDouble())
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Float").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
 /** Converts a Date to a FREObject of type Date */
-@Throws(FreException::class)
 fun Date.toFREObject(): FREObject? {
     return try {
         FREObject("Date", this.time)
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Float").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        null
     }
 }
 
@@ -300,4 +295,17 @@ fun FreArgException(functionName: String, stackTrace: kotlin.Array<java.lang.Sta
     } catch (e: Exception) {
         null
     }
+}
+
+fun FREObject?.toStr(suppressStrings: Boolean = false): String {
+    if (suppressStrings && this.type == FreObjectTypeKotlin.STRING || this.type == FreObjectTypeKotlin.NULL) {
+        return ""
+    }
+    val toString = this.call("toString")
+    return String(toString) ?: ""
+}
+
+/** Indicates whether an object has a specified property defined. */
+fun FREObject?.hasOwnProperty(name: String): Boolean {
+    return Boolean(this.call("hasOwnProperty", name)) ?: false
 }
