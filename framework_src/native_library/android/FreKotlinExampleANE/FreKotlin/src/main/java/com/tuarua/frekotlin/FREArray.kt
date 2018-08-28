@@ -115,6 +115,14 @@ fun FREArray.append(any: Any?) {
     }
 }
 
+fun FREArray.append(value: FREObject?) {
+    try {
+        this.setObjectAt(this.length, value)
+    } catch (e: Exception) {
+        FreKotlinLogger.log("cannot append ${value.toStr()} to FREArray", e)
+    }
+}
+
 operator fun FREArray.get(index: Int): FREObject? {
     return try {
         this.getObjectAt(index.toLong())

@@ -47,7 +47,7 @@ inline fun <T> T.guard(block: T.() -> Unit): T {
 /** Converts a FREObject to a Double */
 fun Double(freObject: FREObject?): Double? = FreKotlinHelper.getAsDouble(freObject)
 
-/** converts a FREObject to a Long */
+/** Converts a FREObject to a Long */
 fun Long(freObject: FREObject?): Long? = FreKotlinHelper.getAsDouble(freObject)?.toLong()
 
 /** Converts a FREObject to a Float */
@@ -103,6 +103,7 @@ var FREObject?.type: FreObjectTypeKotlin
     }
     set(value) = Unit
 
+/** Creates a FREObject */
 fun FREObject(className: String, vararg args: Any?): FREObject? {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
@@ -169,11 +170,13 @@ fun FREObject.getProp(name: String): FREObject? {
     return FreKotlinHelper.getProperty(this, name)
 }
 
+/** Gets the named property of a FREObject */
 operator fun FREObject?.get(name: String): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.getProperty(rv, name)
 }
 
+/** Sets the named property of a FREObject */
 operator fun FREObject?.set(name: String, value: FREObject?) {
     val rv = this ?: return
     FreKotlinHelper.setProperty(rv, name, value)
@@ -193,6 +196,7 @@ fun FREObject.toColor(hasAlpha: Boolean = true): Int {
     return Color.BLACK
 }
 
+/** Converts a FREObject of type uint to a HSV Color */
 fun FREObject.toHSV(hasAlpha: Boolean = true): Float {
     val hsv = FloatArray(3)
     Color.colorToHSV(toColor(hasAlpha), hsv)
