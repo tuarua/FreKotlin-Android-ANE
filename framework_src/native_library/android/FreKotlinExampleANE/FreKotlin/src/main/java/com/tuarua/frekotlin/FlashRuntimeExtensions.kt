@@ -39,6 +39,20 @@ fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     this.dispatchEvent("TRACE", traceStr)
 }
 
+fun FREContext.warning(TAG: String, args: Array<out Any?>) {
+    var traceStr = "$TAG: "
+    for (v in args)
+        traceStr = "$traceStr$v "
+    this.dispatchEvent("TRACE", "⚠️ WARNING: $traceStr")
+}
+
+fun FREContext.info(TAG: String, args: Array<out Any?>) {
+    var traceStr = "$TAG: "
+    for (v in args)
+        traceStr = "$traceStr$v "
+    this.dispatchEvent("TRACE", "ℹ️ INFO: $traceStr")
+}
+
 // Declare an extension function that calls a lambda called block if the value is null
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this

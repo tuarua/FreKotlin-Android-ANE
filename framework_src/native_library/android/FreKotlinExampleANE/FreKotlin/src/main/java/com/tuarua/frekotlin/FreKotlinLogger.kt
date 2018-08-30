@@ -24,7 +24,7 @@ object FreKotlinLogger {
     fun log(message: String, e: Exception) {
         val ctx = context ?: return
         val type = e.javaClass.simpleName
-        ctx.dispatchStatusEventAsync("[FreKotlin] $type $message", "TRACE")
+        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $type $message", "TRACE")
         var stackTrace = ""
 
         if (e is FREASErrorException) {
@@ -39,13 +39,13 @@ object FreKotlinLogger {
         }
 
         if (!stackTrace.isEmpty()) {
-            ctx.dispatchStatusEventAsync("[FreKotlin] $stackTrace", "TRACE")
+            ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $stackTrace", "TRACE")
         }
     }
 
     fun log(message: String) {
         val ctx = context ?: return
-        ctx.dispatchStatusEventAsync("[FreKotlin] $message", "TRACE")
+        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $message", "TRACE")
     }
 
     private fun getActionscriptException(thrownException: FREObject): String {

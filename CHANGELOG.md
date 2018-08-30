@@ -3,7 +3,7 @@
 - Use android.graphics.Rect, RectF, Point and PointF for FreRect and FrePoint
 - Added FREObject.toStr()
 - Added FREObject.hasOwnProperty(string name)
-- Added FREArray.append()
+- Added FREArray.push()
 - FREObject.toColor(hasAlpha: Boolean = true) hasAlpha default value is now TRUE
 - mark FreKotlinHelper as internal
 - Add FreKotlinLogger to trace any FREExceptions

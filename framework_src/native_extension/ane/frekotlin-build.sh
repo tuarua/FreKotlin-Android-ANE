@@ -7,7 +7,7 @@ pathtome="${pathtome%/*}"
 
 echo $pathtome
 
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_30"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_30"
 
 KOTLIN_VERSION="1.2.61"
 PROJECTNAME=FreKotlinExampleANE
@@ -59,4 +59,3 @@ rm "$pathtome/platforms/android/FreKotlin-release.aar"
 rm "$pathtome/platforms/android/library.swf"
 rm "$pathtome/$SWC_NAME.swc"
 rm "$pathtome/library.swf"
-echo "DONE!"

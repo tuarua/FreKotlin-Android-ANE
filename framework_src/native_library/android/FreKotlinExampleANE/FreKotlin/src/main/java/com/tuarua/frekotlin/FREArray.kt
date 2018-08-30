@@ -107,20 +107,14 @@ operator fun FREArray.set(index: Int, value: FREObject?) {
     }
 }
 
-fun FREArray.append(any: Any?) {
-    try {
-        this.setObjectAt(this.length, FreObjectKotlin(any).rawValue)
-    } catch (e: Exception) {
-        FreKotlinLogger.log("cannot append ${FreObjectKotlin(any).rawValue.toStr()} to FREArray", e)
-    }
-}
-
-fun FREArray.append(value: FREObject?) {
-    try {
-        this.setObjectAt(this.length, value)
-    } catch (e: Exception) {
-        FreKotlinLogger.log("cannot append ${value.toStr()} to FREArray", e)
-    }
+/**
+ * Adds one or more elements to the end of an array and returns the new length of the array.
+ *
+ * @property args One or more values to append to the array.
+ *
+ */
+fun FREArray.push(vararg args: Any?) {
+    FreKotlinHelper.callMethod(this, "push", args)
 }
 
 operator fun FREArray.get(index: Int): FREObject? {

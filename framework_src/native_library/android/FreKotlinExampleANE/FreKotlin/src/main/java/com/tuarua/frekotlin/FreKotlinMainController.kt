@@ -18,7 +18,7 @@ package com.tuarua.frekotlin
 
 import com.adobe.fre.FREContext
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "unused")
 interface FreKotlinMainController {
 
     val TAG:String
@@ -39,6 +39,14 @@ interface FreKotlinMainController {
 
     fun trace(vararg value: Any?) {
         context?.trace(TAG, value)
+    }
+
+    fun warning(vararg value: Any?) {
+        context?.warning(TAG, value)
+    }
+
+    fun info(vararg value: Any?) {
+        context?.info(TAG, value)
     }
 
     fun dispatchEvent(name: String, value: String) {

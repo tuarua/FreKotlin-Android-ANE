@@ -60,7 +60,7 @@ public class Main extends Sprite {
 
             var resultInt:int = ane.runIntTests(-54, 66);
             textField.text += "Int: " + resultInt + "\n";
-            trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✓" : "❌");
+            trace("HALF_GREEN", HALF_GREEN, HALF_GREEN == ane.runColorTests(GREEN, HALF_GREEN) ? "✅" : "❌");
 
             var resultObject:Person = ane.runObjectTests(person) as Person;
             if (resultObject) {
@@ -109,7 +109,7 @@ public class Main extends Sprite {
             }
 
             var testDate:Date = new Date(1990, 5, 13, 8, 59, 3);
-            trace("Date returned is same", testDate.time == ane.runDateTests(testDate).time ? "✓" : "❌");
+            trace("Date returned is same", testDate.time == ane.runDateTests(testDate).time ? "✅" : "❌");
 
             var myByteArray:ByteArray = new ByteArray();
             myByteArray.writeUTFBytes("Kotlin in an ANE. Say whaaaat!");

@@ -219,7 +219,7 @@ internal object FreKotlinHelper {
         }
     }
 
-    internal fun callMethod(rawValue: FREObject, name: String, args: Array<out Any>): FREObject? {
+    internal fun callMethod(rawValue: FREObject, name: String, args: Array<out Any?>): FREObject? {
         val argsArray = arrayOfNulls<FREObject>(args.size)
         for ((i, item) in args.withIndex()) {
             argsArray[i] = FreObjectKotlin(item).rawValue

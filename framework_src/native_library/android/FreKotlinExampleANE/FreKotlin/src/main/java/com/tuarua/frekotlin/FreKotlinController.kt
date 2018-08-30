@@ -26,6 +26,14 @@ interface FreKotlinController {
         context?.trace(TAG, value)
     }
 
+    fun warn(vararg value: Any?) {
+        context?.warning(TAG, value)
+    }
+
+    fun info(vararg value: Any?) {
+        context?.info(TAG, value)
+    }
+
     fun dispatchEvent(name: String, value: String) {
         context?.dispatchEvent(name, value)
     }

@@ -41,7 +41,8 @@ class KotlinController : FreKotlinMainController {
 
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
 
-        FreKotlinLogger.context = this.context
+        warning("I am a test warning")
+        info("I am a test info")
 
         trace("***********Start String test***********")
         argv.takeIf { argv.size > 0 } ?: return FreArgException("runStringTests")
@@ -65,9 +66,9 @@ class KotlinController : FreKotlinMainController {
         val testDouble = -54.0
         val testUint = 66
 
-        trace("Number passed from AIR as Int:", airInt, if (testInt == airInt) "✓" else "❌")
-        trace("Number passed from AIR as Int to Double:", airIntAsDouble, if (testDouble == airIntAsDouble) "✓" else "❌")
-        trace("Number passed from AIR as UInt:", airUInt, if (testUint == airUInt) "✓" else "❌")
+        trace("Number passed from AIR as Int:", airInt, if (testInt == airInt) "✅" else "❌")
+        trace("Number passed from AIR as Int to Double:", airIntAsDouble, if (testDouble == airIntAsDouble) "✅" else "❌")
+        trace("Number passed from AIR as UInt:", airUInt, if (testUint == airUInt) "✅" else "❌")
 
         val kotlinInt: Int = -666
         return kotlinInt.toFREObject()
@@ -81,8 +82,8 @@ class KotlinController : FreKotlinMainController {
         val testDouble = 31.99
         val testFloat = 31.99f
 
-        trace("Number passed from AIR as Double:", airDouble, if (testDouble == airDouble) "✓" else "❌")
-        trace("Number passed from AIR as Float:", airFloat, if (testFloat == airFloat) "✓" else "❌")
+        trace("Number passed from AIR as Double:", airDouble, if (testDouble == airDouble) "✅" else "❌")
+        trace("Number passed from AIR as Float:", airFloat, if (testFloat == airFloat) "✅" else "❌")
 
         val kotlinDouble = 34343.31
         return kotlinDouble.toFREObject()
@@ -95,19 +96,19 @@ class KotlinController : FreKotlinMainController {
 
         val newPerson = FREObject("com.tuarua.Person")
         trace("New Person is of type CLASS:", newPerson.type,
-                if (newPerson.type == FreObjectTypeKotlin.CLASS) "✓" else "❌")
-        trace("Get property as Int :", oldAge, if (21 == oldAge) "✓" else "❌")
+                if (newPerson.type == FreObjectTypeKotlin.CLASS) "✅" else "❌")
+        trace("Get property as Int :", oldAge, if (21 == oldAge) "✅" else "❌")
         if (oldAge is Int) {
             person["age"] = (oldAge + 10).toFREObject()
-            trace("Set property to Int :", Int(person["age"]), if (31 == Int(person["age"])) "✓" else "❌")
+            trace("Set property to Int :", Int(person["age"]), if (31 == Int(person["age"])) "✅" else "❌")
         }
         val addition = person.call("add", 100, 31)
         if (addition != null) {
-            trace("Call add :", 131, if (131 == Int(addition)) "✓" else "❌")
+            trace("Call add :", 131, if (131 == Int(addition)) "✅" else "❌")
         }
 
         val cityName = String(person["city"]["name"])
-        trace("Get property as String :", cityName, if ("Boston" == cityName) "✓" else "❌")
+        trace("Get property as String :", cityName, if ("Boston" == cityName) "✅" else "❌")
 
         try {
             val dictionary: Map<String, Any>? = Map(person)
@@ -128,9 +129,8 @@ class KotlinController : FreKotlinMainController {
     fun runArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Array test ***********")
         val airArray = FREArray(argv[0])
-        airArray.append(77.toFREObject())
-        airArray.append(88)
-        trace("Get FREArray length :", airArray.length, if (8L == airArray.length) "✓" else "❌")
+        airArray.push(77.toFREObject(), 88)
+        trace("Get FREArray length :", airArray.length, if (8L == airArray.length) "✅" else "❌")
         for (fre: FREObject? in airArray) {
             trace("iterate over FREArray", Int(fre))
         }
@@ -142,10 +142,10 @@ class KotlinController : FreKotlinMainController {
         }
 
         val newFreArray = FREArray("Object", 5, true)
-        trace("New FREArray of fixed length:", newFreArray?.length, if (5L == newFreArray?.length) "✓" else "❌")
+        trace("New FREArray of fixed length:", newFreArray?.length, if (5L == newFreArray?.length) "✅" else "❌")
 
         val airVector = FREArray(argv[1])
-        trace("Get FREArray length :", airVector.length, if (2L == airVector.length) "✓" else "❌")
+        trace("Get FREArray length :", airVector.length, if (2L == airVector.length) "✅" else "❌")
         val al = List<String>(airVector)
         for (s in al) {
             trace("Vector.<String> passed from AIR elem:", s)
@@ -154,7 +154,7 @@ class KotlinController : FreKotlinMainController {
         val kotArr: IntArray = intArrayOf(1, 2, 3)
         val kotArrayFre = FREArray(kotArr)
         val kotArrBack = IntArray(kotArrayFre)
-        trace("Kotlin IntArray :", if (3 == kotArrBack[2]) "✓" else "❌")
+        trace("Kotlin IntArray :", if (3 == kotArrBack[2]) "✅" else "❌")
         return airArray
 
     }
@@ -191,10 +191,10 @@ class KotlinController : FreKotlinMainController {
         argv.takeIf { argv.size > 0 } ?: return FreArgException("runExtensibleTests")
         val rectangleF = RectF(argv[0])
         val point = PointF(0f, 50.2f)
-        trace("RectF :", rectangleF, if (rectangleF.left == 50.1f) "✓" else "❌")
+        trace("RectF :", rectangleF, if (rectangleF.left == 50.1f) "✅" else "❌")
         val frePoint = point.toFREObject()
         if (frePoint != null) {
-            trace("Point :", point, if (Float(frePoint["x"]) == 0f && Float(frePoint["y"]) == 50.2f) "✓" else "❌")
+            trace("Point :", point, if (Float(frePoint["x"]) == 0f && Float(frePoint["y"]) == 50.2f) "✅" else "❌")
         }
         return rectangleF.toFREObject()
     }
@@ -206,7 +206,7 @@ class KotlinController : FreKotlinMainController {
         if (byteArray != null) {
             val str = String(Base64.encode(byteArray, Base64.NO_WRAP), Charset.forName("utf-8"))
             trace("ByteArray passed from AIR to base64:", str,
-                    if ("S290bGluIGluIGFuIEFORS4gU2F5IHdoYWFhYXQh" == str) "✓" else "❌")
+                    if ("S290bGluIGluIGFuIEFORS4gU2F5IHdoYWFhYXQh" == str) "✅" else "❌")
         }
         return null
     }
@@ -237,20 +237,27 @@ class KotlinController : FreKotlinMainController {
         val airHSV = argv[0].toHSV(false)
         val airColorWithAlpha = argv[1].toColor()
 
+        val testColor = Color.GREEN
+
         trace("Colour passed from AIR as Color (RGB):", airColor,
                 if (255 == Color.alpha(airColor)
                         && 0 == Color.red(airColor)
                         && 255 == Color.green(airColor)
                         && 0 == Color.blue(airColor)
-                ) "✓" else "❌")
-        trace("Number passed from AIR as Float:", airHSV, if (120.0f == airHSV) "✓" else "❌")
+                ) "✅" else "❌")
+
+
+        trace("Colour passed from AIR as Color (RGB):", airColor,
+                if (testColor.equals(airColor)) "✅" else "❌")
+
+        trace("Number passed from AIR as Float:", airHSV, if (120.0f == airHSV) "✅" else "❌")
 
         trace("Colour passed from AIR as Color (ARGB):", airColorWithAlpha,
                 if (128 == Color.alpha(airColorWithAlpha)
                         && 0 == Color.red(airColorWithAlpha)
                         && 255 == Color.green(airColorWithAlpha)
                         && 0 == Color.blue(airColorWithAlpha)
-                ) "✓" else "❌")
+                ) "✅" else "❌")
 
         return airColorWithAlpha.toFREObject()
     }
@@ -263,5 +270,6 @@ class KotlinController : FreKotlinMainController {
         get() = _context
         set(value) {
             _context = value
+            FreKotlinLogger.context = _context
         }
 }
