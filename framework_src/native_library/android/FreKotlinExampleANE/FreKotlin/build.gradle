@@ -52,6 +52,23 @@ buildscript {
 dokka {
     outputFormat = 'html'
     outputDirectory = "$buildDir/javadoc"
+    includeNonPublic = false
+    skipDeprecated = true
+    reportUndocumented = true
+    // Suppress a package
+    packageOptions {
+        prefix = "com.tuarua.frekotlin.R"
+        suppress = true
+    }
+    packageOptions {
+        prefix = "com.tuarua.frekotlin.BuildConfig" // will match kotlin.internal and all sub-packages of it
+        suppress = true
+    }
+    linkMapping {
+        dir = "src/main/java"
+        url = "https://github.com/tuarua/FreKotlin-Android-ANE/tree/1.5.0/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java"
+        suffix = "#L"
+    }
 }
 
 // https://www.raywenderlich.com/185299/building-android-library-tutorial

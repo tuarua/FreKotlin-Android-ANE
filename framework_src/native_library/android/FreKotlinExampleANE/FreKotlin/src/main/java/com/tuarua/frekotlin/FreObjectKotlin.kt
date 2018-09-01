@@ -25,8 +25,6 @@ import java.util.*
  */
 open class FreObjectKotlin {
     var rawValue: FREObject? = null
-    constructor()
-    @Throws(FREWrongThreadException::class)
     constructor(any: Any?) {
         if (any == null) {
             rawValue = null

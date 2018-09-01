@@ -23,6 +23,11 @@ import android.graphics.RectF
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
 
+/**
+ * Initialise a Rect from a FREObject.
+ * @param [freObject] the FREObject to convert.
+ * @return a new Rect.
+ */
 fun Rect(freObject: FREObject?): Rect {
     val x = Int(freObject["x"]) ?: 0
     val y = Int(freObject["y"]) ?: 0
@@ -31,10 +36,20 @@ fun Rect(freObject: FREObject?): Rect {
     return Rect(x, y, x + w, y + h)
 }
 
+/**
+ * Converts a Rect into a FREObject of AS3 type flash.geom.Rectangle.
+ * @receiver The Rect
+ * @return A new FREObject
+ */
 fun Rect.toFREObject(): FREObject? {
     return FREObject("flash.geom.Rectangle", this.left, this.top, this.width(), this.height())
 }
 
+/**
+ * Initialise a RectF from a FREObject.
+ * @param [freObject] the FREObject to convert.
+ * @return a new RectF.
+ */
 fun RectF(freObject: FREObject?): RectF {
     val x = Float(freObject["x"]) ?: 0f
     val y = Float(freObject["y"]) ?: 0f
@@ -43,6 +58,11 @@ fun RectF(freObject: FREObject?): RectF {
     return RectF(x, y, x + w, y + h)
 }
 
+/**
+ * Converts a RectF into a FREObject of AS3 type flash.geom.Rectangle.
+ * @receiver The RectF
+ * @return A new FREObject
+ */
 fun RectF.toFREObject(): FREObject? {
     return FREObject("flash.geom.Rectangle", this.left, this.top, this.width(), this.height())
 }

@@ -23,20 +23,40 @@ import android.graphics.PointF
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
 
+/**
+ * Initialise a Point from a FREObject.
+ * @param [freObject] the FREObject to convert.
+ * @return a new Point.
+ */
 fun Point(freObject: FREObject?): Point {
     return Point(Int(freObject["x"]) ?: 0,
             Int(freObject["y"]) ?: 0)
 }
 
+/**
+ * Converts a Point into a FREObject of AS3 type flash.geom.Point.
+ * @receiver The Point
+ * @return A new FREObject
+ */
 fun Point.toFREObject(): FREObject? {
     return FREObject("flash.geom.Point", this.x, this.y)
 }
 
+/**
+ * Initialise a PointF from a FREObject.
+ * @param [freObject] the FREObject to convert.
+ * @return a new PointF.
+ */
 fun PointF(freObject: FREObject?): PointF {
     return PointF(Float(freObject["x"]) ?: 0f,
             Float(freObject["y"]) ?: 0f)
 }
 
+/**
+ * Converts a PointF into a FREObject of AS3 type flash.geom.Point.
+ * @receiver The PointF
+ * @return A new FREObject
+ */
 fun PointF.toFREObject(): FREObject? {
     return FREObject("flash.geom.Point", this.x, this.y)
 }

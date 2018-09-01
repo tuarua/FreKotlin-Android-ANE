@@ -18,34 +18,47 @@ package com.tuarua.frekotlin
 
 import com.adobe.fre.*
 
+/**
+ * Logger utility for logging any FRE errors which occur
+ */
 object FreKotlinLogger {
+    /** Sets the FREContext */
     var context: FREContext? = null
 
-    fun log(message: String, e: Exception) {
+    /**
+     * Traces the message to the console.
+     * @param [message] message to log.
+     * @param [exception] exception to log.
+     */
+    fun log(message: String, exception: Exception) {
         val ctx = context ?: return
-        val type = e.javaClass.simpleName
-        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $type $message", "TRACE")
+        val type = exception.javaClass.simpleName
+        ctx.dispatchStatusEventAsync("[FreKotlin] ‼ $type $message", "TRACE")
         var stackTrace = ""
 
-        if (e is FREASErrorException) {
-            stackTrace = getActionscriptException(e.thrownException)
+        if (exception is FREASErrorException) {
+            stackTrace = getActionscriptException(exception.thrownException)
         } else {
-            val st = e.stackTrace
+            val st = exception.stackTrace
             st.indices.forEach { i ->
                 val elem: StackTraceElement = st[i]
                 stackTrace = stackTrace + "\n" + elem.toString()
             }
-            stackTrace = stackTrace + "\n" + e.cause.toString()
+            stackTrace = stackTrace + "\n" + exception.cause.toString()
         }
 
         if (!stackTrace.isEmpty()) {
-            ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $stackTrace", "TRACE")
+            ctx.dispatchStatusEventAsync("[FreKotlin] ‼ $stackTrace", "TRACE")
         }
     }
 
+    /**
+     * Traces the message to the console.
+     * @param [message] message to log.
+     */
     fun log(message: String) {
         val ctx = context ?: return
-        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $message", "TRACE")
+        ctx.dispatchStatusEventAsync("[FreKotlin] ‼ $message", "TRACE")
     }
 
     private fun getActionscriptException(thrownException: FREObject): String {

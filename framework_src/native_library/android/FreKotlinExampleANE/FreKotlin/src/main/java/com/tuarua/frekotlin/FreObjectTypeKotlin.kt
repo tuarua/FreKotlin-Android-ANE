@@ -15,7 +15,9 @@
  */
 package com.tuarua.frekotlin
 
-
+/** Provides Kotlin mappings for FREObjectType.
+ * Adds additional AS3 types (CLASS, RECTANGLE, POINT, DATE)
+ */
 enum class FreObjectTypeKotlin {
     /**
      * @property OBJECT Object

@@ -80,35 +80,22 @@ internal object FreKotlinHelper {
         return Date(l)
     }
 
-    @Throws(FreException::class, FREASErrorException::class, FREInvalidObjectException::class,
-            FREWrongThreadException::class, FRENoSuchNameException::class, FRETypeMismatchException::class)
     private fun getAsDictionary(rawValue: FREObject): Map<String, Any> {
         val ret = HashMap<String, Any>()
-        try {
-            val aneUtils = FREObject.newObject("com.tuarua.fre.ANEUtils", null)
-            val args = arrayOfNulls<FREObject>(1)
-            args[0] = rawValue
-            val classProps1 = aneUtils.callMethod("getClassProps", args)
+        val aneUtils = FREObject("com.tuarua.fre.ANEUtils") ?: return mapOf()
+        val classProps = aneUtils.call("getClassProps", rawValue) ?: return mapOf()
+        val classPropsArr = FREArray(classProps)
 
-            if (classProps1 is FREArray) {
-                var i = 0
-                val numProps = classProps1.length.toInt()
-                while (i < numProps) {
-                    val elem = classProps1.getObjectAt(i.toLong())
-                    if (elem != null) {
-                        val propName = elem.getProperty("name").asString
-                        if (propName != null && !propName.isEmpty()) {
-                            val propval: FREObject? = rawValue.getProperty(propName)
-                            if (propval is FREObject) {
-                                FreObjectKotlin(propval).value?.let { ret.put(propName, it) }
-                            }
-                        }
+        for (elem in classPropsArr) {
+            if (elem != null) {
+                val propName = elem.getProperty("name").asString
+                if (propName != null && !propName.isEmpty()) {
+                    val propval = rawValue[propName]
+                    if (propval is FREObject) {
+                        FreObjectKotlin(propval).value?.let { ret.put(propName, it) }
                     }
-                    i++
                 }
             }
-        } catch (e: Exception) {
-            throw FreException(e)
         }
         return ret
     }
@@ -206,7 +193,7 @@ internal object FreKotlinHelper {
         return try {
             rawValue.getProperty(name)
         } catch (e: Exception) {
-            log( "cannot get property $name of ${rawValue.toStr()}", e)
+            log("cannot get property $name of ${rawValue.toStr()}", e)
             null
         }
     }
@@ -215,7 +202,7 @@ internal object FreKotlinHelper {
         try {
             rawValue.setProperty(name, prop)
         } catch (e: Exception) {
-            log( "cannot set property $name of ${rawValue.toStr()} to ", e)
+            log("cannot set property $name of ${rawValue.toStr()} to ", e)
         }
     }
 
@@ -227,7 +214,7 @@ internal object FreKotlinHelper {
         return try {
             rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
-            log( "cannot callMethod method $name on ${rawValue.toStr()}", e)
+            log("cannot callMethod method $name on ${rawValue.toStr()}", e)
             null
         }
     }
@@ -237,7 +224,7 @@ internal object FreKotlinHelper {
         return try {
             rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
-            log( "cannot callMethod method $name on ${rawValue.toStr()}", e)
+            log("cannot callMethod method $name on ${rawValue.toStr()}", e)
             null
         }
     }

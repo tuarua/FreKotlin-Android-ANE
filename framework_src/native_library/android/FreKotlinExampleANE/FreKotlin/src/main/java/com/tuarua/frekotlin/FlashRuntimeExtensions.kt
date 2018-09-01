@@ -26,12 +26,12 @@ import java.util.*
 /** Alias for param in fun */
 typealias FREArgv = ArrayList<FREObject>
 
-/** Sends an asynchronous event to the ANE */
+/** @suppress */
 fun FREContext.dispatchEvent(name: String, value: String) {
     this.dispatchStatusEventAsync(value, name)
 }
 
-/** Sends a trace event to the ANE */
+/** @suppress */
 fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
@@ -39,35 +39,37 @@ fun FREContext.trace(TAG: String, args: Array<out Any?>) {
     this.dispatchEvent("TRACE", traceStr)
 }
 
+/** @suppress */
 fun FREContext.warning(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
         traceStr = "$traceStr$v "
-    this.dispatchEvent("TRACE", "⚠️ WARNING: $traceStr")
+    this.dispatchEvent("TRACE", "⚠️WARNING: $traceStr")
 }
 
+/** @suppress */
 fun FREContext.info(TAG: String, args: Array<out Any?>) {
     var traceStr = "$TAG: "
     for (v in args)
         traceStr = "$traceStr$v "
-    this.dispatchEvent("TRACE", "ℹ️ INFO: $traceStr")
+    this.dispatchEvent("TRACE", "ℹ️INFO: $traceStr")
 }
 
-// Declare an extension function that calls a lambda called block if the value is null
+/** Declare an extension function that calls a lambda called block if the value is null. */
 inline fun <T> T.guard(block: T.() -> Unit): T {
     if (this == null) block(); return this
 }
 
-/** Converts a FREObject to a Double */
+/** Converts a FREObject to a [Double]. */
 fun Double(freObject: FREObject?): Double? = FreKotlinHelper.getAsDouble(freObject)
 
-/** Converts a FREObject to a Long */
+/** Converts a FREObject to a [Long]. */
 fun Long(freObject: FREObject?): Long? = FreKotlinHelper.getAsDouble(freObject)?.toLong()
 
-/** Converts a FREObject to a Float */
+/** Converts a FREObject to a [Float]. */
 fun Float(freObject: FREObject?): Float? = FreKotlinHelper.getAsDouble(freObject)?.toFloat()
 
-/** Converts a FREObject to a Map<String, Any> */
+/** Converts a FREObject to a Map<String, Any>. */
 @Suppress("UNCHECKED_CAST", "unused")
 fun <String, Any> Map(freObject: FREObject?): Map<String, Any>? {
     if (freObject != null) {
@@ -76,38 +78,49 @@ fun <String, Any> Map(freObject: FREObject?): Map<String, Any>? {
     return null
 }
 
-/** Converts a FREObject to a Int */
+/** Converts a FREObject to a [Int]. */
 fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsInt(freObject)
 
-/** Converts a FREObject to a String */
+/** Converts a FREObject to a [String]. */
 fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsString(freObject)
 
-/** Converts a FREObject to a Boolean */
+/** Converts a FREObject to a [Boolean]. */
 fun Boolean(freObject: FREObject?): Boolean? = FreKotlinHelper.getAsBoolean(freObject)
 
-/** Converts a FREObject to a Date */
+/** Converts a FREObject to a [Date]. */
 fun Date(freObject: FREObject?): Date? = FreKotlinHelper.getAsDate(freObject)
 
-/** Calls the given method on a FREObject */
+/**
+ * Calls the given method on a FREObject.
+ * @param [method] name of AS3 method to call
+ * @param [args] arguments to pass to the method
+ */
 fun FREObject?.call(method: String, vararg args: Any): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.callMethod(rv, method, args)
 }
 
-/**  Calls the given method on a FREObject */
+/**
+ * Calls the given method on a FREObject.
+ * @param [method] name of AS3 method to call
+ * */
 fun FREObject?.call(method: String): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.callMethod(rv, method)
 }
 
-/**  Calls the given method on a FREObject */
+/**
+ * Calls the given method on a FREObject.
+ * @param [method] name of AS3 method to call.
+ * @param [args] arguments to pass to the method.
+ */
 fun FREObject?.call(method: String, vararg args: FREObject): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.callMethod(rv, method, args)
 }
 
 @Suppress("UNUSED_PARAMETER")
-/**  Returns the type of an FREObject */
+/**  Returns the type of an FREObject. */
 var FREObject?.type: FreObjectTypeKotlin
     get() {
         return when {
@@ -118,6 +131,11 @@ var FREObject?.type: FreObjectTypeKotlin
     set(value) = Unit
 
 /** Creates a FREObject */
+/**
+ * Calls the given method on a FREObject.
+ * @param [className] name of AS3 class to create.
+ * @param [args] arguments to use. These are automatically converted to FREObjects.
+ */
 fun FREObject(className: String, vararg args: Any?): FREObject? {
     val argsArr = arrayOfNulls<FREObject>(args.size)
     for (i in args.indices) {
@@ -315,6 +333,7 @@ fun FreArgException(functionName: String, stackTrace: kotlin.Array<java.lang.Sta
     }
 }
 
+/** Calls toString() on a FREObject */
 fun FREObject?.toStr(suppressStrings: Boolean = false): String {
     if (suppressStrings && this.type == FreObjectTypeKotlin.STRING || this.type == FreObjectTypeKotlin.NULL) {
         return ""
