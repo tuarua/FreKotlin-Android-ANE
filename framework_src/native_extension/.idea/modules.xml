@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$DOCUMENTS$/FreKotlin-Android-ANE/frekotlin_native_extension/FreKotlinANE.iml" filepath="$DOCUMENTS$/FreKotlin-Android-ANE/frekotlin_native_extension/FreKotlinANE.iml" />
       <module fileurl="file://$PROJECT_DIR$/FreKotlinExampleANE.iml" filepath="$PROJECT_DIR$/FreKotlinExampleANE.iml" />
     </modules>
   </component>
