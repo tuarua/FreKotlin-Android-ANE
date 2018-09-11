@@ -1,5 +1,6 @@
 ### 1.5.0
 - Upgraded to Kotlin 1.2.61
+- Upgraded to AIR 31
 - Use `android.graphics.Rect`, `RectF`, `Point` and `PointF` for `FreRect` and `FrePoint`
 - Added `FREObject.toStr()`
 - Added `FREObject.hasOwnProperty(string name)`

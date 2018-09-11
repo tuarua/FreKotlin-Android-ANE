@@ -18,7 +18,6 @@ package com.tuarua
 
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.graphics.Point
 import android.graphics.PointF
 import android.util.Base64
 import android.util.Log
@@ -32,7 +31,6 @@ import com.tuarua.frekotlin.geom.RectF
 import com.tuarua.frekotlin.geom.toFREObject
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
-
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinMainController {
@@ -121,7 +119,6 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runDateTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        trace("***********Start Date test ***********")
         val date = Date(argv[0])
         return date?.toFREObject()
     }

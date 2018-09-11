@@ -2,7 +2,7 @@
 <extension xmlns="http://ns.adobe.com/air/extension/19.0">
     <id>com.tuarua.frekotlin.example</id>
 	<name>FreKotlinExample ANE</name>
-	<copyright>This work is licensed under Apache License, Copyright (c) 2018 Tua Rua Ltd.</copyright>
+	<copyright>This work is licensed under Apache License, Copyright (c) 2017 Tua Rua Ltd.</copyright>
 	<versionNumber>1.4.0</versionNumber>
     <platforms>
 		<platform name="Android-ARM"> 
