@@ -49,7 +49,7 @@ public class FreKotlinExampleANE extends EventDispatcher {
     }
 
     public function runColorTests(value:uint, value2:uint):uint {
-        return uint(ctx.call("runColorTests", value, value2)); // important Kotlin has no uint must convert here to uint
+        return uint(ctx.call("runColorTests", value, value2)) as uint; // important Kotlin has no uint must convert here to uint
     }
 
     public function runArrayTests(value:Array, value2:Vector.<String>):Array {
