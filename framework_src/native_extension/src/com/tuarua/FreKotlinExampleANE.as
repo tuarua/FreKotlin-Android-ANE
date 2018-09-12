@@ -11,18 +11,21 @@ import flash.utils.ByteArray;
 public class FreKotlinExampleANE extends EventDispatcher {
     private static const NAME:String = "frekotlin.example";
     private var ctx:ExtensionContext;
+
     public function FreKotlinExampleANE() {
         initiate();
     }
+
     private function initiate():void {
         trace("[" + NAME + "] Initalizing ANE...");
         try {
-            ctx = ExtensionContext.createExtensionContext("com.tuarua."+NAME, null);
+            ctx = ExtensionContext.createExtensionContext("com.tuarua." + NAME, null);
             ctx.addEventListener(StatusEvent.STATUS, gotEvent);
         } catch (e:Error) {
             trace("[" + NAME + "] ANE Not loaded properly.  Future calls will fail.");
         }
     }
+
     private function gotEvent(event:StatusEvent):void {
         //trace(event);
         var pObj:Object;
@@ -41,8 +44,12 @@ public class FreKotlinExampleANE extends EventDispatcher {
         return ctx.call("runNumberTests", value) as Number;
     }
 
-    public function runIntTests(value:int, value2:uint, value3:uint):int {
-        return ctx.call("runIntTests", value, value2, value3) as int;
+    public function runIntTests(value:int, value2:uint):int {
+        return ctx.call("runIntTests", value, value2) as int;
+    }
+
+    public function runColorTests(value:uint, value2:uint):uint {
+        return uint(ctx.call("runColorTests", value, value2)) as uint; // important Kotlin has no uint must convert here to uint
     }
 
     public function runArrayTests(value:Array, value2:Vector.<String>):Array {
@@ -73,16 +80,11 @@ public class FreKotlinExampleANE extends EventDispatcher {
         return ctx.call("runDateTests", value) as Date;
     }
 
-
-    public function runErrorTests(value:Person):void {
-        var theRet:* = ctx.call("runErrorTests", value);
+    public function runErrorTests(value:Person, string:String):void {
+        var theRet:* = ctx.call("runErrorTests", value, string);
         if (theRet is ANEError) {
             throw theRet as ANEError;
         }
-    }
-
-    public function runErrorTests2(string:String):void {
-        ctx.call("runErrorTests2", string);
     }
 
     public function dispose():void {

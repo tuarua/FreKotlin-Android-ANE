@@ -23,17 +23,30 @@ import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 
 @Suppress("unused", "PrivatePropertyName")
-
+/**
+ * FreException.
+ */
 open class FreException : Exception {
     private val TAG = "com.tuarua.frekotlin.FreException"
     private var _aneError: FreObjectKotlin? = null
+    /**
+     * @property [stackTrace] the stack trace.
+     */
     var stackTrace = ""
+    /**
+     * @property [message] the message.
+     */
     final override var message = ""
     private var type = ""
 
+    /**
+     * @param [e] the error.
+     * @param message the name of this group.
+     * @constructor Creates a FreException.
+     */
     constructor(e: Any, message: String? = null) : super() {
         val exception = e as Exception
-        type = e.javaClass.simpleName
+        type = exception.javaClass.simpleName
         this.message = when {
             message != null -> message
             else -> exception.message.toString()
@@ -51,17 +64,17 @@ open class FreException : Exception {
         }
     }
 
+    /**
+     * @param [message] the message.
+     * @param [type] the type.
+     * @param [stackTrace] the stack trace.
+     * @constructor Creates a FreException.
+     */
     constructor(message: String, type: String = "", stackTrace: String = "") {
         this.message = message
         this.type = type
         this.stackTrace = stackTrace
     }
-
-    /**
-     *
-     * @param [thrownException] the FREObject for the exception
-     * @return returns the Exception as a String.
-     */
 
     private fun getActionscriptException(thrownException: FREObject): String {
         var ret = ""
@@ -78,6 +91,7 @@ open class FreException : Exception {
     }
 
     /**
+     * Gets the error
      *
      * @param [stackTraceElements] the java stack trace
      * @return returns the Exception as a FREObject to be passed back to AS3.

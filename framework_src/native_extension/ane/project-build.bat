@@ -4,7 +4,7 @@ call frekotlin-build.bat
 
 SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
-SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_30\bin\"
+SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_31\bin\"
 
 SET projectName=FreKotlinExampleANE
 SET ANE_NAME=com.tuarua.frekotlin.example

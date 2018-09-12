@@ -4,7 +4,7 @@
 echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_29"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_31"
 
 sh ./frekotlin-build.sh
 

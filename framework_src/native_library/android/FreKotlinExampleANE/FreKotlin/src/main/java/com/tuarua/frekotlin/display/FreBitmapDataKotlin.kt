@@ -27,6 +27,7 @@ import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FREObject
 import com.adobe.fre.FREWrongThreadException
 import com.tuarua.frekotlin.FreException
+import com.tuarua.frekotlin.FreKotlinLogger
 
 import java.nio.ByteBuffer
 
@@ -86,14 +87,18 @@ class FreBitmapDataKotlin {
     }
 
     /** */
-    @Throws(FREASErrorException::class, FREWrongThreadException::class, FREInvalidObjectException::class)
     constructor(bitmap: Bitmap, swapColors: Boolean = true) {
         val fillColor = arrayOf<Byte>(0, 0, 0, 0)
-        rawValue = FREBitmapData.newBitmapData(bitmap.width,
-                bitmap.height, bitmap.hasAlpha(), fillColor)
+        try {
+            rawValue = FREBitmapData.newBitmapData(bitmap.width,
+                    bitmap.height, bitmap.hasAlpha(), fillColor)
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot create the FREBitmapData", e)
+            return
+        }
 
         val bmp: Bitmap = when {
-            swapColors -> Companion.doSwapColors(bitmap)
+            swapColors -> doSwapColors(bitmap)
             else -> bitmap
         }
         acquire()
@@ -105,50 +110,49 @@ class FreBitmapDataKotlin {
 
     /**
      * See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WS11d1def534ea1be0-67da1176132a8869db6-7ffe.html)
-     *
-     * @throws
-     * @exception FREWrongThreadException
-     *
      */
-    @Throws(FREWrongThreadException::class, FREInvalidObjectException::class)
     fun acquire() {
-        if (rawValue is FREBitmapData) {
-            rawValue?.acquire()
-            width = (rawValue as FREBitmapData).width
-            height = (rawValue as FREBitmapData).height
-            bits32 = (rawValue as FREBitmapData).bits
-            hasAlpha = (rawValue as FREBitmapData).hasAlpha()
-            isInvertedY = (rawValue as FREBitmapData).isInvertedY
-            isPremultiplied = (rawValue as FREBitmapData).isPremultiplied
-            lineStride32 = (rawValue as FREBitmapData).lineStride32
+        val rv = rawValue ?: return
+        try {
+            rv.acquire()
+            width = rv.width
+            height = rv.height
+            bits32 = rv.bits
+            hasAlpha = rv.hasAlpha()
+            isInvertedY = rv.isInvertedY
+            isPremultiplied = rv.isPremultiplied
+            lineStride32 = rv.lineStride32
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot acquire the FREByteArray", e)
         }
     }
 
     /**
      * See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WS11d1def534ea1be0-67da1176132a8869db6-7ffe.html)
-     *
-     * @throws
-     * @exception FREWrongThreadException
-     * @exception FREInvalidObjectException
      */
-    @Throws(FREWrongThreadException::class, FREInvalidObjectException::class)
     fun release() {
-        rawValue?.release()
+        try {
+            rawValue?.release()
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot release the FREBitmapData", e)
+        }
     }
 
     /**
      * See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WS11d1def534ea1be0-67da1176132a8869db6-7ffe.html)
-     *
-     * @throws
-     * @exception FREWrongThreadException
-     * @exception FREInvalidObjectException
      */
-    @Throws(FREWrongThreadException::class, FREInvalidObjectException::class)
     fun invalidateRect(x: Int, y: Int, width: Int, height: Int) {
-        rawValue?.invalidateRect(x, y, width, height)
+        try {
+            rawValue?.invalidateRect(x, y, width, height)
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot invalidateRect the FREBitmapData", e)
+        }
     }
 
     companion object {
+        /**
+         * swaps the Red and Blue Colors of the Bitmap.
+         */
         fun doSwapColors(inBitmap: Bitmap): Bitmap {
             val matrix = floatArrayOf(0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 1f, 0f)
             val rbSwap = ColorMatrix(matrix)
@@ -163,44 +167,43 @@ class FreBitmapDataKotlin {
     }
 
 }
+
 /**
- * converts a FREObject of type BitmapData to a Bitmap
+ * Converts a FREObject of type BitmapData to a Bitmap.
+ * @param [swapColors] swaps the Red and Blue Colors of the Bitmap.
  */
 @Suppress("FunctionName")
 @JvmOverloads
-@Throws(FreException::class)
 fun Bitmap(freObject: FREObject?, swapColors: Boolean = true): Bitmap? {
     var ret: Bitmap? = null
-    if (freObject != null) {
-        try {
-            val bmd = FreBitmapDataKotlin(freObject)
-            bmd.acquire()
-            if (bmd.bits32 is ByteBuffer) {
-                ret = Bitmap.createBitmap(bmd.width, bmd.height, Bitmap.Config.ARGB_8888)
-                ret.copyPixelsFromBuffer(bmd.bits32)
-            }
-            bmd.release()
-            return if (swapColors && ret != null) {
-                FreBitmapDataKotlin.doSwapColors(ret)
-            } else {
-                ret
-            }
-        } catch (e: FreException) {
-            throw e
-        } catch (e: Exception) {
-            throw FreException(e)
+    val fre = freObject ?: return null
+    try {
+        val bmd = FreBitmapDataKotlin(fre)
+        bmd.acquire()
+        if (bmd.bits32 is ByteBuffer) {
+            ret = Bitmap.createBitmap(bmd.width, bmd.height, Bitmap.Config.ARGB_8888)
+            ret.copyPixelsFromBuffer(bmd.bits32)
         }
+        bmd.release()
+        return if (swapColors && ret != null) {
+            FreBitmapDataKotlin.doSwapColors(ret)
+        } else {
+            ret
+        }
+    } catch (e: Exception) {
+        FreKotlinLogger.log("Cannot create Bitmap from FREObject", e)
     }
     return ret
 }
 
 /**
- * converts a Bitmap to a FREObject of type BitmapData
+ * Converts a Bitmap to a FREObject of type BitmapData.
  */
 fun Bitmap.toFREObject(): FREObject? {
-    return try {
-        FreBitmapDataKotlin(this,true).rawValue
+    try {
+        return FreBitmapDataKotlin(this, true).rawValue
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from Bitmap").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("Cannot create FREObject from Bitmap", e)
     }
+    return null
 }

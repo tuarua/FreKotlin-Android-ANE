@@ -19,12 +19,13 @@ package com.tuarua.frekotlin
 
 import com.adobe.fre.*
 import java.nio.ByteBuffer
+
 /**
- * A wrapper for handling FREByteArray
+ * A wrapper for handling FREByteArray.
  *
- * @property rawValue the raw FREByteArray value
- * @property length An Int that specifies the number of bytes in the byte array.
- * @property bytes A ByteBuffer of the ByteArray.
+ * @property rawValue the raw FREByteArray value.
+ * @property length an Int that specifies the number of bytes in the byte array.
+ * @property bytes a ByteBuffer of the ByteArray.
  *
  */
 class FreByteArrayKotlin {
@@ -54,77 +55,76 @@ class FreByteArrayKotlin {
      * @param byteArray the ByteArray to create this class from.
      * @constructor
      */
-    @Throws(FREASErrorException::class, FREWrongThreadException::class, FREInvalidObjectException::class)
     constructor(byteArray: ByteArray) {
-        rawValue = FREByteArray.newByteArray()
-        rawValue?.setProp("length", byteArray.size)
+        try {
+            rawValue = FREByteArray.newByteArray()
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot create FREByteArray from ByteArray", e)
+        }
+        val rv = rawValue ?: return
+        rv["length"] = byteArray.size.toFREObject()
         acquire()
-        (rawValue as FREByteArray).bytes.put(byteArray)
+        rv.bytes.put(byteArray)
         release()
     }
 
     /**
      * See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WS39e706a46ad531be2664b82132a8ec9029-8000.html)
-     *
-     * @throws
-     * @exception FREWrongThreadException
-     *
      */
-    @Throws(FREWrongThreadException::class, FREInvalidObjectException::class)
     fun acquire() {
-        if (rawValue is FREByteArray) {
-            rawValue?.acquire()
-            length = (rawValue as FREByteArray).length.toInt()
-            bytes = (rawValue as FREByteArray).bytes
+        val rv = rawValue ?: return
+        try {
+            rv.acquire()
+            length = rv.length.toInt()
+            bytes = rv.bytes
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot acquire the FREByteArray", e)
         }
     }
 
     /**
      * See the original [Adobe documentation](https://help.adobe.com/en_US/air/extensions/WS39e706a46ad531be2664b82132a8ec9029-8000.html)
-     *
-     * @throws
-     * @exception FREWrongThreadException
-     * @exception FREInvalidObjectException
      */
-    @Throws(FREWrongThreadException::class, FREInvalidObjectException::class)
     fun release() {
-        rawValue?.release()
+        try {
+            rawValue?.release()
+        } catch (e: Exception) {
+            FreKotlinLogger.log("Cannot release the FREByteArray", e)
+        }
     }
 }
+
 /**
- * converts a FREObject of type ByteArray to a ByteArray
+ * Converts a FREObject of type ByteArray to a ByteArray.
  */
 @Suppress("FunctionName")
-@Throws(FreException::class)
 fun ByteArray(freObject: FREObject?): ByteArray? {
     var ret: ByteArray? = null
-    if (freObject != null) {
-        try {
-            val ba = FreByteArrayKotlin(freObject)
-            ba.acquire()
-            val buffer = ba.bytes
-            if (buffer != null) {
-                ret = ByteArray(buffer.remaining())
-                buffer.get(ret, 0, ret.size)
-            }
-            ba.release()
-            return ret
-        } catch (e: FreException) {
-            throw e
-        } catch (e: Exception) {
-            throw FreException(e)
+    val fre = freObject ?: return null
+    try {
+        val ba = FreByteArrayKotlin(fre)
+        ba.acquire()
+        val buffer = ba.bytes
+        if (buffer != null) {
+            ret = ByteArray(buffer.remaining())
+            buffer.get(ret, 0, ret.size)
         }
+        ba.release()
+        return ret
+    } catch (e: Exception) {
+        FreKotlinLogger.log("Cannot create ByteArray from FREObject", e)
     }
     return ret
 }
 
 /**
- * converts a ByteArray a FREObject of type ByteArray
+ * Converts a ByteArray to a FREObject of type ByteArray.
  */
 fun ByteArray.toFREObject(): FREObject? {
-    return try {
-        FreByteArrayKotlin(this).rawValue
+    try {
+        return FreByteArrayKotlin(this).rawValue
     } catch (e: Exception) {
-        FreException(e, "cannot create new object from ByteArray").getError(Thread.currentThread().stackTrace)
+        FreKotlinLogger.log("Cannot create FREObject from ByteArray", e)
     }
+    return null
 }

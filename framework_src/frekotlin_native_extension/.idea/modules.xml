@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FreKotlinExampleANE.iml" filepath="$PROJECT_DIR$/FreKotlinExampleANE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FreKotlin.iml" filepath="$PROJECT_DIR$/FreKotlin.iml" />
     </modules>
   </component>
 </project>

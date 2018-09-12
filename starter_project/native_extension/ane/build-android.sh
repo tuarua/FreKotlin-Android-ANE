@@ -4,7 +4,7 @@
 echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
-AIR_SDK="/Users/User/sdks/AIR/AIRSDK_28"
+AIR_SDK="/Users/User/sdks/AIR/AIRSDK_31"
 
 PROJECTNAME=HelloWorldANE
 

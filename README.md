@@ -1,5 +1,7 @@
 # FreKotlin
 
+[ ![Download](https://api.bintray.com/packages/tuarua/maven/FreKotlin/images/download.svg) ](https://bintray.com/tuarua/maven/FreKotlin/_latestVersion)
+
 Example Android Studio project showing how to create Air Native Extensions for Android using Kotlin.  
   
 This project is used as the basis for the following ANEs   
@@ -31,11 +33,13 @@ The following table shows the primitive as3 types which can easily be converted 
 | Number | Float | `val fl = Float(argv[0])` | `return fl.toFREObject()`|
 | Date | Date | `val dt = Date(argv[0])` | `return dt.toFREObject()`|
 | Rectangle | Rect | `val r = Rect(argv[0])` | `return r.toFREObject()`|
+| Rectangle | RectF | `val r = RectF(argv[0])` | `return r.toFREObject()`|
 | Point | Point | `val pnt = Point(argv[0])` | `return pnt.toFREObject()`|
-| Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREArray()`|
-| Vector Boolean | BooleanArray | `val arr = BooleanArray(argv[0])` | `return arr.toFREArray()`|
-| Vector Number | DoubleArray | `val arr = DoubleArray(argv[0])` | `return arr.toFREArray()`|
-| Vector String | List | `val al = List<String>(argv[0])` | `return al.toFREArray()`|
+| Point | PointF | `val pnt = PointF(argv[0])` | `return pnt.toFREObject()`|
+| Vector Int | IntArray | `val arr = IntArray(argv[0])` | `return arr.toFREObject()`|
+| Vector Boolean | BooleanArray | `val arr = BooleanArray(argv[0])` | `return arr.toFREObject()`|
+| Vector Number | DoubleArray | `val arr = DoubleArray(argv[0])` | `return arr.toFREObject()`|
+| Vector String | List | `val al = List<String>(argv[0])` | `return al.toFREObject()`|
 | Object | Map<String, Any>? | `val dict: Map<String, Any>? = Map(argv[0])` | |
 | null | null | | return null |
 
@@ -106,6 +110,9 @@ for (fre: FREObject? in airArray) {
 // set element 0 to 123
 airArray[0] = 123.toFREObject()
 
+// append element FREArray
+airArray.append(456)
+
 // return Kotlin IntArray to AIR
 val kotArr: IntArray = intArrayOf(99, 98, 92, 97, 95)
 return kotArr.toFREArray()
@@ -126,7 +133,6 @@ dispatchEvent("MY_EVENT", "this is a test")
 
 ```kotlin
 val icon: Bitmap? = Bitmap(argv[0])
-
 return icon.toFREObject()
 ```
 
@@ -142,10 +148,9 @@ if (byteArray != null) {
 #### Error Handling
 
 ```kotlin
-try {
-    person.getProp("doNotExist")
-} catch (e: FreException) {
-    return e.getError(Thread.currentThread().stackTrace) //return the error as an actionscript error
+FreKotlinLogger.context = this.context
+if (inFRE1.type != FreObjectTypeKotlin.INT) {
+    return FreException("Oops, we expected the FREObject to be passed as an int but it's not").getError();
 }
 ```
 
@@ -157,25 +162,14 @@ package com.tuarua.frekotlin
 import com.adobe.fre.FREObject
 import com.google.android.gms.maps.model.LatLng
 
-class FreCoordinateKotlin() : FreObjectKotlin() {
-    private var TAG = "com.tuarua.FreCoordinateKotlin"
-
-    constructor(value: LatLng) : this() {
-        rawValue = FREObject("com.tuarua.googlemaps.Coordinate", value.longitude, value.latitude)
-    }
-
-    constructor(freObject: FREObject?) : this() {
-        rawValue = freObject
-    }
-
-    override val value: LatLng
-        get() {
-            return LatLng(Double(rawValue?.get("latitude")) ?: 0.0,
-                    Double(rawValue?.get("longitude")) ?: 0.0)
-        }
+fun LatLng(freObject: FREObject?): LatLng {
+    return LatLng(Double(freObject["latitude"]) ?: 0.0,
+            Double(freObject["longitude"]) ?: 0.0)
 }
 
-fun LatLng(freObject: FREObject?): LatLng = FreCoordinateKotlin(freObject = freObject).value
+fun LatLng.toFREObject(): FREObject? {
+    return FREObject("com.tuarua.googlemaps.Coordinate", this.latitude, this.longitude)
+}
 ```
 
 ### Prerequisites
@@ -184,4 +178,4 @@ You will need
 
 - Android Studio 3.0
 - IntelliJ IDEA
-- AIR 27+
+- AIR 31+

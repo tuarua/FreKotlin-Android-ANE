@@ -18,34 +18,53 @@ package com.tuarua.frekotlin
 
 import com.adobe.fre.FREContext
 
-@Suppress("PropertyName")
+@Suppress("PropertyName", "unused")
+/** Subclass your Main KotlinController class to allow us to dispatch events back to AIR. */
 interface FreKotlinMainController {
-
-    val TAG:String
+    /** This tag prefixes strings that are traced. */
+    val TAG: String
+    /** the FREContext. */
     var context: FREContext?
+    /** Called when context is disposed. */
     fun dispose() {}
-
+    /** @suppress */
     fun onStarted() {}
-
+    /** @suppress */
     fun onRestarted() {}
-
+    /** @suppress */
     fun onResumed() {}
-
+    /** @suppress */
     fun onPaused() {}
-
+    /** @suppress */
     fun onStopped() {}
-
+    /** @suppress */
     fun onDestroyed() {}
-
+    /** Sends StatusEvent to our swc with a level of "TRACE".
+     * @param [args] value passed with event.
+     */
     fun trace(vararg value: Any?) {
         context?.trace(TAG, value)
     }
 
-    @Deprecated("Use dispatchEvent instead", ReplaceWith("dispatchEvent(name, value)"))
-    fun sendEvent(name: String, value: String) {
-        context?.dispatchEvent(name, value)
+    /** Sends StatusEvent to our swc with a level of "TRACE".
+     * The output string is prefixed with WARNING:
+     * @param [args] value passed with event.
+     */
+    fun warning(vararg value: Any?) {
+        context?.warning(TAG, value)
     }
 
+    /** Sends StatusEvent to our swc with a level of "TRACE".
+     * The output string is prefixed with INFO:
+     * @param [args] value passed with event.
+     */
+    fun info(vararg value: Any?) {
+        context?.info(TAG, value)
+    }
+    /** Sends an asynchronous event to the ANE.
+     * @param [name] name of event
+     * @param [value] value passed with event.
+     */
     fun dispatchEvent(name: String, value: String) {
         context?.dispatchEvent(name, value)
     }
