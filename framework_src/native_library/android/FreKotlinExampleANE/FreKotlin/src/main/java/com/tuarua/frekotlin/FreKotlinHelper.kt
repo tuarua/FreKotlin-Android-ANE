@@ -15,7 +15,6 @@
  */
 package com.tuarua.frekotlin
 
-import android.util.Log
 import com.adobe.fre.FREASErrorException
 import com.adobe.fre.FREArray
 import com.adobe.fre.FREInvalidObjectException
@@ -33,8 +32,6 @@ import java.util.*
  * @suppress
  */
 internal object FreKotlinHelper {
-    private var TAG = "com.tuarua.FreKotlinHelper"
-
     internal fun getAsString(rawValue: FREObject?): String? {
         val rv = rawValue ?: return null
         return try {
@@ -118,15 +115,15 @@ internal object FreKotlinHelper {
                 FreObjectTypeKotlin.DATE -> getAsDate(rawValue)
             }
         } catch (e: FREInvalidObjectException) {
-            Log.e(TAG, "getAsObject Error: " + e.message)
+            log("getAsObject Error", e)
         } catch (e: FREASErrorException) {
-            Log.e(TAG, "getAsObject Error: " + e.message)
+            log("getAsObject Error", e)
         } catch (e: FRENoSuchNameException) {
-            Log.e(TAG, "getAsObject Error: " + e.message)
+            log("getAsObject Error", e)
         } catch (e: FRETypeMismatchException) {
-            Log.e(TAG, "getAsObject Error: " + e.message)
+            log("getAsObject Error", e)
         } catch (e: FREWrongThreadException) {
-            Log.e(TAG, "getAsObject Error: " + e.message)
+            log("getAsObject Error", e)
         }
 
         return null
@@ -134,19 +131,10 @@ internal object FreKotlinHelper {
 
     private fun getAsArrayList(rawValue: FREArray): ArrayList<Any> {
         val al = ArrayList<Any>()
-        try {
-            val len = rawValue.length
-            for (i in 0 until len) {
-                getAsObject(rawValue.getObjectAt(i))?.let { al.add(it) }
-            }
-        } catch (e: FREWrongThreadException) {
-            Log.e(TAG, e.message)
-        } catch (e: FREInvalidObjectException) {
-            Log.e(TAG, e.message)
-        } catch (e: Exception) {
-            Log.e(TAG, e.message)
+        val len = rawValue.length
+        for (i in 0 until len) {
+            getAsObject(rawValue.getObjectAt(i))?.let { al.add(it) }
         }
-
         return al
     }
 

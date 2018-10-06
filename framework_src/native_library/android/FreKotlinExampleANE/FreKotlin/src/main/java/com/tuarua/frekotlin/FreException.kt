@@ -15,6 +15,7 @@
  */
 package com.tuarua.frekotlin
 
+import android.util.Log
 import com.adobe.fre.FREASErrorException
 import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FRENoSuchNameException
@@ -29,6 +30,7 @@ import com.adobe.fre.FREWrongThreadException
 open class FreException : Exception {
     private val TAG = "com.tuarua.frekotlin.FreException"
     private var _aneError: FreObjectKotlin? = null
+    private var exception: Exception? = null
     /**
      * @property [stackTrace] the stack trace.
      */
@@ -40,27 +42,22 @@ open class FreException : Exception {
     private var type = ""
 
     /**
-     * @param [e] the error.
+     * @param [exception] the exception.
      * @param message the name of this group.
      * @constructor Creates a FreException.
      */
-    constructor(e: Any, message: String? = null) : super() {
-        val exception = e as Exception
+    constructor(exception: Any, message: String? = null) : super() {
+        this.exception = exception as Exception
         type = exception.javaClass.simpleName
         this.message = when {
             message != null -> message
             else -> exception.message.toString()
         }
 
-        if (e is FREASErrorException) {
-            stackTrace = getActionscriptException(e.thrownException)
+        stackTrace = if (exception is FREASErrorException) {
+            getActionscriptException(exception.thrownException)
         } else {
-            val st = exception.stackTrace
-            st.indices.forEach { i ->
-                val elem: StackTraceElement = st[i]
-                stackTrace = stackTrace + "\n" + elem.toString()
-            }
-            stackTrace = stackTrace + "\n" + e.cause.toString()
+            Log.getStackTraceString(exception)
         }
     }
 
@@ -93,9 +90,34 @@ open class FreException : Exception {
     /**
      * Gets the error
      *
-     * @param [stackTraceElements] the java stack trace
      * @return returns the Exception as a FREObject to be passed back to AS3.
      */
+    fun getError(): FREObject? {
+        var className = ""
+        var methodName = ""
+        var lineNumber = 0
+
+        val e = exception
+        if (e != null) {
+            val stackTraceElements = e.stackTrace
+            if (stackTraceElements.size > 2) {
+                val fullClassName = stackTraceElements[2].className
+                className = fullClassName.substring(fullClassName.lastIndexOf("") + 1)
+                methodName = stackTraceElements[2].methodName
+                lineNumber = stackTraceElements[2].lineNumber
+            }
+        }
+
+        try {
+            _aneError = FreObjectKotlin(FREObject("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions.$type",
+                    "$className.$methodName():$lineNumber", stackTrace))
+        } catch (e: FREWrongThreadException) {
+        }
+
+        return _aneError?.rawValue
+    }
+
+    @Deprecated("Use getError() instead", ReplaceWith("getError()"))
     fun getError(stackTraceElements: Array<StackTraceElement> = arrayOf()): FREObject? {
         var className = ""
         var methodName = ""

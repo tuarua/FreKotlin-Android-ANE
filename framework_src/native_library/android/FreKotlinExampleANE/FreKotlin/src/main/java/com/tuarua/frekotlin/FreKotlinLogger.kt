@@ -16,6 +16,7 @@
 
 package com.tuarua.frekotlin
 
+import android.util.Log
 import com.adobe.fre.*
 
 /**
@@ -33,22 +34,15 @@ object FreKotlinLogger {
     fun log(message: String, exception: Exception) {
         val ctx = context ?: return
         val type = exception.javaClass.simpleName
-        ctx.dispatchStatusEventAsync("[FreKotlin] ‼ $type $message", "TRACE")
-        var stackTrace = ""
-
-        if (exception is FREASErrorException) {
-            stackTrace = getActionscriptException(exception.thrownException)
+        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $type $message", "TRACE")
+        val stackTrace = if (exception is FREASErrorException) {
+            getActionscriptException(exception.thrownException)
         } else {
-            val st = exception.stackTrace
-            st.indices.forEach { i ->
-                val elem: StackTraceElement = st[i]
-                stackTrace = stackTrace + "\n" + elem.toString()
-            }
-            stackTrace = stackTrace + "\n" + exception.cause.toString()
+            Log.getStackTraceString(exception)
         }
 
         if (!stackTrace.isEmpty()) {
-            ctx.dispatchStatusEventAsync("[FreKotlin] ‼ $stackTrace", "TRACE")
+            ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $stackTrace", "TRACE")
         }
     }
 
@@ -58,7 +52,7 @@ object FreKotlinLogger {
      */
     fun log(message: String) {
         val ctx = context ?: return
-        ctx.dispatchStatusEventAsync("[FreKotlin] ‼ $message", "TRACE")
+        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $message", "TRACE")
     }
 
     private fun getActionscriptException(thrownException: FREObject): String {

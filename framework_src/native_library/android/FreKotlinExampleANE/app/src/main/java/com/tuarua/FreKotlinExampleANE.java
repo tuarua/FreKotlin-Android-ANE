@@ -23,7 +23,8 @@ import com.tuarua.frekotlin.FreKotlinContext;
 public class FreKotlinExampleANE implements FREExtension  {
     private String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {
-             "runStringTests"
+             "init"
+            ,"runStringTests"
             ,"runNumberTests"
             ,"runIntTests"
             ,"runObjectTests"

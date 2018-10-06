@@ -88,11 +88,11 @@ public class FreKotlinContext extends FREContext implements TRActivityResultCall
                 Method func = controller.getClass().getMethod(_name, parameterTypes);
                 return (FREObject) func.invoke(controller, freContext, al);
             } catch (NoSuchMethodException e) {
-                FREObject ret = new FreException(e, "can't call function " + _name).getError(e.getStackTrace());
+                FREObject ret = new FreException(e, "can't call function " + _name).getError();
                 Log.e(TAG, "can't find function " + _name + " ", e);
                 return ret;
             } catch (IllegalAccessException | InvocationTargetException e) {
-                FREObject ret = new FreException(e, "can't call function " + _name).getError(e.getStackTrace());
+                FREObject ret = new FreException(e, "can't call function " + _name).getError();
                 Log.e(TAG, "can't call function " + _name, e);
                 return ret;
             }

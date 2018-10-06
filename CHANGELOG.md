@@ -1,3 +1,8 @@
+### 1.6.0
+- Refactor starter projects AS3
+- Deprecate stackTraceElements param from `FreException.getError()`
+- Small Refactor
+
 ### 1.5.0
 - Upgraded to Kotlin 1.2.61
 - Upgraded to AIR 31
