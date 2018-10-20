@@ -1,6 +1,9 @@
 ### 1.6.0
 - Refactor starter projects AS3
 - Deprecate stackTraceElements param from `FreException.getError()`
+- Add `FREArray.insert()`
+- Add `FREArray.remove()`
+- Add `FREArray.isEmpty`
 - Small Refactor
 
 ### 1.5.0
