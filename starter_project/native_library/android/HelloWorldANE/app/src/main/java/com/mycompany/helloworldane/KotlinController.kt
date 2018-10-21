@@ -5,8 +5,6 @@ import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
 import java.util.ArrayList
 
-typealias FREArgv = ArrayList<FREObject>
-
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinMainController {
     fun init(ctx: FREContext, argv: FREArgv): FREObject? {
