@@ -21,22 +21,14 @@ import android.graphics.*
 import android.graphics.Bitmap.Config.ARGB_8888
 import android.graphics.Bitmap.createBitmap
 
-import com.adobe.fre.FREASErrorException
 import com.adobe.fre.FREBitmapData
-import com.adobe.fre.FREInvalidObjectException
 import com.adobe.fre.FREObject
-import com.adobe.fre.FREWrongThreadException
-import com.tuarua.frekotlin.FreException
 import com.tuarua.frekotlin.FreKotlinLogger
 
 import java.nio.ByteBuffer
 
 /**
  * A wrapper for handling FREBitmapData
- *
- * @param value the FREBitmapData to create this class from.
- * @param bitmap the Bitmap to create this class from.
- * @param swapColors swap the colors.
  *
  * @property rawValue the raw FREBitmapData value
  * @property width An Int that specifies the width, in pixels, of the bitmap. This value corresponds to the
@@ -58,6 +50,7 @@ import java.nio.ByteBuffer
  * @property bits32 A ByteBuffer of the bitmap.
  * @constructor
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class FreBitmapDataKotlin {
     var rawValue: FREBitmapData? = null
     var width = 0
@@ -71,22 +64,31 @@ class FreBitmapDataKotlin {
     /** */
     constructor()
 
-    /** */
+    /**
+     * @param value the FreBitmapDataKotlin to create this class from.
+     */
     constructor(value: FreBitmapDataKotlin) {
         rawValue = value.rawValue
     }
 
-    /** */
+    /**
+     * @param value the FREObject to create this class from.
+     */
     constructor(value: FREObject) {
         rawValue = value as FREBitmapData
     }
 
-    /** */
+    /**
+     * @param value the FREBitmapData to create this class from.
+     */
     constructor(value: FREBitmapData) {
         rawValue = value
     }
 
-    /** */
+    /**
+     * @param bitmap the Bitmap to create this class from.
+     * @param swapColors swap the colors.
+     */
     constructor(bitmap: Bitmap, swapColors: Boolean = true) {
         val fillColor = arrayOf<Byte>(0, 0, 0, 0)
         try {

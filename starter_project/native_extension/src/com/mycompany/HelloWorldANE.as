@@ -1,8 +1,6 @@
 package com.mycompany {
 import com.tuarua.fre.ANEError;
 import flash.events.EventDispatcher;
-import flash.events.StatusEvent;
-import flash.external.ExtensionContext;
 
 public class HelloWorldANE extends EventDispatcher {
     private static var _helloWorld:HelloWorldANE;

@@ -16,8 +16,6 @@
 
 package com.tuarua;
 
-import android.content.Intent;
-
 import com.adobe.air.TRActivityResultCallback;
 import com.adobe.air.AndroidActivityWrapper;
 import com.adobe.air.TRStateChangeCallback;
@@ -25,7 +23,7 @@ import com.tuarua.frekotlin.FreKotlinContext;
 import com.tuarua.frekotlin.FreKotlinMainController;
 
 //This file must remain as Java
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"WeakerAccess", "unused"})
 public class FreKotlinExampleContext extends FreKotlinContext implements TRActivityResultCallback, TRStateChangeCallback {
     private AndroidActivityWrapper aaw;
 
@@ -35,11 +33,6 @@ public class FreKotlinExampleContext extends FreKotlinContext implements TRActiv
         aaw = AndroidActivityWrapper.GetAndroidActivityWrapper();
         aaw.addActivityResultListener(this);
         aaw.addActivityStateChangeListner(this);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
     }
 
     @Override

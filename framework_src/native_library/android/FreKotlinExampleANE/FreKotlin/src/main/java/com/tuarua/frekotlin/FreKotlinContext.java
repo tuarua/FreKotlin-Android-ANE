@@ -33,8 +33,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Method;
 //This file must remain as Java
+@SuppressWarnings("unused")
 public class FreKotlinContext extends FREContext implements TRActivityResultCallback, TRStateChangeCallback {
-    private String TAG = null;
+    private String TAG;
     protected FreKotlinMainController controller;
     private String[] functions;
     public FreKotlinContext(String name, FreKotlinMainController controller, String[] functions) {
@@ -70,6 +71,7 @@ public class FreKotlinContext extends FREContext implements TRActivityResultCall
     public void onConfigurationChanged(Configuration configuration) {
     }
 
+    @SuppressWarnings("JavaReflectionInvocation")
     private class CallKotlinFunction implements FREFunction {
         private String _name;
 

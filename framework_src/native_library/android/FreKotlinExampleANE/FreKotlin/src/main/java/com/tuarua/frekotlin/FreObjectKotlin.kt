@@ -16,7 +16,6 @@
 package com.tuarua.frekotlin
 
 import com.adobe.fre.FREObject
-import com.adobe.fre.FREWrongThreadException
 import java.util.*
 
 @Suppress("unused")

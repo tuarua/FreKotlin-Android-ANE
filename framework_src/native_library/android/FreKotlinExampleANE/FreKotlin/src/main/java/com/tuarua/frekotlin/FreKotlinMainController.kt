@@ -40,7 +40,7 @@ interface FreKotlinMainController {
     /** @suppress */
     fun onDestroyed() {}
     /** Sends StatusEvent to our swc with a level of "TRACE".
-     * @param [args] value passed with event.
+     * @param [value] value passed with event.
      */
     fun trace(vararg value: Any?) {
         context?.trace(TAG, value)
@@ -48,7 +48,7 @@ interface FreKotlinMainController {
 
     /** Sends StatusEvent to our swc with a level of "TRACE".
      * The output string is prefixed with WARNING:
-     * @param [args] value passed with event.
+     * @param [value] value passed with event.
      */
     fun warning(vararg value: Any?) {
         context?.warning(TAG, value)
@@ -56,7 +56,7 @@ interface FreKotlinMainController {
 
     /** Sends StatusEvent to our swc with a level of "TRACE".
      * The output string is prefixed with INFO:
-     * @param [args] value passed with event.
+     * @param [value] value passed with event.
      */
     fun info(vararg value: Any?) {
         context?.info(TAG, value)

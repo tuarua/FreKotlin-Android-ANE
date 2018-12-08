@@ -15,6 +15,6 @@
  */
 
 package com.adobe.air;
-public abstract interface TRActivityResultCallback extends AndroidActivityWrapper.ActivityResultCallback {
+public interface TRActivityResultCallback extends AndroidActivityWrapper.ActivityResultCallback {
 
 }

@@ -23,7 +23,7 @@ import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
 
-@Suppress("unused", "PrivatePropertyName")
+@Suppress("unused", "PrivatePropertyName", "MemberVisibilityCanBePrivate")
 /**
  * FreException.
  */
