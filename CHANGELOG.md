@@ -1,5 +1,6 @@
 ### 1.6.0
-- Upgraded to Kotlin 1.3.0
+- Upgraded to Kotlin 1.3.11
+- Upgraded to AIR 32
 - Refactor starter projects AS3
 - Deprecate stackTraceElements param from `FreException.getError()`
 - Add `FREArray.insert()`
