@@ -1,7 +1,7 @@
 @echo off
 SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
-SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_31\bin\"
+SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_32\bin\"
 
 SET projectName=HelloWorldANE
 
@@ -9,6 +9,7 @@ REM Copy SWC into place.
 copy %pathtome%..\bin\%projectName%.swc %pathtome%
 
 REM Extract contents of SWC.
+copy /Y %pathtome%%projectName%.swc %pathtome%%projectName%Extract.swc
 ren %pathtome%%projectName%Extract.swc %projectName%Extract.zip
 call %SZIP% e %pathtome%%projectName%Extract.zip -o%pathtome%
 del %pathtome%%projectName%Extract.zip
