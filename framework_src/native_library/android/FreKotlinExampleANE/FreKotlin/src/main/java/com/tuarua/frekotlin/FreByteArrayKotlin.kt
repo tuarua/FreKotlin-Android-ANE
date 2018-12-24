@@ -28,6 +28,7 @@ import java.nio.ByteBuffer
  * @property bytes a ByteBuffer of the ByteArray.
  *
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class FreByteArrayKotlin {
     var rawValue: FREByteArray? = null
     var length: Int = 0

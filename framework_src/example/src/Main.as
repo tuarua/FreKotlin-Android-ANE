@@ -19,7 +19,7 @@ import flash.utils.ByteArray;
 
 [SWF(width="640", height="640", frameRate="60", backgroundColor="#F1F1F1")]
 public class Main extends Sprite {
-    private var ane:FreKotlinExampleANE = new FreKotlinExampleANE();
+    private var ane:FreKotlinExampleANE;
     private var hasActivated:Boolean = false;
     private var textField:TextField = new TextField();
     private static const GREEN:uint = 0x00FF00;
@@ -29,6 +29,8 @@ public class Main extends Sprite {
         super();
         stage.align = StageAlign.TOP_LEFT;
         stage.scaleMode = StageScaleMode.NO_SCALE;
+
+        ane = FreKotlinExampleANE.example;
 
         NativeApplication.nativeApplication.addEventListener(Event.EXITING, onExiting);
         this.addEventListener(Event.ACTIVATE, onActivated);
@@ -121,8 +123,8 @@ public class Main extends Sprite {
         hasActivated = true;
     }
 
-    private function onExiting(event:Event):void {
-        ane.dispose();
+    private static function onExiting(event:Event):void {
+        FreKotlinExampleANE.dispose();
     }
 }
 }

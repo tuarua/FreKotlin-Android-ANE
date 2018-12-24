@@ -147,13 +147,40 @@ operator fun FREArray.set(index: Int, value: FREObject?) {
 }
 
 /**
- * Adds one or more elements to the end of an array and returns the new length of the array.
+ * Adds one or more elements to the end of a [FREArray] and returns the new length of the array.
  * @receiver The FREArray.
- * @property args One or more values to append to the array.
+ * @property args One or more values to append to the [FREArray].
  */
-fun FREArray.push(vararg args: Any?) {
-    FreKotlinHelper.callMethod(this, "push", args)
+fun FREArray.push(vararg args: Any?) : Long {
+    return Long(FreKotlinHelper.callMethod(this, "push", args)) ?: 0
 }
+
+/**
+ * Insert a single element into the [FREArray].
+ * @param [value] An [FREObject]
+ * @param [at] An [Int] that specifies the position in the [FREArray] where the element is to be inserted.
+ * You can use a negative [Int] to specify a position relative to the end of the [FREArray]
+ * (for example, -1 for the last element of the [FREArray])
+ */
+fun FREArray.insert(value: FREObject, at: Int) {
+    this.call("insertAt", at, value)
+}
+
+/**
+ * Remove a single element from the [FREArray]. This method modifies the [FREArray] without making a copy.
+ * @param [at] An [Int] that specifies the index of the element in the [FREArray] that is to be deleted.
+ * You can use a negative [Int] to specify a position relative to the end of the [FREArray]
+ * (for example, -1 for the last element of the Vector).
+ * @return the element that was removed from the original FREArray
+ */
+fun FREArray.remove(at: Int) : FREObject? {
+    return this.call("removeAt", at)
+}
+
+@Suppress("UNUSED_PARAMETER")
+var FREArray.isEmpty: Boolean
+    get() = this.length == 0L
+    set(value) = Unit
 
 /**
  * Gets FREObject at position index.

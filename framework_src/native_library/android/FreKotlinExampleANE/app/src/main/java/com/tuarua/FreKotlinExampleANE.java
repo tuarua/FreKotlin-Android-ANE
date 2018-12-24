@@ -17,13 +17,13 @@ package com.tuarua;
 
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
-import com.tuarua.frekotlin.FreKotlinContext;
 
 @SuppressWarnings({"unused", "WeakerAccess", "FieldCanBeLocal"})
 public class FreKotlinExampleANE implements FREExtension  {
     private String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {
-             "runStringTests"
+             "init"
+            ,"runStringTests"
             ,"runNumberTests"
             ,"runIntTests"
             ,"runObjectTests"

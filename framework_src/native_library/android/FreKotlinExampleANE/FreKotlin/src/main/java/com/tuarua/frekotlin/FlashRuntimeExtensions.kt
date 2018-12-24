@@ -316,18 +316,18 @@ fun Date.toFREObject(): FREObject? {
 }
 
 /**  returns an ANEError stating which variable could not be converted */
-fun FreConversionException(variableName: String, stackTrace: kotlin.Array<java.lang.StackTraceElement> = arrayOf()): FREObject? {
+fun FreConversionException(variableName: String): FREObject? {
     return try {
-        FreException("[FreKotlin] Cannot convert $variableName").getError(stackTrace)
+        FreException("[FreKotlin] Cannot convert $variableName").getError()
     } catch (e: Exception) {
         null
     }
 }
 
 /**  returns an ANEError stating which function has not received enough parameters */
-fun FreArgException(functionName: String, stackTrace: kotlin.Array<java.lang.StackTraceElement> = arrayOf()): FREObject? {
+fun FreArgException(functionName: String): FREObject? {
     return try {
-        FreException("[FreKotlin] Not enough arguments passed to $functionName").getError(stackTrace)
+        FreException("[FreKotlin] Not enough arguments passed to $functionName").getError()
     } catch (e: Exception) {
         null
     }

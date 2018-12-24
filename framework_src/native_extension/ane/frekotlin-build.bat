@@ -1,9 +1,9 @@
 @echo off
 SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
-SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_31\bin\"
+SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_32\bin\"
 
-SET KOTLIN_VERSION="1.2.61"
+SET KOTLIN_VERSION="1.3.11"
 SET PROJECT_NAME=FreKotlinExampleANE
 SET SWC_NAME=FreKotlinANE
 SET ANE_NAME=com.tuarua.frekotlin
@@ -18,14 +18,11 @@ del %pathtome%%SWC_NAME%Extract.zip
 
 
 REM copy library.swf to folders.
-echo Copying library.swf into place.
 copy %pathtome%library.swf %pathtome%platforms\android
 copy %pathtome%library.swf %pathtome%platforms\default_ane 
 
-echo copy the aar into place
 copy /Y %pathtome%..\..\native_library\android\%PROJECT_NAME%\FreKotlin\build\outputs\aar\FreKotlin-release.aar %pathtome%platforms\android\FreKotlin-release.aar
 
-echo "GETTING ANDROID JAR"
 call %SZIP% x %pathtome%platforms\android\FreKotlin-release.aar -o%pathtome%platforms\android\ classes.jar
 
 echo "GENERATING ANE"
@@ -51,5 +48,7 @@ del %pathtome%platforms\\android\\library.swf
 call DEL /F /Q /A %pathtome%library.swf
 call DEL /F /Q /A %pathtome%catalog.xml
 call DEL /F /Q /A %pathtome%%SWC_NAME%.swc
+
+copy %pathtome%%ANE_NAME%.ane %pathtome%..\..\..\starter_project\native_extension\ane
 
 echo "DONE!"

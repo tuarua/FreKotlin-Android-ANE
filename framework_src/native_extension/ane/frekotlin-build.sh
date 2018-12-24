@@ -5,32 +5,25 @@ echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
 
-echo $pathtome
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_32"
 
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_31"
-
-KOTLIN_VERSION="1.2.61"
+KOTLIN_VERSION="1.3.11"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin
 
 #Copy SWC into place.
-echo "Copying SWC into place."
 cp "$pathtome/../bin/$SWC_NAME.swc" "$pathtome/"
 
 #Extract contents of SWC.
-echo "Extracting files form SWC."
 unzip "$pathtome/$SWC_NAME.swc" "library.swf" -d "$pathtome"
 
-
 #Copy library.swf to folders.
-echo "Copying library.swf into place."
 cp "$pathtome/library.swf" "$pathtome/platforms/android"
 cp "$pathtome/library.swf" "$pathtome/platforms/default_ane"
 
-echo "Copying Android aars into place"
+# Copying Android aars into place
 cp "$pathtome/../../native_library/android/$PROJECTNAME/FreKotlin/build/outputs/aar/FreKotlin-release.aar" "$pathtome/platforms/android/FreKotlin-release.aar"
-echo "getting Android jars"
 unzip "$pathtome/platforms/android/FreKotlin-release.aar" "classes.jar" -d "$pathtome/platforms/android"
 
 #Run the build command.
@@ -59,3 +52,6 @@ rm "$pathtome/platforms/android/FreKotlin-release.aar"
 rm "$pathtome/platforms/android/library.swf"
 rm "$pathtome/$SWC_NAME.swc"
 rm "$pathtome/library.swf"
+
+cp "$pathtome/$ANE_NAME.ane" "$pathtome/../../../starter_project/native_extension/ane"
+echo "DONE!"

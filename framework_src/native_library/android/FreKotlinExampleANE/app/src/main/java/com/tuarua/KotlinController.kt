@@ -37,11 +37,14 @@ class KotlinController : FreKotlinMainController {
     private var airView: ViewGroup? = null
     private var container: FrameLayout? = null
 
-    fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
-
+    fun init(ctx: FREContext, argv: FREArgv): FREObject? {
+        trace("I am a test trace")
         warning("I am a test warning")
         info("I am a test info")
+        return null
+    }
 
+    fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
         argv.takeIf { argv.size > 0 } ?: return FreArgException("runStringTests")
         val airString = String(argv[0]) ?: return null
@@ -49,8 +52,9 @@ class KotlinController : FreKotlinMainController {
         trace("This is AIR string", airString)
         dispatchEvent("MY_EVENT", "this is a test")
 
-        val kotlinString = "I am a string from Kotlin with UTF-8: Björk Guðmundsdóttir Sinéad O’Connor " +
-                "久保田  利伸 Михаил Горбачёв Садриддин Айнӣ Tor Åge Bringsværd 章子怡 €"
+        val kotlinString = "I am a string from Kotlin with UTF-8: Björk Guðmundsdóttir " +
+                "Sinéad O’Connor 久保田  利伸 Михаил Горбачёв Садриддин Айнӣ " +
+                "Tor Åge Bringsværd 章子怡 €"
         return kotlinString.toFREObject()
     }
 
@@ -219,7 +223,7 @@ class KotlinController : FreKotlinMainController {
         val p: FREObject? = person["doNotExist"] //calling a property that doesn't exist
 
         if (inFRE1.type != FreObjectTypeKotlin.INT) {
-            return FreException("Oops, we expected the FREObject to be passed as an int but it's not").getError();
+            return FreException("Oops, we expected the FREObject to be passed as an int but it's not").getError()
         }
         return null
     }
@@ -245,7 +249,7 @@ class KotlinController : FreKotlinMainController {
 
 
         trace("Colour passed from AIR as Color (RGB):", airColor,
-                if (testColor.equals(airColor)) "✅" else "❌")
+                if (testColor == airColor) "✅" else "❌")
 
         trace("Number passed from AIR as Float:", airHSV, if (120.0f == airHSV) "✅" else "❌")
 
