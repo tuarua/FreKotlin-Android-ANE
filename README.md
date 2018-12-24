@@ -178,4 +178,4 @@ You will need
 
 - Android Studio 3.0
 - IntelliJ IDEA
-- AIR 31+
+- AIR 32+
