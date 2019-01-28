@@ -130,6 +130,17 @@ var FREObject?.type: FreObjectTypeKotlin
     }
     set(value) = Unit
 
+@Suppress("UNUSED_PARAMETER")
+/** returns the className of the FREObject */
+var FREObject?.className: String?
+    get() {
+        val aneUtils = FREObject.newObject("com.tuarua.fre.ANEUtils", null)
+        val args = arrayOfNulls<FREObject>(1)
+        args[0] = this
+        return String(aneUtils.callMethod("getClassType", args))
+    }
+    set(value) = Unit
+
 /** Creates a FREObject */
 /**
  * Calls the given method on a FREObject.

@@ -2,14 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7691a6db-a2cf-40e3-83e8-47f786ccc9a9" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/avmplus/DescribeTypeJSON.as" afterDir="false" />
+      <change afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/platforms/android/kotlin-stdlib-1.3.20.jar" afterDir="false" />
+      <change afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/src/avmplus/DescribeTypeJSON.as" afterDir="false" />
+      <change afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/starter_project/native_extension/src/avmplus/DescribeTypeJSON.as" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/CHANGELOG.md" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/example/src/Main.as" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/example/src/Main.as" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FreKotlin.iml" beforeDir="false" afterPath="$PROJECT_DIR$/FreKotlin.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/tuarua/fre/ANEUtils.as" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/tuarua/fre/ANEUtils.as" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/.idea/misc.xml" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/FreKotlinExampleANE.iml" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/FreKotlinExampleANE.iml" afterDir="false" />
       <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/com.tuarua.frekotlin.ane" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/com.tuarua.frekotlin.ane" afterDir="false" />
       <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/com.tuarua.frekotlin.example.ane" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/com.tuarua.frekotlin.example.ane" afterDir="false" />
-      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/bin/FreKotlinANE.swc" beforeDir="false" />
-      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/src/com/tuarua/FreKotlinExampleANE.as" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/src/com/tuarua/FreKotlinExampleANE.as" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/frekotlin-build.sh" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/frekotlin-build.sh" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/platforms/android/kotlin-stdlib-1.3.11.jar" beforeDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/platforms/android/platform_frekotlin.xml" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/platforms/android/platform_frekotlin.xml" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/platforms/default_ane/library.swf" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/platforms/default_ane/library.swf" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/bin/FreKotlinANE.swc" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/bin/FreKotlinANE.swc" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/bin/FreKotlinExampleANE.swc" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/bin/FreKotlinExampleANE.swc" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/src/com/tuarua/fre/ANEUtils.as" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/src/com/tuarua/fre/ANEUtils.as" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/.idea/misc.xml" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/.idea/misc.xml" afterDir="false" />
       <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/FreKotlin.iml" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/FreKotlin.iml" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/build.gradle" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/build.gradle" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java/com/tuarua/frekotlin/FlashRuntimeExtensions.kt" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java/com/tuarua/frekotlin/FlashRuntimeExtensions.kt" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java/com/tuarua/frekotlin/FreObjectKotlin.kt" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java/com/tuarua/frekotlin/FreObjectKotlin.kt" afterDir="false" />
       <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/app/app.iml" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/app/app.iml" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/build.gradle" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/build.gradle" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/starter_project/native_extension/ane/com.tuarua.frekotlin.ane" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/starter_project/native_extension/ane/com.tuarua.frekotlin.ane" afterDir="false" />
+      <change beforePath="$DOCUMENTS$/FreKotlin-Android-ANE/starter_project/native_extension/src/com/tuarua/fre/ANEUtils.as" beforeDir="false" afterPath="$DOCUMENTS$/FreKotlin-Android-ANE/starter_project/native_extension/src/com/tuarua/fre/ANEUtils.as" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -17,27 +41,6 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FUSProjectUsageTrigger">
-    <session id="1369880619">
-      <usages-collector id="statistics.lifecycle.project">
-        <counts>
-          <entry key="project.closed" value="1" />
-          <entry key="project.open.time.3" value="1" />
-          <entry key="project.opened" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.extensions.open">
-        <counts>
-          <entry key="as" value="1" />
-        </counts>
-      </usages-collector>
-      <usages-collector id="statistics.file.types.open">
-        <counts>
-          <entry key="ActionScript" value="1" />
-        </counts>
-      </usages-collector>
-    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
@@ -53,8 +56,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/tuarua/fre/ANEUtils.as">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="667">
-              <caret line="51" column="40" lean-forward="true" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="40" />
+            <state relative-caret-position="378">
+              <caret line="103" column="38" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="38" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
               </folding>
@@ -67,24 +70,23 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$DOCUMENTS$/FreKotlin-Android-ANE" />
   </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/com/tuarua/fre/ANEUtils.as" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="2560" />
-    <option name="height" value="1337" />
+    <option name="height" value="1333" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -114,13 +116,15 @@
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/bin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
@@ -153,7 +157,7 @@
     <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
       <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
     </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
+    <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -178,17 +182,19 @@
       <workItem from="1536506349123" duration="9000" />
       <workItem from="1536691632321" duration="31000" />
       <workItem from="1536703911880" duration="41000" />
+      <workItem from="1548591598331" duration="266000" />
+      <workItem from="1548592195160" duration="220000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="352000" />
+    <option name="totallyTimeSpent" value="838000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="2560" height="1337" extended-state="6" />
+    <frame x="0" y="23" width="2560" height="1333" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2578125" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25718787" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -203,6 +209,7 @@
       <window_info anchor="bottom" id="Event Log" order="8" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="9" />
       <window_info anchor="bottom" id="Messages" order="10" />
+      <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -212,9 +219,6 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/com/tuarua/FreKotlinANE.as">
@@ -226,8 +230,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/tuarua/fre/ANEUtils.as">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="667">
-          <caret line="51" column="40" lean-forward="true" selection-start-line="51" selection-start-column="40" selection-end-line="51" selection-end-column="40" />
+        <state relative-caret-position="378">
+          <caret line="103" column="38" selection-start-line="103" selection-start-column="12" selection-end-line="103" selection-end-column="38" />
           <folding>
             <element signature="n#!!doc" expanded="true" />
           </folding>

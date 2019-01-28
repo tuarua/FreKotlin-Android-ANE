@@ -1,3 +1,9 @@
+### 1.7.0
+- Upgraded to Kotlin 1.3.20
+- Add `FREObject.className`
+- Add `FreObjectKotlin.className`
+- Add `FreObjectKotlin.type`
+
 ### 1.6.0
 - Upgraded to Kotlin 1.3.11
 - Upgraded to AIR 32
