@@ -81,6 +81,9 @@ fun <String, Any> Map(freObject: FREObject?): Map<String, Any>? {
 /** Converts a FREObject to a [Int]. */
 fun Int(freObject: FREObject?): Int? = FreKotlinHelper.getAsInt(freObject)
 
+/** Converts a FREObject to a [Short]. */
+fun Short(freObject: FREObject?): Short? = FreKotlinHelper.getAsShort(freObject)
+
 /** Converts a FREObject to a [String]. */
 fun String(freObject: FREObject?): String? = FreKotlinHelper.getAsString(freObject)
 
@@ -231,9 +234,9 @@ fun FREObject.toColor(hasAlpha: Boolean = true): Int {
     if (freColor != null) {
         var alpha = 255
         if (hasAlpha) alpha = (freColor shr 24 and 0xff).toInt()
-        val red: Int = (freColor shr 16 and 0xff).toInt()
-        val green: Int = (freColor shr 8 and 0xff).toInt()
-        val blue: Int = (freColor and 0xff).toInt()
+        val red = (freColor shr 16 and 0xff).toInt()
+        val green = (freColor shr 8 and 0xff).toInt()
+        val blue = (freColor and 0xff).toInt()
         return Color.argb(alpha, red, green, blue)
     }
     return Color.BLACK
@@ -326,7 +329,7 @@ fun Date.toFREObject(): FREObject? {
     }
 }
 
-/**  returns an ANEError stating which variable could not be converted */
+@Deprecated("Return null instead and set FreKotlinLogger.context = _context", ReplaceWith("null"))
 fun FreConversionException(variableName: String): FREObject? {
     return try {
         FreException("[FreKotlin] Cannot convert $variableName").getError()
@@ -338,7 +341,7 @@ fun FreConversionException(variableName: String): FREObject? {
 /**  returns an ANEError stating which function has not received enough parameters */
 fun FreArgException(functionName: String): FREObject? {
     return try {
-        FreException("[FreKotlin] Not enough arguments passed to $functionName").getError()
+        FreException("[FreKotlin] Not enough or incorrect arguments passed to $functionName").getError()
     } catch (e: Exception) {
         null
     }

@@ -3,6 +3,10 @@
 - Add `FREObject.className`
 - Add `FreObjectKotlin.className`
 - Add `FreObjectKotlin.type`
+- Extensions for `ShortArray`
+- Extensions for `FloatArray`
+- Deprecate  `FreConversionException`
+- Change: `FREArray` now uses Vector.<Type> throughout
 
 ### 1.6.0
 - Upgraded to Kotlin 1.3.11

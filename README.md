@@ -111,7 +111,7 @@ for (fre: FREObject? in airArray) {
 airArray[0] = 123.toFREObject()
 
 // append element FREArray
-airArray.append(456)
+airArray.push(456)
 
 // return Kotlin IntArray to AIR
 val kotArr: IntArray = intArrayOf(99, 98, 92, 97, 95)
