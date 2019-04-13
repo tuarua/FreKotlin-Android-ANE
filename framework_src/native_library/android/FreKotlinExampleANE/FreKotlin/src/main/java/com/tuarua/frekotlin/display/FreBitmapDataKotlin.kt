@@ -55,10 +55,10 @@ class FreBitmapDataKotlin {
     var rawValue: FREBitmapData? = null
     var width = 0
     var height = 0
-    var hasAlpha: Boolean = false
-    var isPremultiplied: Boolean = false
+    var hasAlpha = false
+    var isPremultiplied = false
     var lineStride32 = 0
-    var isInvertedY: Boolean = false
+    var isInvertedY = false
     var bits32: ByteBuffer? = null
 
     /** */

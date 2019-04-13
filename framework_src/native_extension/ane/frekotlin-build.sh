@@ -7,7 +7,7 @@ pathtome="${pathtome%/*}"
 
 AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_32"
 
-KOTLIN_VERSION="1.3.11"
+KOTLIN_VERSION="1.3.30"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin
@@ -36,11 +36,13 @@ echo "Building ANE."
 com.tuarua.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
 "kotlin-stdlib-$KOTLIN_VERSION.jar" \
+"kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
 -platform Android-x86 \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.tuarua.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
 "kotlin-stdlib-$KOTLIN_VERSION.jar" \
+"kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
 -platform default -C "$pathtome/platforms/default_ane" "library.swf" \
 
 if [ ! -d "$pathtome/../../libs" ]; then

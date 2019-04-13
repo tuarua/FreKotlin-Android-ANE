@@ -77,6 +77,12 @@ open class FreObjectKotlin {
             val rv = rawValue ?: return null
             return rv.let { FreKotlinHelper.getAsObject(it) } as Any
         }
+    val className: String?
+        get() = rawValue.className
+
+    val type: FreObjectTypeKotlin
+        get() = rawValue.type
+
     constructor(freObjectKotlin: FreObjectKotlin?) {
         rawValue = freObjectKotlin?.rawValue
     }

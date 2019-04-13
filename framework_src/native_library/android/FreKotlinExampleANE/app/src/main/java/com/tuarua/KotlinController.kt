@@ -156,8 +156,7 @@ class KotlinController : FreKotlinMainController {
         val kotArrayFre = FREArray(kotArr)
         val kotArrBack = IntArray(kotArrayFre)
         trace("Kotlin IntArray :", if (3 == kotArrBack[2]) "✅" else "❌")
-        return airArray
-
+        return kotArrayFre
     }
 
     fun runBitmapTests(ctx: FREContext, argv: FREArgv): FREObject? {

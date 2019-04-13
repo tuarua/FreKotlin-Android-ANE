@@ -62,6 +62,16 @@ internal object FreKotlinHelper {
         }
     }
 
+    internal fun getAsShort(rawValue: FREObject?): Short? {
+        val rv = rawValue ?: return null
+        return try {
+            rv.asInt.toShort()
+        } catch (e: Exception) {
+            log("cannot get FREObject ${rv.toStr()} as Short", e)
+            null
+        }
+    }
+
     internal fun getAsBoolean(rawValue: FREObject?): Boolean? {
         val rv = rawValue ?: return null
         return try {

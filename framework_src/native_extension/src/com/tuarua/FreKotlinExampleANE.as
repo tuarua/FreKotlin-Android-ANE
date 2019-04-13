@@ -64,9 +64,9 @@ public class FreKotlinExampleANE extends EventDispatcher {
         return uint(FreKotlinExampleANEContext.context.call("runColorTests", value, value2)) as uint; // important Kotlin has no uint must convert here to uint
     }
 
-    public function runArrayTests(value:Array, value2:Vector.<String>):Array {
+    public function runArrayTests(value:Array, value2:Vector.<String>):Vector.<int> {
         FreKotlinExampleANEContext.validate();
-        return FreKotlinExampleANEContext.context.call("runArrayTests", value, value2) as Array;
+        return FreKotlinExampleANEContext.context.call("runArrayTests", value, value2) as Vector.<int>;
     }
 
     public function runObjectTests(value:Person):Person {
