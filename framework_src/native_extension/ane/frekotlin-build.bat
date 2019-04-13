@@ -3,7 +3,7 @@ SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
 SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_32\bin\"
 
-SET KOTLIN_VERSION="1.3.11"
+SET KOTLIN_VERSION="1.3.30"
 SET PROJECT_NAME=FreKotlinExampleANE
 SET SWC_NAME=FreKotlinANE
 SET ANE_NAME=com.tuarua.frekotlin
@@ -32,10 +32,12 @@ call %AIR_PATH%adt.bat -package -target ane %pathtome%%ANE_NAME%.ane extension_f
 -C platforms/android library.swf classes.jar ^
 -platformoptions platforms/android/platform_frekotlin.xml ^
 kotlin-stdlib-%KOTLIN_VERSION%.jar ^
+kotlin-stdlib-common-%KOTLIN_VERSION%.jar ^
 -platform Android-x86 ^
 -C platforms/android library.swf classes.jar ^
 -platformoptions platforms/android/platform_frekotlin.xml ^
 kotlin-stdlib-%KOTLIN_VERSION%.jar ^
+kotlin-stdlib-common-%KOTLIN_VERSION%.jar ^
 -platform default -C platforms/default_ane library.swf
 
 ren %pathtome%platforms\\android\\classes.jar frekotlin-%KOTLIN_VERSION%.jar

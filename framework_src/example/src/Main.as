@@ -79,7 +79,7 @@ public class Main extends Sprite {
         var myVector:Vector.<String> = new <String>[];
         myVector.push("abc", "xyz");
 
-        var resultArray:Array = ane.runArrayTests(myArray, myVector);
+        var resultArray:Vector.<int> = ane.runArrayTests(myArray, myVector);
         if (resultArray) {
             textField.text += "Array: " + resultArray.toString() + "\n";
         }
