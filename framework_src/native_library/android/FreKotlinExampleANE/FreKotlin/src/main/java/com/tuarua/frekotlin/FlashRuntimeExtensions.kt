@@ -163,7 +163,7 @@ fun FREObject(className: String, vararg args: Any?): FREObject? {
     }
 }
 
-@Deprecated("Use accessor  instead", ReplaceWith("FREObject.set(name: String)"))
+@Deprecated("Use accessor  instead", ReplaceWith("FREObject.set(name: String)"), DeprecationLevel.ERROR)
 fun FREObject.setProp(name: String, value: Any?) {
     if (value is FREObject) {
         FreKotlinHelper.setProperty(this, name, value)
@@ -211,7 +211,7 @@ fun FREObject.setProp(name: String, value: Any?) {
     }
 }
 
-@Deprecated("Use accessor  instead", ReplaceWith("FREObject.get(name: String)"))
+@Deprecated("Use accessor  instead", ReplaceWith("FREObject.get(name: String)"), DeprecationLevel.ERROR)
 fun FREObject.getProp(name: String): FREObject? {
     return FreKotlinHelper.getProperty(this, name)
 }
@@ -329,7 +329,7 @@ fun Date.toFREObject(): FREObject? {
     }
 }
 
-@Deprecated("Return null instead and set FreKotlinLogger.context = _context", ReplaceWith("null"))
+@Deprecated("Return null instead and set FreKotlinLogger.context = _context", ReplaceWith("null"), DeprecationLevel.ERROR)
 fun FreConversionException(variableName: String): FREObject? {
     return try {
         FreException("[FreKotlin] Cannot convert $variableName").getError()

@@ -3,7 +3,7 @@
 #Get the path to the script and trim to get the directory.
 pathtome=$0
 pathtome="${pathtome%/*}"
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_32"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33"
 
 PROJECTNAME=HelloWorldANE
 
@@ -32,7 +32,7 @@ mv "$pathtome/platforms/android/res" "$pathtome/platforms/android/com.mycompany.
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.mycompany.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform.xml" \
--platform Android-x86 \
+-platform Android-ARM64 \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.mycompany.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform.xml" \

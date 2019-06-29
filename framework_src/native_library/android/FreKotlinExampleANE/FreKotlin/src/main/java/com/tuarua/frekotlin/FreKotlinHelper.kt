@@ -96,7 +96,7 @@ internal object FreKotlinHelper {
         for (elem in classPropsArr) {
             if (elem != null) {
                 val propName = elem.getProperty("name").asString
-                if (propName != null && !propName.isEmpty()) {
+                if (propName != null && propName.isNotEmpty()) {
                     val propval = rawValue[propName]
                     if (propval is FREObject) {
                         FreObjectKotlin(propval).value?.let { ret.put(propName, it) }

@@ -1,3 +1,12 @@
+### 1.8.0
+- Upgraded to Kotlin 1.3.40
+- Upgraded to AIR 33
+- Added ARM 64bit support
+- Remove ARM-x86 support
+- Obsolete stackTraceElements param from `FreException.getError()`
+- Obsolete `FreConversionException`
+- Obsolete `toFREArray` methods
+
 ### 1.7.0
 - Upgraded to Kotlin 1.3.30
 - Add `FREObject.className`
@@ -39,7 +48,7 @@
 - Added Kotlin version of FREArray.newArray
 - Added iterator for FREArray i.e. for (fre: FREObject? in airArray) { }
 - Added subscript setter# for FREObject i.e. myFreObject["name"] = myFREObject
-- deprecate sendEvent, use dispatchEvent instead
+- Deprecate sendEvent, use dispatchEvent instead
 - handle Float param in call() method
 
 ### 1.3.0
