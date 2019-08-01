@@ -3,7 +3,6 @@ package com.mycompany.helloworldane
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
-import java.util.ArrayList
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinMainController {
@@ -24,7 +23,7 @@ class KotlinController : FreKotlinMainController {
             for (i in 0 until numRepeats) {
                 trace("hello $i")
                 // or
-                //trace("Hello", i)
+                // trace("Hello", i)
             }
             var ret = myString
             if (uppercase) {
