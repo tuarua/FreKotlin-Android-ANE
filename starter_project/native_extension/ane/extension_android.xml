@@ -5,6 +5,13 @@
 	<copyright>This work is licensed under Apache License, Copyright (c) 2017 Tua Rua Ltd.</copyright>
 	<versionNumber>0.0.2</versionNumber>
     <platforms>
+    	<platform name="Android-x86"> 
+           <applicationDeployment>
+				<nativeLibrary>classes.jar</nativeLibrary>
+				<initializer>com.mycompany.HelloWorldANE</initializer>
+				<finalizer>com.mycompany.HelloWorldANE</finalizer>
+			</applicationDeployment>
+        </platform>
 		<platform name="Android-ARM"> 
            <applicationDeployment>
 				<nativeLibrary>classes.jar</nativeLibrary>
@@ -18,6 +25,9 @@
 				<initializer>com.mycompany.HelloWorldANE</initializer>
 				<finalizer>com.mycompany.HelloWorldANE</finalizer>
 			</applicationDeployment>
+        </platform>
+        <platform name="default">
+            <applicationDeployment/>
         </platform>
     </platforms>
 </extension>

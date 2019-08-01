@@ -21,7 +21,6 @@ unzip "$pathtome/$SWC_NAME.swc" "library.swf" -d "$pathtome"
 
 #Copy library.swf to folders.
 cp "$pathtome/library.swf" "$pathtome/platforms/android"
-cp "$pathtome/library.swf" "$pathtome/platforms/default_ane"
 
 # Copying Android aars into place
 cp "$pathtome/../../native_library/android/$PROJECTNAME/FreKotlin/build/outputs/aar/FreKotlin-release.aar" "$pathtome/platforms/android/FreKotlin-release.aar"
@@ -32,6 +31,12 @@ echo "Building ANE."
 "$AIR_SDK"/bin/adt -package \
 -target ane "$pathtome/$ANE_NAME-$ANE_VERSION.ane" "$pathtome/extension_frekotlin.xml" \
 -swc "$pathtome/$SWC_NAME.swc" \
+-platform Android-x86 \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.tuarua.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
+"kotlin-stdlib-$KOTLIN_VERSION.jar" \
+"kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
 -platform Android-ARM \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.tuarua.$PROJECTNAME-res/. \
@@ -44,7 +49,7 @@ com.tuarua.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
 "kotlin-stdlib-$KOTLIN_VERSION.jar" \
 "kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
--platform default -C "$pathtome/platforms/default_ane" "library.swf" \
+-platform default -C "$pathtome/platforms/android" "library.swf" \
 
 if [ ! -d "$pathtome/../../libs" ]; then
 mkdir "$pathtome/../../libs"

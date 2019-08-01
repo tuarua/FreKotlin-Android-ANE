@@ -20,8 +20,6 @@ del %pathtome%%SWC_NAME%Extract.zip
 
 REM copy library.swf to folders.
 copy %pathtome%library.swf %pathtome%platforms\android
-copy %pathtome%library.swf %pathtome%platforms\default_ane 
-
 copy /Y %pathtome%..\..\native_library\android\%PROJECT_NAME%\FreKotlin\build\outputs\aar\FreKotlin-release.aar %pathtome%platforms\android\FreKotlin-release.aar
 
 call %SZIP% x %pathtome%platforms\android\FreKotlin-release.aar -o%pathtome%platforms\android\ classes.jar
@@ -29,6 +27,11 @@ call %SZIP% x %pathtome%platforms\android\FreKotlin-release.aar -o%pathtome%plat
 echo "GENERATING ANE"
 call %AIR_PATH%adt.bat -package -target ane %pathtome%%ANE_NAME%-%ANE_VERSION%.ane extension_frekotlin.xml ^
 -swc %SWC_NAME%.swc ^
+-platform Android-x86 ^
+-C platforms/android library.swf classes.jar ^
+-platformoptions platforms/android/platform_frekotlin.xml ^
+kotlin-stdlib-%KOTLIN_VERSION%.jar ^
+kotlin-stdlib-common-%KOTLIN_VERSION%.jar ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^
 -platformoptions platforms/android/platform_frekotlin.xml ^
@@ -39,7 +42,7 @@ kotlin-stdlib-common-%KOTLIN_VERSION%.jar ^
 -platformoptions platforms/android/platform_frekotlin.xml ^
 kotlin-stdlib-%KOTLIN_VERSION%.jar ^
 kotlin-stdlib-common-%KOTLIN_VERSION%.jar ^
--platform default -C platforms/default_ane library.swf
+-platform default -C platforms/android library.swf
 
 ren %pathtome%platforms\\android\\classes.jar frekotlin-%KOTLIN_VERSION%.jar
 copy /Y %pathtome%platforms\\android\\frekotlin-%KOTLIN_VERSION%.jar %pathtome%..\..\libs

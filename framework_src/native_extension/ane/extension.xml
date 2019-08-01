@@ -5,6 +5,13 @@
 	<copyright>This work is licensed under Apache License, Copyright (c) 2017 Tua Rua Ltd.</copyright>
 	<versionNumber>1.8.0</versionNumber>
     <platforms>
+    	<platform name="Android-x86"> 
+           <applicationDeployment>
+				<nativeLibrary>classes.jar</nativeLibrary>
+				<initializer>com.tuarua.FreKotlinExampleANE</initializer>
+				<finalizer>com.tuarua.FreKotlinExampleANE</finalizer>
+			</applicationDeployment>
+        </platform>
 		<platform name="Android-ARM"> 
            <applicationDeployment>
 				<nativeLibrary>classes.jar</nativeLibrary>

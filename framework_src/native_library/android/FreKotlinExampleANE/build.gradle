@@ -8,7 +8,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.4.1'
+        classpath 'com.android.tools.build:gradle:3.4.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -39,7 +39,7 @@ ext {
 
     // FreKotlin Library Info
     libVersionCode = 1
-    libVersionName = '1.8.0-beta1'
+    libVersionName = '1.8.0'
     libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
     libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
     libModuleName = 'FreKotlin'

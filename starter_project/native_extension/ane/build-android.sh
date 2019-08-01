@@ -28,6 +28,10 @@ mv "$pathtome/platforms/android/res" "$pathtome/platforms/android/com.mycompany.
 "$AIR_SDK"/bin/adt -package \
 -target ane "$pathtome/$PROJECTNAME.ane" "$pathtome/extension_android.xml" \
 -swc "$pathtome/$PROJECTNAME.swc" \
+-platform Android-x86 \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.mycompany.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform.xml" \
 -platform Android-ARM \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.mycompany.$PROJECTNAME-res/. \
@@ -36,6 +40,7 @@ com.mycompany.$PROJECTNAME-res/. \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.mycompany.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform.xml" \
+-platform default -C "$pathtome/platforms/android" "library.swf"
 
 #Clean up.
 rm "$pathtome/platforms/android/classes.jar"

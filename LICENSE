@@ -186,7 +186,7 @@
       same "printed page" as the copyright notice for easier
       identification within third-party archives.
 
-   Copyright {yyyy} {name of copyright owner}
+   Copyright 2017 Tua Rua Ltd.
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -199,3 +199,9 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+Additional Terms
+The API of and interoperation techniques used within FreKotlin are the intellectual property 
+of Tua Rua Ltd and are prohibited from being used to create an alternative commercial 
+Kotlin Library which undertakes the same purpose as this software.
+All Rights Reserved. Tua Rua Ltd.

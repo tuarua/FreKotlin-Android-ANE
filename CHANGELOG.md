@@ -2,7 +2,6 @@
 - Upgraded to Kotlin 1.3.40
 - Upgraded to AIR 33
 - Added ARM 64bit support
-- Remove ARM-x86 support
 - Obsolete stackTraceElements param from `FreException.getError()`
 - Obsolete `FreConversionException`
 - Obsolete `toFREArray` methods
