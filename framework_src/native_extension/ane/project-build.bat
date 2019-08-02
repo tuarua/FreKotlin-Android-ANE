@@ -4,7 +4,7 @@ call frekotlin-build.bat
 
 SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
-SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_32\bin\"
+SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_33\bin\"
 
 SET projectName=FreKotlinExampleANE
 SET ANE_NAME=com.tuarua.frekotlin.example
@@ -30,7 +30,15 @@ call %SZIP% x %pathtome%platforms\android\app-release.aar -o%pathtome%platforms\
 echo "GENERATING ANE"
 call %AIR_PATH%adt.bat -package -target ane %pathtome%%ANE_NAME%.ane extension.xml ^
 -swc %projectName%.swc ^
+-platform Android-x86 ^
+-C platforms/android library.swf classes.jar ^
+com.tuarua.%projectName%-res/. ^
+-platformoptions platforms/android/platform.xml ^
 -platform Android-ARM ^
+-C platforms/android library.swf classes.jar ^
+com.tuarua.%projectName%-res/. ^
+-platformoptions platforms/android/platform.xml ^
+-platform Android-ARM64 ^
 -C platforms/android library.swf classes.jar ^
 com.tuarua.%projectName%-res/. ^
 -platformoptions platforms/android/platform.xml

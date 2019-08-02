@@ -176,6 +176,6 @@ fun LatLng.toFREObject(): FREObject? {
 
 You will need
 
-- Android Studio 3.0
+- Android Studio 3.4+
 - IntelliJ IDEA
-- AIR 32+
+- AIR 33+

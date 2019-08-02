@@ -3,7 +3,7 @@
 #Get the path to the script and trim to get the directory.
 pathtome=$0
 pathtome="${pathtome%/*}"
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_32"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33"
 
 PROJECTNAME=HelloWorldANE
 
@@ -28,14 +28,19 @@ mv "$pathtome/platforms/android/res" "$pathtome/platforms/android/com.mycompany.
 "$AIR_SDK"/bin/adt -package \
 -target ane "$pathtome/$PROJECTNAME.ane" "$pathtome/extension_android.xml" \
 -swc "$pathtome/$PROJECTNAME.swc" \
--platform Android-ARM \
--C "$pathtome/platforms/android" "library.swf" "classes.jar" \
-com.mycompany.$PROJECTNAME-res/. \
--platformoptions "$pathtome/platforms/android/platform.xml" \
 -platform Android-x86 \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.mycompany.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform.xml" \
+-platform Android-ARM \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.mycompany.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform.xml" \
+-platform Android-ARM64 \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.mycompany.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform.xml" \
+-platform default -C "$pathtome/platforms/android" "library.swf"
 
 #Clean up.
 rm "$pathtome/platforms/android/classes.jar"

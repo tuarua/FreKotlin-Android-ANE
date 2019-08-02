@@ -183,7 +183,7 @@ fun Bitmap(freObject: FREObject?, swapColors: Boolean = true): Bitmap? {
         val bmd = FreBitmapDataKotlin(fre)
         bmd.acquire()
         if (bmd.bits32 is ByteBuffer) {
-            ret = Bitmap.createBitmap(bmd.width, bmd.height, Bitmap.Config.ARGB_8888)
+            ret = createBitmap(bmd.width, bmd.height, ARGB_8888)
             ret.copyPixelsFromBuffer(bmd.bits32)
         }
         bmd.release()

@@ -4,7 +4,7 @@
 echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_32"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33"
 
 sh ./frekotlin-build.sh
 
@@ -34,10 +34,18 @@ echo "Building ANE."
 "$AIR_SDK"/bin/adt -package \
 -target ane "$pathtome/$ANENAME.ane" "$pathtome/extension.xml" \
 -swc "$pathtome/$PROJECTNAME.swc" \
+-platform Android-x86 \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.tuarua.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform.xml" \
 -platform Android-ARM \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.tuarua.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform.xml" \
+-platform Android-ARM64 \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.tuarua.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform.xml"
 
 rm "$pathtome/platforms/android/classes.jar"
 rm "$pathtome/platforms/android/app-release.aar"

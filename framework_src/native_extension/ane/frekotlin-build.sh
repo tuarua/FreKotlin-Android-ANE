@@ -5,9 +5,10 @@ echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
 
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_32"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33"
 
-KOTLIN_VERSION="1.3.30"
+KOTLIN_VERSION="1.3.40"
+ANE_VERSION="1.8.0"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin
@@ -20,7 +21,6 @@ unzip "$pathtome/$SWC_NAME.swc" "library.swf" -d "$pathtome"
 
 #Copy library.swf to folders.
 cp "$pathtome/library.swf" "$pathtome/platforms/android"
-cp "$pathtome/library.swf" "$pathtome/platforms/default_ane"
 
 # Copying Android aars into place
 cp "$pathtome/../../native_library/android/$PROJECTNAME/FreKotlin/build/outputs/aar/FreKotlin-release.aar" "$pathtome/platforms/android/FreKotlin-release.aar"
@@ -29,21 +29,27 @@ unzip "$pathtome/platforms/android/FreKotlin-release.aar" "classes.jar" -d "$pat
 #Run the build command.
 echo "Building ANE."
 "$AIR_SDK"/bin/adt -package \
--target ane "$pathtome/$ANE_NAME.ane" "$pathtome/extension_frekotlin.xml" \
+-target ane "$pathtome/$ANE_NAME-$ANE_VERSION.ane" "$pathtome/extension_frekotlin.xml" \
 -swc "$pathtome/$SWC_NAME.swc" \
--platform Android-ARM \
--C "$pathtome/platforms/android" "library.swf" "classes.jar" \
-com.tuarua.$PROJECTNAME-res/. \
--platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
-"kotlin-stdlib-$KOTLIN_VERSION.jar" \
-"kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
 -platform Android-x86 \
 -C "$pathtome/platforms/android" "library.swf" "classes.jar" \
 com.tuarua.$PROJECTNAME-res/. \
 -platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
 "kotlin-stdlib-$KOTLIN_VERSION.jar" \
 "kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
--platform default -C "$pathtome/platforms/default_ane" "library.swf" \
+-platform Android-ARM \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.tuarua.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
+"kotlin-stdlib-$KOTLIN_VERSION.jar" \
+"kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
+-platform Android-ARM64 \
+-C "$pathtome/platforms/android" "library.swf" "classes.jar" \
+com.tuarua.$PROJECTNAME-res/. \
+-platformoptions "$pathtome/platforms/android/platform_frekotlin.xml" \
+"kotlin-stdlib-$KOTLIN_VERSION.jar" \
+"kotlin-stdlib-common-$KOTLIN_VERSION.jar" \
+-platform default -C "$pathtome/platforms/android" "library.swf" \
 
 if [ ! -d "$pathtome/../../libs" ]; then
 mkdir "$pathtome/../../libs"
@@ -55,5 +61,5 @@ rm "$pathtome/platforms/android/library.swf"
 rm "$pathtome/$SWC_NAME.swc"
 rm "$pathtome/library.swf"
 
-cp "$pathtome/$ANE_NAME.ane" "$pathtome/../../../starter_project/native_extension/ane"
+cp "$pathtome/$ANE_NAME-$ANE_VERSION.ane" "$pathtome/../../../starter_projec/example/android_dependencies"
 echo "DONE!"

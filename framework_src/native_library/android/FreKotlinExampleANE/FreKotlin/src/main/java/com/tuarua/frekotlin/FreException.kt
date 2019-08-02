@@ -117,7 +117,7 @@ open class FreException : Exception {
         return _aneError?.rawValue
     }
 
-    @Deprecated("Use getError() instead", ReplaceWith("getError()"))
+    @Deprecated("Use getError() instead", ReplaceWith("getError()"), DeprecationLevel.ERROR)
     fun getError(stackTraceElements: Array<StackTraceElement> = arrayOf()): FREObject? {
         var className = ""
         var methodName = ""

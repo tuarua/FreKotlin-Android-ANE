@@ -241,7 +241,7 @@ operator fun FREArray?.iterator(): Iterator<FREObject?> {
     }.iterator()
 }
 
-@Deprecated("Use toFREObject instead", ReplaceWith("IntArray.toFREObject()"))
+@Deprecated("Use toFREObject instead", ReplaceWith("IntArray.toFREObject()"), DeprecationLevel.ERROR)
 fun IntArray.toFREArray(): FREArray? {
     return FREArray(this)
 }
@@ -255,7 +255,7 @@ fun IntArray.toFREObject(): FREArray? {
     return FREArray(this)
 }
 
-@Deprecated("Use toFREObject instead", ReplaceWith("BooleanArray.toFREObject()"))
+@Deprecated("Use toFREObject instead", ReplaceWith("BooleanArray.toFREObject()"), DeprecationLevel.ERROR)
 fun BooleanArray.toFREArray(): FREArray? {
     return FREArray(this)
 }
@@ -269,7 +269,7 @@ fun BooleanArray.toFREObject(): FREArray? {
     return FREArray(this)
 }
 
-@Deprecated("Use toFREObject instead", ReplaceWith("DoubleArray.toFREObject()"))
+@Deprecated("Use toFREObject instead", ReplaceWith("DoubleArray.toFREObject()"), DeprecationLevel.ERROR)
 fun DoubleArray.toFREArray(): FREArray? {
     return FREArray(this)
 }
@@ -298,7 +298,7 @@ fun ShortArray.toFREObject(): FREArray? {
     return FREArray(this)
 }
 
-@Deprecated("Use toFREObject instead", ReplaceWith("List<String>.toFREObject()"))
+@Deprecated("Use toFREObject instead", ReplaceWith("List<String>.toFREObject()"), DeprecationLevel.ERROR)
 fun List<String>.toFREArray(): FREArray? {
     return FREArray(this)
 }
@@ -315,7 +315,7 @@ fun List<String>.toFREObject(): FREArray? {
 fun BooleanArray(freArray: FREArray?): BooleanArray {
     if (freArray == null) return booleanArrayOf()
     val count = freArray.length.toInt()
-    val ret = kotlin.BooleanArray(count)
+    val ret = BooleanArray(count)
     for (i in 0 until count) {
         val v = Boolean(freArray.getObjectAt(i.toLong()))
         when {
@@ -336,7 +336,7 @@ fun BooleanArray(freObject: FREObject?): BooleanArray {
 fun DoubleArray(freArray: FREArray?): DoubleArray {
     if (freArray == null) return doubleArrayOf()
     val count = freArray.length.toInt()
-    val ret = kotlin.DoubleArray(count)
+    val ret = DoubleArray(count)
     for (i in 0 until count) {
         val v = Double(freArray.getObjectAt(i.toLong()))
         when {
@@ -357,7 +357,7 @@ fun DoubleArray(freObject: FREObject?): DoubleArray {
 fun IntArray(freArray: FREArray?): IntArray {
     if (freArray == null) return intArrayOf()
     val count = freArray.length.toInt()
-    val ret = kotlin.IntArray(count)
+    val ret = IntArray(count)
     for (i in 0 until count) {
         val v = Int(freArray.getObjectAt(i.toLong()))
         when {
@@ -399,7 +399,7 @@ fun ShortArray(freObject: FREObject?): ShortArray {
 fun FloatArray(freArray: FREArray?): FloatArray {
     if (freArray == null) return floatArrayOf()
     val count = freArray.length.toInt()
-    val ret = kotlin.FloatArray(count)
+    val ret = FloatArray(count)
     for (i in 0 until count) {
         val v = Float(freArray.getObjectAt(i.toLong()))
         when {
@@ -420,7 +420,7 @@ fun FloatArray(freObject: FREObject?): FloatArray {
 fun LongArray(freArray: FREArray?): LongArray {
     if (freArray == null) return longArrayOf()
     val count = freArray.length.toInt()
-    val ret = kotlin.LongArray(count)
+    val ret = LongArray(count)
     for (i in 0 until count) {
         val v = Long(freArray.getObjectAt(i.toLong()))
         when {

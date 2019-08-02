@@ -12,6 +12,7 @@ import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.geom.Rectangle;
 import flash.net.URLRequest;
+import flash.system.Capabilities;
 import flash.text.TextField;
 import flash.text.TextFormat;
 import flash.text.TextFormatAlign;
@@ -47,6 +48,8 @@ public class Main extends Sprite {
         textField.height = 1200;
         textField.multiline = true;
         textField.wordWrap = true;
+
+        textField.text += Capabilities.cpuArchitecture + "\n";
 
         var person:Person = new Person();
         person.age = 21;

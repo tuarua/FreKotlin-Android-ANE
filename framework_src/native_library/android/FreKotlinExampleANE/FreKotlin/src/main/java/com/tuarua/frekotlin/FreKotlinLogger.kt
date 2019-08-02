@@ -41,7 +41,7 @@ object FreKotlinLogger {
             Log.getStackTraceString(exception)
         }
 
-        if (!stackTrace.isEmpty()) {
+        if (stackTrace.isNotEmpty()) {
             ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $stackTrace", "TRACE")
         }
     }

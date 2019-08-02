@@ -1,7 +1,7 @@
 @echo off
 SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
-SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_32\bin\"
+SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_33\bin\"
 
 SET projectName=HelloWorldANE
 
@@ -29,14 +29,19 @@ ren %pathtome%platforms\android\res com.mycompany.%projectName%-res
 REM Building ANE.
 call %AIR_PATH%adt.bat -package -target ane %pathtome%%projectName%.ane extension_android.xml ^
 -swc %projectName%.swc ^
+-platform Android-x86 ^
+-C platforms/android library.swf classes.jar ^
+com.mycompany.%projectName%-res/. ^
+-platformoptions platforms/android/platform.xml ^
 -platform Android-ARM ^
 -C platforms/android library.swf classes.jar ^
 com.mycompany.%projectName%-res/. ^
 -platformoptions platforms/android/platform.xml ^
--platform Android-x86 ^
+-platform Android-ARM64 ^
 -C platforms/android library.swf classes.jar ^
 com.mycompany.%projectName%-res/. ^
--platformoptions platforms/android/platform.xml
+-platformoptions platforms/android/platform.xml ^
+-platform default -C platforms/android library.swf
 
 REM Clean up.
 del %pathtome%platforms\\android\\classes.jar
