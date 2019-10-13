@@ -163,58 +163,6 @@ fun FREObject(className: String, vararg args: Any?): FREObject? {
     }
 }
 
-@Deprecated("Use accessor  instead", ReplaceWith("FREObject.set(name: String)"), DeprecationLevel.ERROR)
-fun FREObject.setProp(name: String, value: Any?) {
-    if (value is FREObject) {
-        FreKotlinHelper.setProperty(this, name, value)
-        return
-    }
-    if (value is FreObjectKotlin) {
-        FreKotlinHelper.setProperty(this, name, value.rawValue)
-        return
-    }
-    if (value is String) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Int) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Double) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Float) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Long) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Short) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Boolean) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Date) {
-        FreKotlinHelper.setProperty(this, name, value.toFREObject())
-        return
-    }
-    if (value is Any) {
-        FreKotlinLogger.log("FREObject.setProp - no automatic conversion type found")
-        return
-    }
-}
-
-@Deprecated("Use accessor  instead", ReplaceWith("FREObject.get(name: String)"), DeprecationLevel.ERROR)
-fun FREObject.getProp(name: String): FREObject? {
-    return FreKotlinHelper.getProperty(this, name)
-}
 
 /** Gets the named property of a FREObject */
 operator fun FREObject?.get(name: String): FREObject? {
@@ -329,19 +277,20 @@ fun Date.toFREObject(): FREObject? {
     }
 }
 
-@Deprecated("Return null instead and set FreKotlinLogger.context = _context", ReplaceWith("null"), DeprecationLevel.ERROR)
-fun FreConversionException(variableName: String): FREObject? {
+/**  returns an ANEError stating which function has not received enough parameters */
+@Deprecated("Use FreArgException() instead", ReplaceWith("FreArgException()"), DeprecationLevel.ERROR)
+fun FreArgException(functionName: String): FREObject? {
     return try {
-        FreException("[FreKotlin] Cannot convert $variableName").getError()
+        FreException("[FreKotlin] Not enough or incorrect arguments passed to $functionName").getError()
     } catch (e: Exception) {
         null
     }
 }
 
 /**  returns an ANEError stating which function has not received enough parameters */
-fun FreArgException(functionName: String): FREObject? {
+fun FreArgException(): FREObject? {
     return try {
-        FreException("[FreKotlin] Not enough or incorrect arguments passed to $functionName").getError()
+        FreException("[FreKotlin] Not enough or incorrect arguments passed to method").getError()
     } catch (e: Exception) {
         null
     }

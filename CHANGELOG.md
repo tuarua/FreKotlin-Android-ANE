@@ -1,3 +1,16 @@
+### 1.9.0
+- Upgraded to Kotlin 1.3.50
+- Remove stackTraceElements param from `FreException.getError()`
+- Remove `FreConversionException`
+- Remove `toFREArray` methods
+- Obsolete stackTraceElements param from `FreArgException(functionName)`
+- rename `TRStateChangeCallback` to `FreKotlinStateChangeCallback` 
+- rename `TRActivityResultCallback` to `FreKotlinActivityResultCallback` 
+- remove these Lifecycle overrides from java. These are now added directly in KotlinController
+- Upgraded to jvm target 1.8
+- FreKotlinMainController.TAG is now optional String
+- FreKotlinController.TAG is now optional String
+
 ### 1.8.0
 - Upgraded to Kotlin 1.3.40
 - Upgraded to AIR 33

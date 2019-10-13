@@ -241,11 +241,6 @@ operator fun FREArray?.iterator(): Iterator<FREObject?> {
     }.iterator()
 }
 
-@Deprecated("Use toFREObject instead", ReplaceWith("IntArray.toFREObject()"), DeprecationLevel.ERROR)
-fun IntArray.toFREArray(): FREArray? {
-    return FREArray(this)
-}
-
 /**
  * Converts a IntArray to a FREArray.
  * @receiver The [IntArray].
@@ -255,22 +250,12 @@ fun IntArray.toFREObject(): FREArray? {
     return FREArray(this)
 }
 
-@Deprecated("Use toFREObject instead", ReplaceWith("BooleanArray.toFREObject()"), DeprecationLevel.ERROR)
-fun BooleanArray.toFREArray(): FREArray? {
-    return FREArray(this)
-}
-
 /**
  * Converts a [BooleanArray] to a FREArray.
  * @receiver The [BooleanArray].
  * @return A new FREArray.
  */
 fun BooleanArray.toFREObject(): FREArray? {
-    return FREArray(this)
-}
-
-@Deprecated("Use toFREObject instead", ReplaceWith("DoubleArray.toFREObject()"), DeprecationLevel.ERROR)
-fun DoubleArray.toFREArray(): FREArray? {
     return FREArray(this)
 }
 
@@ -295,11 +280,6 @@ fun FloatArray.toFREObject(): FREArray? {
  * @receiver The [ShortArray].
  */
 fun ShortArray.toFREObject(): FREArray? {
-    return FREArray(this)
-}
-
-@Deprecated("Use toFREObject instead", ReplaceWith("List<String>.toFREObject()"), DeprecationLevel.ERROR)
-fun List<String>.toFREArray(): FREArray? {
     return FREArray(this)
 }
 

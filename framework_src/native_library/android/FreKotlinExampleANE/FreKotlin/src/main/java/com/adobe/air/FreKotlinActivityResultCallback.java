@@ -15,6 +15,6 @@
  */
 
 package com.adobe.air;
-public interface TRActivityResultCallback extends AndroidActivityWrapper.ActivityResultCallback {
+public interface FreKotlinActivityResultCallback extends AndroidActivityWrapper.ActivityResultCallback {
 
 }

@@ -3,8 +3,8 @@ SET pathtome=%~dp0
 SET SZIP="C:\Program Files\7-Zip\7z.exe"
 SET AIR_PATH="D:\dev\sdks\AIR\AIRSDK_33\bin\"
 
-SET KOTLIN_VERSION="1.3.40"
-SET ANE_VERSION="1.8.0"
+SET KOTLIN_VERSION="1.3.50"
+SET ANE_VERSION="1.9.0"
 SET PROJECT_NAME=FreKotlinExampleANE
 SET SWC_NAME=FreKotlinANE
 SET ANE_NAME=com.tuarua.frekotlin

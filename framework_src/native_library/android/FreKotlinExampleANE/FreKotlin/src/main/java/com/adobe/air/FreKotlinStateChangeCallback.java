@@ -15,5 +15,5 @@
  */
 
 package com.adobe.air;
-public interface TRStateChangeCallback extends AndroidActivityWrapper.StateChangeCallback {
+public interface FreKotlinStateChangeCallback extends AndroidActivityWrapper.StateChangeCallback {
 }

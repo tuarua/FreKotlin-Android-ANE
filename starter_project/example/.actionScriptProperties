@@ -35,7 +35,7 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="5" linkType="2" path="${DOCUMENTS}/FreKotlin-Android-ANE/starter_project/native_extension/ane/HelloWorldANE.ane"/>
-      <libraryPathEntry kind="5" linkType="2" path="android_dependencies/com.tuarua.frekotlin-1.8.0.ane"/>
+      <libraryPathEntry kind="5" linkType="2" path="android_dependencies/com.tuarua.frekotlin-1.9.0.ane"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>
@@ -54,7 +54,7 @@
         <airExcludes/>
         <anePaths>
           <anePathEntry path="${DOCUMENTS}/FreKotlin-Android-ANE/starter_project/native_extension/ane/HelloWorldANE.ane"/>
-          <anePathEntry path="android_dependencies/com.tuarua.frekotlin-1.8.0.ane"/>
+          <anePathEntry path="android_dependencies/com.tuarua.frekotlin-1.9.0.ane"/>
         </anePaths>
         <newLaunchParams/>
         <modifiedLaunchParams/>

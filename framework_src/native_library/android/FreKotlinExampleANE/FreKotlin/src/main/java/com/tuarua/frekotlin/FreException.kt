@@ -106,28 +106,11 @@ open class FreException : Exception {
                 methodName = stackTraceElements[2].methodName
                 lineNumber = stackTraceElements[2].lineNumber
             }
-        }
-
-        try {
-            _aneError = FreObjectKotlin(FREObject("com.tuarua.fre.ANEError", message, 0, "FreKotlin.Exceptions.$type",
-                    "$className.$methodName():$lineNumber", stackTrace))
-        } catch (e: FREWrongThreadException) {
-        }
-
-        return _aneError?.rawValue
-    }
-
-    @Deprecated("Use getError() instead", ReplaceWith("getError()"), DeprecationLevel.ERROR)
-    fun getError(stackTraceElements: Array<StackTraceElement> = arrayOf()): FREObject? {
-        var className = ""
-        var methodName = ""
-        var lineNumber = 0
-
-        if (stackTraceElements.size > 2) {
-            val fullClassName = stackTraceElements[2].className
-            className = fullClassName.substring(fullClassName.lastIndexOf("") + 1)
-            methodName = stackTraceElements[2].methodName
-            lineNumber = stackTraceElements[2].lineNumber
+        } else {
+            val st = Throwable().fillInStackTrace().stackTrace[1]
+            className = st.className
+            methodName = st.methodName
+            lineNumber = st.lineNumber
         }
 
         try {
