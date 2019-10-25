@@ -39,7 +39,7 @@ ext {
 
     // FreKotlin Library Info
     libVersionCode = 1
-    libVersionName = '1.8.0'
+    libVersionName = '1.9.0'
     libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
     libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
     libModuleName = 'FreKotlin'
