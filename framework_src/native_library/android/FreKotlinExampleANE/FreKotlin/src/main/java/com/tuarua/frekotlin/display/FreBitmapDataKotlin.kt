@@ -95,7 +95,7 @@ class FreBitmapDataKotlin {
             rawValue = FREBitmapData.newBitmapData(bitmap.width,
                     bitmap.height, bitmap.hasAlpha(), fillColor)
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot create the FREBitmapData", e)
+            FreKotlinLogger.error("Cannot create the FREBitmapData", e)
             return
         }
 
@@ -125,7 +125,7 @@ class FreBitmapDataKotlin {
             isPremultiplied = rv.isPremultiplied
             lineStride32 = rv.lineStride32
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot acquire the FREByteArray", e)
+            FreKotlinLogger.error("Cannot acquire the FREByteArray", e)
         }
     }
 
@@ -136,7 +136,7 @@ class FreBitmapDataKotlin {
         try {
             rawValue?.release()
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot release the FREBitmapData", e)
+            FreKotlinLogger.error("Cannot release the FREBitmapData", e)
         }
     }
 
@@ -147,7 +147,7 @@ class FreBitmapDataKotlin {
         try {
             rawValue?.invalidateRect(x, y, width, height)
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot invalidateRect the FREBitmapData", e)
+            FreKotlinLogger.error("Cannot invalidateRect the FREBitmapData", e)
         }
     }
 
@@ -193,7 +193,7 @@ fun Bitmap(freObject: FREObject?, swapColors: Boolean = true): Bitmap? {
             ret
         }
     } catch (e: Exception) {
-        FreKotlinLogger.log("Cannot create Bitmap from FREObject", e)
+        FreKotlinLogger.error("Cannot create Bitmap from FREObject", e)
     }
     return ret
 }
@@ -205,7 +205,7 @@ fun Bitmap.toFREObject(): FREObject? {
     try {
         return FreBitmapDataKotlin(this, true).rawValue
     } catch (e: Exception) {
-        FreKotlinLogger.log("Cannot create FREObject from Bitmap", e)
+        FreKotlinLogger.error("Cannot create FREObject from Bitmap", e)
     }
     return null
 }

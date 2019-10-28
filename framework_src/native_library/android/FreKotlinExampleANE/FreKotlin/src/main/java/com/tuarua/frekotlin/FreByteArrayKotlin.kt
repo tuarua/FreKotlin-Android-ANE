@@ -60,7 +60,7 @@ class FreByteArrayKotlin {
         try {
             rawValue = FREByteArray.newByteArray()
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot create FREByteArray from ByteArray", e)
+            FreKotlinLogger.error("Cannot create FREByteArray from ByteArray", e)
         }
         val rv = rawValue ?: return
         rv["length"] = byteArray.size.toFREObject()
@@ -79,7 +79,7 @@ class FreByteArrayKotlin {
             length = rv.length.toInt()
             bytes = rv.bytes
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot acquire the FREByteArray", e)
+            FreKotlinLogger.error("Cannot acquire the FREByteArray", e)
         }
     }
 
@@ -90,7 +90,7 @@ class FreByteArrayKotlin {
         try {
             rawValue?.release()
         } catch (e: Exception) {
-            FreKotlinLogger.log("Cannot release the FREByteArray", e)
+            FreKotlinLogger.error("Cannot release the FREByteArray", e)
         }
     }
 }
@@ -113,7 +113,7 @@ fun ByteArray(freObject: FREObject?): ByteArray? {
         ba.release()
         return ret
     } catch (e: Exception) {
-        FreKotlinLogger.log("Cannot create ByteArray from FREObject", e)
+        FreKotlinLogger.error("Cannot create ByteArray from FREObject", e)
     }
     return ret
 }
@@ -125,7 +125,7 @@ fun ByteArray.toFREObject(): FREObject? {
     try {
         return FreByteArrayKotlin(this).rawValue
     } catch (e: Exception) {
-        FreKotlinLogger.log("Cannot create FREObject from ByteArray", e)
+        FreKotlinLogger.error("Cannot create FREObject from ByteArray", e)
     }
     return null
 }

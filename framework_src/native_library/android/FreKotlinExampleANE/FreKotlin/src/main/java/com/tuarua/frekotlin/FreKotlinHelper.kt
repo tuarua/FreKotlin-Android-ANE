@@ -22,7 +22,7 @@ import com.adobe.fre.FRENoSuchNameException
 import com.adobe.fre.FREObject
 import com.adobe.fre.FRETypeMismatchException
 import com.adobe.fre.FREWrongThreadException
-import com.tuarua.frekotlin.FreKotlinLogger.log
+import com.tuarua.frekotlin.FreKotlinLogger.error
 import com.tuarua.frekotlin.display.Bitmap
 import com.tuarua.frekotlin.geom.Point
 import com.tuarua.frekotlin.geom.Rect
@@ -37,7 +37,7 @@ internal object FreKotlinHelper {
         return try {
             rv.asString
         } catch (e: Exception) {
-            log("cannot get FREObject ${rv.toStr(true)} as String", e)
+            error("cannot get FREObject ${rv.toStr(true)} as String", e)
             null
         }
     }
@@ -47,7 +47,7 @@ internal object FreKotlinHelper {
         return try {
             rv.asDouble
         } catch (e: Exception) {
-            log("cannot get FREObject ${rv.toStr()} as Double", e)
+            error("cannot get FREObject ${rv.toStr()} as Double", e)
             null
         }
     }
@@ -57,7 +57,7 @@ internal object FreKotlinHelper {
         return try {
             rv.asInt
         } catch (e: Exception) {
-            log("cannot get FREObject ${rv.toStr()} as Int", e)
+            error("cannot get FREObject ${rv.toStr()} as Int", e)
             null
         }
     }
@@ -67,7 +67,7 @@ internal object FreKotlinHelper {
         return try {
             rv.asInt.toShort()
         } catch (e: Exception) {
-            log("cannot get FREObject ${rv.toStr()} as Short", e)
+            error("cannot get FREObject ${rv.toStr()} as Short", e)
             null
         }
     }
@@ -77,7 +77,7 @@ internal object FreKotlinHelper {
         return try {
             rv.asBool
         } catch (e: Exception) {
-            log("cannot get FREObject ${rv.toStr()} as Boolean", e)
+            error("cannot get FREObject ${rv.toStr()} as Boolean", e)
             null
         }
     }
@@ -125,15 +125,15 @@ internal object FreKotlinHelper {
                 FreObjectTypeKotlin.DATE -> getAsDate(rawValue)
             }
         } catch (e: FREInvalidObjectException) {
-            log("getAsObject Error", e)
+            error("getAsObject Error", e)
         } catch (e: FREASErrorException) {
-            log("getAsObject Error", e)
+            error("getAsObject Error", e)
         } catch (e: FRENoSuchNameException) {
-            log("getAsObject Error", e)
+            error("getAsObject Error", e)
         } catch (e: FRETypeMismatchException) {
-            log("getAsObject Error", e)
+            error("getAsObject Error", e)
         } catch (e: FREWrongThreadException) {
-            log("getAsObject Error", e)
+            error("getAsObject Error", e)
         }
 
         return null
@@ -191,7 +191,7 @@ internal object FreKotlinHelper {
         return try {
             rawValue.getProperty(name)
         } catch (e: Exception) {
-            log("cannot get property $name of ${rawValue.toStr()}", e)
+            error("cannot get property $name of ${rawValue.toStr()}", e)
             null
         }
     }
@@ -200,7 +200,7 @@ internal object FreKotlinHelper {
         try {
             rawValue.setProperty(name, prop)
         } catch (e: Exception) {
-            log("cannot set property $name of ${rawValue.toStr()} to ", e)
+            error("cannot set property $name of ${rawValue.toStr()} to ", e)
         }
     }
 
@@ -212,7 +212,7 @@ internal object FreKotlinHelper {
         return try {
             rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
-            log("cannot callMethod method $name on ${rawValue.toStr()}", e)
+            error("cannot callMethod method $name on ${rawValue.toStr()}", e)
             null
         }
     }
@@ -222,7 +222,7 @@ internal object FreKotlinHelper {
         return try {
             rawValue.callMethod(name, argsArray)
         } catch (e: Exception) {
-            log("cannot callMethod method $name on ${rawValue.toStr()}", e)
+            error("cannot callMethod method $name on ${rawValue.toStr()}", e)
             null
         }
     }

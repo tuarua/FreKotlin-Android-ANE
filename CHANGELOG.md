@@ -1,5 +1,6 @@
 ### 1.9.0
 - Upgraded to Kotlin 1.3.50
+- Add `FREArray.map()`
 - Remove stackTraceElements param from `FreException.getError()`
 - Remove `FreConversionException`
 - Remove `toFREArray` methods

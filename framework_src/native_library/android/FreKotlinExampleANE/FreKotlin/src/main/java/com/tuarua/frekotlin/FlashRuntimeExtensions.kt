@@ -158,7 +158,7 @@ fun FREObject(className: String, vararg args: Any?): FREObject? {
     return try {
         FREObject.newObject(className, argsArr)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create new class $className", e)
+        FreKotlinLogger.error("cannot create new class $className", e)
         null
     }
 }
@@ -202,7 +202,7 @@ fun Int.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -212,7 +212,7 @@ fun Short.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toInt())
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -222,7 +222,7 @@ fun Boolean.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -232,7 +232,7 @@ fun String.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -242,7 +242,7 @@ fun Double.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -252,7 +252,7 @@ fun Long.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toDouble())
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -262,7 +262,7 @@ fun Float.toFREObject(): FREObject? {
     return try {
         FREObject.newObject(this.toDouble())
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }
@@ -272,7 +272,7 @@ fun Date.toFREObject(): FREObject? {
     return try {
         FREObject("Date", this.time)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREObject from $this", e)
+        FreKotlinLogger.error("cannot create FREObject from $this", e)
         null
     }
 }

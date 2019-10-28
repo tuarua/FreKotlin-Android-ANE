@@ -41,7 +41,7 @@ fun FREArray(value: IntArray): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -58,7 +58,7 @@ fun FREArray(value: LongArray): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -75,7 +75,7 @@ fun FREArray(value: DoubleArray): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -93,7 +93,7 @@ fun FREArray(value: FloatArray): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -111,7 +111,7 @@ fun FREArray(value: ShortArray): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -129,7 +129,7 @@ fun FREArray(value: BooleanArray): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -147,7 +147,7 @@ fun FREArray(value: List<String>): FREArray? {
         }
         rv
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray from $value", e)
+        FreKotlinLogger.error("cannot create FREArray from $value", e)
         null
     }
 }
@@ -163,7 +163,7 @@ fun FREArray(className: String, length: Int = 0, fixed: Boolean = false): FREArr
     return try {
         FREArray.newArray(className, length, fixed)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot create FREArray of $className", e)
+        FreKotlinLogger.error("cannot create FREArray of $className", e)
         null
     }
 }
@@ -178,7 +178,7 @@ operator fun FREArray.set(index: Int, value: FREObject?) {
     try {
         this.setObjectAt(index.toLong(), value)
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot set FREArray at index $index to value ${value.toStr()}", e)
+        FreKotlinLogger.error("cannot set FREArray at index $index to value ${value.toStr()}", e)
     }
 }
 
@@ -227,7 +227,7 @@ operator fun FREArray.get(index: Int): FREObject? {
     return try {
         this.getObjectAt(index.toLong())
     } catch (e: Exception) {
-        FreKotlinLogger.log("cannot get FREArray at index $index", e)
+        FreKotlinLogger.error("cannot get FREArray at index $index", e)
         null
     }
 }
@@ -291,19 +291,22 @@ fun List<String>.toFREObject(): FREArray? {
     return FREArray(this)
 }
 
+/**
+ * Returns a list containing the results of applying the given [transform] function
+ * to each element in the original array.
+ */
+fun <R> FREArray.map(transform: (FREObject?) -> R): List<R> {
+    val list:MutableList<R> = mutableListOf()
+    for (fre in this) {
+        list.add(transform(fre))
+    }
+    return list.toList()
+}
+
 /** Converts a FREArray to a [BooleanArray]. */
 fun BooleanArray(freArray: FREArray?): BooleanArray {
     if (freArray == null) return booleanArrayOf()
-    val count = freArray.length.toInt()
-    val ret = BooleanArray(count)
-    for (i in 0 until count) {
-        val v = Boolean(freArray.getObjectAt(i.toLong()))
-        when {
-            v != null -> ret[i] = v
-            else -> return booleanArrayOf()
-        }
-    }
-    return ret
+    return freArray.map { el -> Boolean(el) ?: false }.toBooleanArray()
 }
 
 /** Converts a FREObject to a [BooleanArray]. */
@@ -315,16 +318,7 @@ fun BooleanArray(freObject: FREObject?): BooleanArray {
 /** Converts a FREArray to a [DoubleArray]. */
 fun DoubleArray(freArray: FREArray?): DoubleArray {
     if (freArray == null) return doubleArrayOf()
-    val count = freArray.length.toInt()
-    val ret = DoubleArray(count)
-    for (i in 0 until count) {
-        val v = Double(freArray.getObjectAt(i.toLong()))
-        when {
-            v != null -> ret[i] = v
-            else -> return doubleArrayOf()
-        }
-    }
-    return ret
+    return freArray.map { el -> Double(el) ?: 0.0 }.toDoubleArray()
 }
 
 /** Converts a FREArray to a [DoubleArray]. */
@@ -336,16 +330,7 @@ fun DoubleArray(freObject: FREObject?): DoubleArray {
 /** Converts a FREArray to an [IntArray]. */
 fun IntArray(freArray: FREArray?): IntArray {
     if (freArray == null) return intArrayOf()
-    val count = freArray.length.toInt()
-    val ret = IntArray(count)
-    for (i in 0 until count) {
-        val v = Int(freArray.getObjectAt(i.toLong()))
-        when {
-            v != null -> ret[i] = v
-            else -> return intArrayOf()
-        }
-    }
-    return ret
+    return freArray.map { el -> Int(el) ?: 0 }.toIntArray()
 }
 
 /** Converts a FREObject to an [IntArray]. */
@@ -357,16 +342,7 @@ fun IntArray(freObject: FREObject?): IntArray {
 /** Converts a FREArray to an [ShortArray]. */
 fun ShortArray(freArray: FREArray?): ShortArray {
     if (freArray == null) return shortArrayOf()
-    val count = freArray.length.toInt()
-    val ret = ShortArray(count)
-    for (i in 0 until count) {
-        val v = Short(freArray.getObjectAt(i.toLong()))
-        when {
-            v != null -> ret[i] = v
-            else -> return shortArrayOf()
-        }
-    }
-    return ret
+    return freArray.map { el -> Short(el) ?: 0 }.toShortArray()
 }
 
 /** Converts a FREObject to an [ShortArray]. */
@@ -378,16 +354,7 @@ fun ShortArray(freObject: FREObject?): ShortArray {
 /** Converts a FREArray to an [FloatArray]. */
 fun FloatArray(freArray: FREArray?): FloatArray {
     if (freArray == null) return floatArrayOf()
-    val count = freArray.length.toInt()
-    val ret = FloatArray(count)
-    for (i in 0 until count) {
-        val v = Float(freArray.getObjectAt(i.toLong()))
-        when {
-            v != null -> ret[i] = v
-            else -> return floatArrayOf()
-        }
-    }
-    return ret
+    return freArray.map { el -> Float(el) ?: 0f }.toFloatArray()
 }
 
 /** Converts a FREObject to an [FloatArray]. */
@@ -399,16 +366,7 @@ fun FloatArray(freObject: FREObject?): FloatArray {
 /** Converts a FREArray to a [LongArray]. */
 fun LongArray(freArray: FREArray?): LongArray {
     if (freArray == null) return longArrayOf()
-    val count = freArray.length.toInt()
-    val ret = LongArray(count)
-    for (i in 0 until count) {
-        val v = Long(freArray.getObjectAt(i.toLong()))
-        when {
-            v != null -> ret[i] = v
-            else -> return longArrayOf()
-        }
-    }
-    return ret
+    return freArray.map { el -> Long(el) ?: 0 }.toLongArray()
 }
 
 /** Converts a FREObject to an [LongArray]. */
