@@ -1,6 +1,7 @@
 ### 1.9.0
 - Upgraded to Kotlin 1.3.50
 - Add `FREArray.map()`
+- Refactor `FREArray`
 - Remove stackTraceElements param from `FreException.getError()`
 - Remove `FreConversionException`
 - Remove `toFREArray` methods
@@ -11,6 +12,7 @@
 - Upgraded to jvm target 1.8
 - FreKotlinMainController.TAG is now optional String
 - FreKotlinController.TAG is now optional String
+
 
 ### 1.8.0
 - Upgraded to Kotlin 1.3.40
