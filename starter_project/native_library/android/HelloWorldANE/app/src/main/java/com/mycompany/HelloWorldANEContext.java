@@ -1,7 +1,5 @@
 package com.mycompany;
 
-import android.content.Intent;
-
 import com.adobe.air.AndroidActivityWrapper;
 import com.mycompany.helloworldane.KotlinController;
 import com.tuarua.frekotlin.FreKotlinContext;
@@ -15,7 +13,6 @@ public class HelloWorldANEContext extends FreKotlinContext {
     @SuppressWarnings("WeakerAccess")
     public HelloWorldANEContext(String name, FreKotlinMainController controller, String[] functions) {
         super(name, controller, functions);
-        this.controller = controller;
         kc = (KotlinController) this.controller;
         aaw = AndroidActivityWrapper.GetAndroidActivityWrapper();
         aaw.addActivityResultListener(kc);

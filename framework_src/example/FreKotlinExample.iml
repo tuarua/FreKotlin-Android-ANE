@@ -8,7 +8,7 @@
             <entry library-name="com.tuarua.frekotlin.example" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="com.tuarua.frekotlin-1.9.0" library-level="project">
+            <entry library-name="com.tuarua.frekotlin-1.9.1" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -33,15 +33,8 @@
     </content>
     <orderEntry type="jdk" jdkName="AIRSDK_33" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="FreKotlinExampleANE" level="project" />
-    <orderEntry type="library" exported="" name="CommonDependencies" level="project" />
-    <orderEntry type="library" exported="" name="com.distriqt.playservices.Base" level="project" />
-    <orderEntry type="library" exported="" name="com.distriqt.androidsupport.V4" level="project" />
-    <orderEntry type="library" exported="" name="com.distriqt.playservices.Maps" level="project" />
-    <orderEntry type="library" exported="" name="frekotlin" level="project" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin" level="project" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin.example" level="project" />
-    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.8.0" level="project" />
-    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.0" level="project" />
+    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.1" level="project" />
   </component>
 </module>

@@ -9,6 +9,7 @@ import com.adobe.air.FreKotlinStateChangeCallback
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
+import java.util.*
 
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
 class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, FreKotlinActivityResultCallback {
@@ -18,26 +19,22 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
 
     fun sayHello(ctx: FREContext, argv: FREArgv): FREObject? {
         argv.takeIf { argv.size > 2 } ?: return FreArgException()
+        val myString = String(argv[0]) ?: return FreArgException()
+        val uppercase = Boolean(argv[1]) ?: return FreArgException()
+        val numRepeats = Int(argv[2]) ?: return FreArgException()
 
-        val myString = String(argv[0])
-        val uppercase = Boolean(argv[1])
-        val numRepeats = Int(argv[2])
+        dispatchEvent("MY_EVENT", "ok")
 
-        if (myString != null && uppercase != null && numRepeats != null) {
-            dispatchEvent("MY_EVENT", "ok")
-
-            for (i in 0 until numRepeats) {
-                trace("hello $i")
-                // or
-                // trace("Hello", i)
-            }
-            var ret = myString
-            if (uppercase) {
-                ret = ret.toUpperCase()
-            }
-            return ret.toFREObject()
+        for (i in 0 until numRepeats) {
+            trace("hello $i")
+            // or
+            // trace("Hello", i)
         }
-        return null
+        var ret = myString
+        if (uppercase) {
+            ret = ret.toUpperCase(Locale.getDefault())
+        }
+        return ret.toFREObject()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {

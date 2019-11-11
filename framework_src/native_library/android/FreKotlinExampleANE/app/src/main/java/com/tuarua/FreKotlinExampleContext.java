@@ -28,7 +28,6 @@ public class FreKotlinExampleContext extends FreKotlinContext {
 
     public FreKotlinExampleContext(String name, FreKotlinMainController controller, String[] functions) {
         super(name, controller, functions);
-        this.controller = controller;
         kc = (KotlinController) this.controller;
         aaw = AndroidActivityWrapper.GetAndroidActivityWrapper();
         aaw.addActivityResultListener(kc);

@@ -36,7 +36,7 @@ fun FREArray(freObject: FREObject): FREArray {
  * @return a new FREArray.
  */
 fun FREArray(value: IntArray): FREArray? {
-    return FREArray("int", items = value.map { el -> el.toFREObject() })
+    return FREArray("int", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -45,7 +45,7 @@ fun FREArray(value: IntArray): FREArray? {
  * @return a new FREArray.
  */
 fun FREArray(value: LongArray): FREArray? {
-    return FREArray("Number", items = value.map { el -> el.toFREObject() })
+    return FREArray("Number", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -54,7 +54,7 @@ fun FREArray(value: LongArray): FREArray? {
  * @return a new FREArray.
  */
 fun FREArray(value: DoubleArray): FREArray? {
-    return FREArray("Number", items = value.map { el -> el.toFREObject() })
+    return FREArray("Number", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -63,7 +63,7 @@ fun FREArray(value: DoubleArray): FREArray? {
  * @return a new FREArray.
  */
 fun FREArray(value: FloatArray): FREArray? {
-    return FREArray("Number", items = value.map { el -> el.toFREObject() })
+    return FREArray("Number", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -72,7 +72,7 @@ fun FREArray(value: FloatArray): FREArray? {
  * @return a new FREArray.
  */
 fun FREArray(value: ShortArray): FREArray? {
-    return FREArray("int", items = value.map { el -> el.toFREObject() })
+    return FREArray("int", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -81,7 +81,7 @@ fun FREArray(value: ShortArray): FREArray? {
  * @return a new FREArray.
  */
 fun FREArray(value: BooleanArray): FREArray? {
-    return FREArray("Boolean", items = value.map { el -> el.toFREObject() })
+    return FREArray("Boolean", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -90,7 +90,7 @@ fun FREArray(value: BooleanArray): FREArray? {
  * @return a new FREArray.
  */
 fun FREArray(value: List<String>): FREArray? {
-    return FREArray("String", items = value.map { el -> el.toFREObject() })
+    return FREArray("String", items = value.map { it.toFREObject() })
 }
 
 /**
@@ -254,7 +254,7 @@ fun <R> FREArray.map(transform: (FREObject?) -> R): List<R> {
 /** Converts a FREArray to a [BooleanArray]. */
 fun BooleanArray(freArray: FREArray?): BooleanArray {
     if (freArray == null) return booleanArrayOf()
-    return freArray.map { el -> Boolean(el) }.filterNotNull().toBooleanArray()
+    return freArray.map { Boolean(it) }.filterNotNull().toBooleanArray()
 }
 
 /** Converts a FREObject to a [BooleanArray]. */
@@ -266,7 +266,7 @@ fun BooleanArray(freObject: FREObject?): BooleanArray {
 /** Converts a FREArray to a [DoubleArray]. */
 fun DoubleArray(freArray: FREArray?): DoubleArray {
     if (freArray == null) return doubleArrayOf()
-    return freArray.map { el -> Double(el) }.filterNotNull().toDoubleArray()
+    return freArray.map { Double(it) }.filterNotNull().toDoubleArray()
 }
 
 /** Converts a FREArray to a [DoubleArray]. */
@@ -278,7 +278,7 @@ fun DoubleArray(freObject: FREObject?): DoubleArray {
 /** Converts a FREArray to an [IntArray]. */
 fun IntArray(freArray: FREArray?): IntArray {
     if (freArray == null) return intArrayOf()
-    return freArray.map { el -> Int(el) }.filterNotNull().toIntArray()
+    return freArray.map { Int(it) }.filterNotNull().toIntArray()
 }
 
 /** Converts a FREObject to an [IntArray]. */
@@ -290,7 +290,7 @@ fun IntArray(freObject: FREObject?): IntArray {
 /** Converts a FREArray to an [ShortArray]. */
 fun ShortArray(freArray: FREArray?): ShortArray {
     if (freArray == null) return shortArrayOf()
-    return freArray.map { el -> Short(el) }.filterNotNull().toShortArray()
+    return freArray.map { Short(it) }.filterNotNull().toShortArray()
 }
 
 /** Converts a FREObject to an [ShortArray]. */
@@ -302,7 +302,7 @@ fun ShortArray(freObject: FREObject?): ShortArray {
 /** Converts a FREArray to an [FloatArray]. */
 fun FloatArray(freArray: FREArray?): FloatArray {
     if (freArray == null) return floatArrayOf()
-    return freArray.map { el -> Float(el) }.filterNotNull().toFloatArray()
+    return freArray.map { Float(it) }.filterNotNull().toFloatArray()
 }
 
 /** Converts a FREObject to an [FloatArray]. */
@@ -314,7 +314,7 @@ fun FloatArray(freObject: FREObject?): FloatArray {
 /** Converts a FREArray to a [LongArray]. */
 fun LongArray(freArray: FREArray?): LongArray {
     if (freArray == null) return longArrayOf()
-    return freArray.map { el -> Long(el) }.filterNotNull().toLongArray()
+    return freArray.map { Long(it) }.filterNotNull().toLongArray()
 }
 
 /** Converts a FREObject to an [LongArray]. */

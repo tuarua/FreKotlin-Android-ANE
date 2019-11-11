@@ -8,7 +8,7 @@ pathtome="${pathtome%/*}"
 AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33"
 
 KOTLIN_VERSION="1.3.50"
-ANE_VERSION="1.9.0"
+ANE_VERSION="1.9.1"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin

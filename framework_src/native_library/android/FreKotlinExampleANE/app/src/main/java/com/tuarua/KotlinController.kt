@@ -25,7 +25,7 @@ import android.util.Base64
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.adobe.air.AndroidActivityWrapper.*
+import com.adobe.air.AndroidActivityWrapper.ActivityState
 import com.adobe.air.AndroidActivityWrapper.ActivityState.*
 import com.adobe.air.FreKotlinActivityResultCallback
 import com.adobe.air.FreKotlinStateChangeCallback
@@ -278,12 +278,12 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
 
     override fun onActivityStateChanged(activityState: ActivityState?) {
         when (activityState) {
-            STARTED -> return
-            RESTARTED -> return
-            RESUMED -> return
-            PAUSED -> return
-            STOPPED -> return
-            DESTROYED -> return
+            STARTED -> Log.i(TAG, "STARTED")
+            RESTARTED -> Log.i(TAG, "RESTARTED")
+            RESUMED -> Log.i(TAG, "RESUMED")
+            PAUSED -> Log.i(TAG, "PAUSED")
+            STOPPED -> Log.i(TAG, "STOPPED")
+            DESTROYED -> Log.i(TAG, "DESTROYED")
         }
     }
 
