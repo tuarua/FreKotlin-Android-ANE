@@ -16,6 +16,8 @@
 
 package com.tuarua
 
+import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.PointF
@@ -23,6 +25,10 @@ import android.util.Base64
 import android.util.Log
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import com.adobe.air.AndroidActivityWrapper.ActivityState
+import com.adobe.air.AndroidActivityWrapper.ActivityState.*
+import com.adobe.air.FreKotlinActivityResultCallback
+import com.adobe.air.FreKotlinStateChangeCallback
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import com.tuarua.frekotlin.*
@@ -32,8 +38,10 @@ import com.tuarua.frekotlin.geom.toFREObject
 import java.nio.ByteBuffer
 import java.nio.charset.Charset
 
+
 @Suppress("unused", "UNUSED_PARAMETER", "UNCHECKED_CAST")
-class KotlinController : FreKotlinMainController {
+class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, FreKotlinActivityResultCallback {
+
     private var airView: ViewGroup? = null
     private var container: FrameLayout? = null
 
@@ -46,7 +54,7 @@ class KotlinController : FreKotlinMainController {
 
     fun runStringTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start String test***********")
-        argv.takeIf { argv.size > 0 } ?: return FreArgException("runStringTests")
+        argv.takeIf { argv.size > 0 } ?: return FreArgException()
         val airString = String(argv[0]) ?: return null
 
         trace("This is AIR string", airString)
@@ -160,7 +168,7 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runBitmapTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 0 } ?: return FreArgException("runBitmapTests")
+        argv.takeIf { argv.size > 0 } ?: return FreArgException()
         //var icon: Bitmap? = Bitmap(argv[0]) //to convert bitmapdata into Android Bitmap
         //To manipulate the bitmapdata passed in
         val bmd = FreBitmapDataKotlin(argv[0])
@@ -188,7 +196,7 @@ class KotlinController : FreKotlinMainController {
     }
 
     fun runExtensibleTests(ctx: FREContext, argv: FREArgv): FREObject? {
-        argv.takeIf { argv.size > 0 } ?: return FreArgException("runExtensibleTests")
+        argv.takeIf { argv.size > 0 } ?: return FreArgException()
         val rectangleF = RectF(argv[0])
         val point = PointF(0f, 50.2f)
         trace("RectF :", rectangleF, if (rectangleF.left == 50.1f) "✅" else "❌")
@@ -201,7 +209,7 @@ class KotlinController : FreKotlinMainController {
 
     fun runByteArrayTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start ByteArray test***********")
-        argv.takeIf { argv.size > 0 } ?: return FreArgException("runByteArrayTests")
+        argv.takeIf { argv.size > 0 } ?: return FreArgException()
         val byteArray = ByteArray(argv[0])
         if (byteArray != null) {
             val str = String(Base64.encode(byteArray, Base64.NO_WRAP), Charset.forName("utf-8"))
@@ -213,7 +221,7 @@ class KotlinController : FreKotlinMainController {
 
     fun runErrorTests(ctx: FREContext, argv: FREArgv): FREObject? {
         trace("***********Start Error Handling test***********")
-        argv.takeIf { argv.size > 1 } ?: return FreArgException("runErrorTests")
+        argv.takeIf { argv.size > 1 } ?: return FreArgException()
         val person = argv[0]
         val inFRE1 = argv[1]
         person.call("add", 100) //not passing enough args
@@ -262,9 +270,26 @@ class KotlinController : FreKotlinMainController {
         return airColorWithAlpha.toFREObject()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+    }
+
+    override fun onConfigurationChanged(configuration: Configuration?) {
+    }
+
+    override fun onActivityStateChanged(activityState: ActivityState?) {
+        when (activityState) {
+            STARTED -> Log.i(TAG, "STARTED")
+            RESTARTED -> Log.i(TAG, "RESTARTED")
+            RESUMED -> Log.i(TAG, "RESUMED")
+            PAUSED -> Log.i(TAG, "PAUSED")
+            STOPPED -> Log.i(TAG, "STOPPED")
+            DESTROYED -> Log.i(TAG, "DESTROYED")
+        }
+    }
+
     @Suppress("PropertyName")
-    override val TAG: String
-        get() = "FreKotlinExampleANE"
+    override val TAG: String?
+        get() = this::class.java.canonicalName
     private var _context: FREContext? = null
     override var context: FREContext?
         get() = _context

@@ -15,16 +15,11 @@
  */
 package com.tuarua.frekotlin;
 
-import android.content.Intent;
-import android.content.res.Configuration;
 import android.util.Log;
 
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREFunction;
 import com.adobe.fre.FREObject;
-import com.adobe.air.TRActivityResultCallback;
-import com.adobe.air.AndroidActivityWrapper.ActivityState;
-import com.adobe.air.TRStateChangeCallback;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -34,7 +29,7 @@ import java.util.Map;
 import java.lang.reflect.Method;
 //This file must remain as Java
 @SuppressWarnings("unused")
-public class FreKotlinContext extends FREContext implements TRActivityResultCallback, TRStateChangeCallback {
+public class FreKotlinContext extends FREContext {
     private String TAG;
     protected FreKotlinMainController controller;
     private String[] functions;
@@ -59,17 +54,6 @@ public class FreKotlinContext extends FREContext implements TRActivityResultCall
         controller.dispose();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-    }
-
-    @Override
-    public void onActivityStateChanged(ActivityState activityState) {
-    }
-
-    @Override
-    public void onConfigurationChanged(Configuration configuration) {
-    }
 
     @SuppressWarnings("JavaReflectionInvocation")
     private class CallKotlinFunction implements FREFunction {

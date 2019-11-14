@@ -22,28 +22,16 @@ import com.adobe.fre.FREContext
 /** Subclass your Main KotlinController class to allow us to dispatch events back to AIR. */
 interface FreKotlinMainController {
     /** This tag prefixes strings that are traced. */
-    val TAG: String
+    val TAG: String?
     /** the FREContext. */
     var context: FREContext?
     /** Called when context is disposed. */
     fun dispose() {}
-    /** @suppress */
-    fun onStarted() {}
-    /** @suppress */
-    fun onRestarted() {}
-    /** @suppress */
-    fun onResumed() {}
-    /** @suppress */
-    fun onPaused() {}
-    /** @suppress */
-    fun onStopped() {}
-    /** @suppress */
-    fun onDestroyed() {}
     /** Sends StatusEvent to our swc with a level of "TRACE".
      * @param [value] value passed with event.
      */
     fun trace(vararg value: Any?) {
-        context?.trace(TAG, value)
+        context?.trace(TAG ?: "", value)
     }
 
     /** Sends StatusEvent to our swc with a level of "TRACE".
@@ -51,7 +39,7 @@ interface FreKotlinMainController {
      * @param [value] value passed with event.
      */
     fun warning(vararg value: Any?) {
-        context?.warning(TAG, value)
+        context?.warning(TAG ?: "", value)
     }
 
     /** Sends StatusEvent to our swc with a level of "TRACE".
@@ -59,7 +47,7 @@ interface FreKotlinMainController {
      * @param [value] value passed with event.
      */
     fun info(vararg value: Any?) {
-        context?.info(TAG, value)
+        context?.info(TAG ?: "", value)
     }
     /** Sends an asynchronous event to the ANE.
      * @param [name] name of event

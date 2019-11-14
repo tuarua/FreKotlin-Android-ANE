@@ -4,7 +4,7 @@ import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 import com.mycompany.helloworldane.KotlinController;
 
-@SuppressWarnings("WeakerAccess")
+@SuppressWarnings({"unused", "WeakerAccess", "FieldCanBeLocal"})
 public class HelloWorldANE implements FREExtension {
     private String NAME = "com.mycompany.HelloWorldANE";
     private static final String[] FUNCTIONS = {

@@ -28,10 +28,10 @@ object FreKotlinLogger {
 
     /**
      * Traces the message to the console.
-     * @param [message] message to log.
-     * @param [exception] exception to log.
+     * @param [message] message to error.
+     * @param [exception] exception to error.
      */
-    fun log(message: String, exception: Exception) {
+    fun error(message: String, exception: Exception) {
         val ctx = context ?: return
         val type = exception.javaClass.simpleName
         ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $type $message", "TRACE")
@@ -48,11 +48,11 @@ object FreKotlinLogger {
 
     /**
      * Traces the message to the console.
-     * @param [message] message to log.
+     * @param [message] message to error.
      */
-    fun log(message: String) {
+    fun info(message: String) {
         val ctx = context ?: return
-        ctx.dispatchStatusEventAsync("[FreKotlin] ‼️ $message", "TRACE")
+        ctx.dispatchStatusEventAsync("[FreKotlin] ⚠️ $message", "TRACE")
     }
 
     private fun getActionscriptException(thrownException: FREObject): String {

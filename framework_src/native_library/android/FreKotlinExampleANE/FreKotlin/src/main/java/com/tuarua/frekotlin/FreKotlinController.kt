@@ -22,28 +22,28 @@ import com.adobe.fre.FREContext
 /** Subclass to allow us to dispatch events back to AIR */
 interface FreKotlinController {
     /** This tag prefixes strings that are traced. */
-    val TAG: String
+    val TAG: String?
     /** the FREContext. */
     var context: FREContext?
     /** Sends StatusEvent to our swc with a level of "TRACE".
      * @param [value] value passed with event.
      */
     fun trace(vararg value: Any?) {
-        context?.trace(TAG, value)
+        context?.trace(TAG ?: "", value)
     }
     /** Sends StatusEvent to our swc with a level of "TRACE".
      * The output string is prefixed with WARNING:
      * @param [value] value passed with event.
      */
     fun warning(vararg value: Any?) {
-        context?.warning(TAG, value)
+        context?.warning(TAG ?: "", value)
     }
     /** Sends StatusEvent to our swc with a level of "TRACE".
      * The output string is prefixed with INFO:
      * @param [value] value passed with event.
      */
     fun info(vararg value: Any?) {
-        context?.info(TAG, value)
+        context?.info(TAG ?: "", value)
     }
     /** Sends an asynchronous event to the ANE.
      * @param [name] name of event.
