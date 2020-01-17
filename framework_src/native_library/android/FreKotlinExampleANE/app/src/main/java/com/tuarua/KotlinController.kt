@@ -109,7 +109,7 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
                 if (newPerson.type == FreObjectTypeKotlin.CLASS) "✅" else "❌")
         trace("Get property as Int :", oldAge, if (21 == oldAge) "✅" else "❌")
         if (oldAge is Int) {
-            person["age"] = (oldAge + 10).toFREObject()
+            person["age"] = oldAge + 10
             trace("Set property to Int :", Int(person["age"]), if (31 == Int(person["age"])) "✅" else "❌")
         }
         val addition = person.call("add", 100, 31)

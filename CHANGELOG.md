@@ -1,3 +1,8 @@
+### 1.9.5
+- Upgraded to Kotlin 1.3.61
+- Added operator FREObject?.set for main types. Allows setting props on FREObjects without setting value to .toFREObject() eg `fre["name"] = "Bob"`
+- Remove `FreArgException(functionName:String)`
+
 ### 1.9.0
 - Upgraded to Kotlin 1.3.50
 - Add `FREArray.map()`

@@ -60,3 +60,15 @@ fun PointF(freObject: FREObject?): PointF {
 fun PointF.toFREObject(): FREObject? {
     return FREObject("flash.geom.Point", this.x, this.y)
 }
+
+/** Sets the named property of a FREObject to a [Point] */
+operator fun FREObject?.set(name: String, value: Point?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [PointF] */
+operator fun FREObject?.set(name: String, value: PointF?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.toFREObject())
+}

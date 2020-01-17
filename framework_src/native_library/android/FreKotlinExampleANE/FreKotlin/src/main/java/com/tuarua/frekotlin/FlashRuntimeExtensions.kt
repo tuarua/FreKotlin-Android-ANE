@@ -19,6 +19,7 @@
 package com.tuarua.frekotlin
 
 import android.graphics.Color
+import com.adobe.fre.FREArray
 import com.adobe.fre.FREContext
 import com.adobe.fre.FREObject
 import java.util.*
@@ -163,17 +164,118 @@ fun FREObject(className: String, vararg args: Any?): FREObject? {
     }
 }
 
-
 /** Gets the named property of a FREObject */
 operator fun FREObject?.get(name: String): FREObject? {
     val rv = this ?: return null
     return FreKotlinHelper.getProperty(rv, name)
 }
 
-/** Sets the named property of a FREObject */
+/** Sets the named property of a FREObject to a FREObject */
 operator fun FREObject?.set(name: String, value: FREObject?) {
     val rv = this ?: return
     FreKotlinHelper.setProperty(rv, name, value)
+}
+
+/** Sets the named property of a FREObject to a FreObjectKotlin */
+operator fun FREObject?.set(name: String, value: FreObjectKotlin?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.rawValue)
+}
+
+/** Sets the named property of a FREObject to a FREArray */
+operator fun FREObject?.set(name: String, value: FREArray?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value)
+}
+
+/** Sets the named property of a FREObject to a [Int] */
+operator fun FREObject?.set(name: String, value: Int) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [IntArray] */
+operator fun FREObject?.set(name: String, value: IntArray) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [Double] */
+operator fun FREObject?.set(name: String, value: Double) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [DoubleArray] */
+operator fun FREObject?.set(name: String, value: DoubleArray) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [Float] */
+operator fun FREObject?.set(name: String, value: Float) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [FloatArray] */
+operator fun FREObject?.set(name: String, value: FloatArray) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [String] */
+operator fun FREObject?.set(name: String, value: String?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [String] */
+operator fun FREObject?.set(name: String, value: List<String>) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [Date] */
+operator fun FREObject?.set(name: String, value: Date?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [Boolean] */
+operator fun FREObject?.set(name: String, value: Boolean) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [BooleanArray] */
+operator fun FREObject?.set(name: String, value: BooleanArray) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [Short] */
+operator fun FREObject?.set(name: String, value: Short) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [ShortArray] */
+operator fun FREObject?.set(name: String, value: ShortArray) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [Long] */
+operator fun FREObject?.set(name: String, value: Long) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [LongArray] */
+operator fun FREObject?.set(name: String, value: LongArray) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
 }
 
 /** Converts a FREObject of type uint to a Color */
@@ -273,16 +375,6 @@ fun Date.toFREObject(): FREObject? {
         FREObject("Date", this.time)
     } catch (e: Exception) {
         FreKotlinLogger.error("cannot create FREObject from $this", e)
-        null
-    }
-}
-
-/**  returns an ANEError stating which function has not received enough parameters */
-@Deprecated("Use FreArgException() instead", ReplaceWith("FreArgException()"), DeprecationLevel.ERROR)
-fun FreArgException(functionName: String): FREObject? {
-    return try {
-        FreException("[FreKotlin] Not enough or incorrect arguments passed to $functionName").getError()
-    } catch (e: Exception) {
         null
     }
 }

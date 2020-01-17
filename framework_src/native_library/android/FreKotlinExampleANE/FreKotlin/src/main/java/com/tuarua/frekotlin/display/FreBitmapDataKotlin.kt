@@ -23,6 +23,7 @@ import android.graphics.Bitmap.createBitmap
 
 import com.adobe.fre.FREBitmapData
 import com.adobe.fre.FREObject
+import com.tuarua.frekotlin.FreKotlinHelper
 import com.tuarua.frekotlin.FreKotlinLogger
 
 import java.nio.ByteBuffer
@@ -208,4 +209,10 @@ fun Bitmap.toFREObject(): FREObject? {
         FreKotlinLogger.error("Cannot create FREObject from Bitmap", e)
     }
     return null
+}
+
+/** Sets the named property of a FREObject to a [Bitmap] */
+operator fun FREObject?.set(name: String, value: Bitmap) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value.toFREObject())
 }

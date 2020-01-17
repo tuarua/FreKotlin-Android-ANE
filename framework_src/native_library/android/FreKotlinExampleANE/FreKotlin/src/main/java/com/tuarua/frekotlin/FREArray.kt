@@ -232,6 +232,14 @@ fun ShortArray.toFREObject(): FREArray? {
 }
 
 /**
+ * Converts a [LongArray] to a FREArray.
+ * @receiver The [LongArray].
+ */
+fun LongArray.toFREObject(): FREArray? {
+    return FREArray(this)
+}
+
+/**
  * Converts a List<String> to a FREArray.
  * @receiver The List<String>.
  */

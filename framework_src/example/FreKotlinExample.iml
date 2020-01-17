@@ -8,7 +8,7 @@
             <entry library-name="com.tuarua.frekotlin.example" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="com.tuarua.frekotlin-1.9.1" library-level="project">
+            <entry library-name="com.tuarua.frekotlin-1.9.5" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -35,6 +35,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin" level="project" />
     <orderEntry type="library" exported="" name="com.tuarua.frekotlin.example" level="project" />
-    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.1" level="project" />
+    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.5" level="project" />
   </component>
 </module>
