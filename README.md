@@ -84,7 +84,7 @@ val oldAge = Int(person["age"])
 val newAge = oldAge + 10
 
 // Set property using braces access
-person["age"] = (oldAge + 10).toFREObject()
+person["age"] = newAge
 
 // Set property using setProp
 person.setProp("age", oldAge + 10)
@@ -108,7 +108,7 @@ for (fre: FREObject? in airArray) {
 }
 
 // set element 0 to 123
-airArray[0] = 123.toFREObject()
+airArray[0] = 123
 
 // append element FREArray
 airArray.push(456)
@@ -176,6 +176,6 @@ fun LatLng.toFREObject(): FREObject? {
 
 You will need
 
-- Android Studio 3.4+
+- Android Studio 3.5+
 - IntelliJ IDEA
 - AIR 33+
