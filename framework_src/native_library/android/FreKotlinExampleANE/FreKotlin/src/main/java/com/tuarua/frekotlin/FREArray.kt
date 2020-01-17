@@ -20,6 +20,7 @@ package com.tuarua.frekotlin
 
 import com.adobe.fre.FREArray
 import com.adobe.fre.FREObject
+import java.util.*
 
 /**
  * Creates a FREArray.
@@ -128,6 +129,170 @@ operator fun FREArray.set(index: Int, value: FREObject?) {
     } catch (e: Exception) {
         FreKotlinLogger.error("cannot set FREArray at index $index to value ${value.toStr()}", e)
     }
+}
+
+/**
+ * Sets [Int] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Int) {
+    try {
+        this.setObjectAt(index.toLong(), value.toFREObject())
+    } catch (e: Exception) {
+        FreKotlinLogger.error("cannot set FREArray at index $index to value $value", e)
+    }
+}
+
+/**
+ * Sets [Int] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: FreObjectKotlin?) {
+    this[index] = value?.rawValue
+}
+
+/**
+ * Sets [IntArray] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: IntArray) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [Double] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Double) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [DoubleArray] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: DoubleArray) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [Float] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Float) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [FloatArray] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: FloatArray) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [String] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: String?) {
+    this[index] = value?.toFREObject()
+}
+
+/**
+ * Sets [List<String>] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: List<String>) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [Date] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Date?) {
+    this[index] = value?.toFREObject()
+}
+
+/**
+ * Sets [Boolean] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Boolean) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [BooleanArray] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: BooleanArray) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [Short] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Short) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [ShortArray] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: ShortArray) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [Long] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: Long) {
+    this[index] = value.toFREObject()
+}
+
+/**
+ * Sets [LongArray] at position index.
+ * @receiver The FREArray.
+ * @param [index] index of item.
+ * @param [value] value to set.
+ */
+operator fun FREArray.set(index: Int, value: LongArray) {
+    this[index] = value.toFREObject()
 }
 
 /**

@@ -147,7 +147,7 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
         val itemZero: FREObject? = airArray[0]
         val itemZeroVal = Int(itemZero)
         if (itemZeroVal is Int) {
-            airArray[0] = 56.toFREObject()
+            airArray[0] = 56
         }
 
         val newFreArray = FREArray("Object", 5, true)
