@@ -85,10 +85,6 @@ val newAge = oldAge + 10
 
 // Set property using braces access
 person["age"] = newAge
-
-// Set property using setProp
-person.setProp("age", oldAge + 10)
-
 ```
 
 #### Arrays
@@ -114,7 +110,7 @@ airArray[0] = 123
 airArray.push(456)
 
 // return Kotlin IntArray to AIR
-val kotArr: IntArray = intArrayOf(99, 98, 92, 97, 95)
+val kotArr = intArrayOf(99, 98, 92, 97, 95)
 return kotArr.toFREArray()
 ```
 
