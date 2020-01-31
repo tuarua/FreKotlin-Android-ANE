@@ -66,3 +66,15 @@ fun RectF(freObject: FREObject?): RectF {
 fun RectF.toFREObject(): FREObject? {
     return FREObject("flash.geom.Rectangle", this.left, this.top, this.width(), this.height())
 }
+
+/** Sets the named property of a FREObject to a [Rect] */
+operator fun FREObject?.set(name: String, value: Rect?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.toFREObject())
+}
+
+/** Sets the named property of a FREObject to a [RectF] */
+operator fun FREObject?.set(name: String, value: RectF?) {
+    val rv = this ?: return
+    FreKotlinHelper.setProperty(rv, name, value?.toFREObject())
+}

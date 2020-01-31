@@ -37,6 +37,7 @@
             <manifest android:installLocation="auto">
                 <uses-permission android:name="android.permission.INTERNET"/>
                 <application android:enabled="true">
+                    <meta-data android:name="android.max_aspect" android:value="2.1" />
                     <activity android:excludeFromRecents="false" android:hardwareAccelerated="true">
                         <intent-filter>
                             <action android:name="android.intent.action.MAIN"/>

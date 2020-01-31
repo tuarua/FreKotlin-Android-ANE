@@ -84,11 +84,7 @@ val oldAge = Int(person["age"])
 val newAge = oldAge + 10
 
 // Set property using braces access
-person["age"] = (oldAge + 10).toFREObject()
-
-// Set property using setProp
-person.setProp("age", oldAge + 10)
-
+person["age"] = newAge
 ```
 
 #### Arrays
@@ -108,13 +104,13 @@ for (fre: FREObject? in airArray) {
 }
 
 // set element 0 to 123
-airArray[0] = 123.toFREObject()
+airArray[0] = 123
 
 // append element FREArray
 airArray.push(456)
 
 // return Kotlin IntArray to AIR
-val kotArr: IntArray = intArrayOf(99, 98, 92, 97, 95)
+val kotArr = intArrayOf(99, 98, 92, 97, 95)
 return kotArr.toFREArray()
 ```
 
@@ -176,6 +172,6 @@ fun LatLng.toFREObject(): FREObject? {
 
 You will need
 
-- Android Studio 3.4+
+- Android Studio 3.5+
 - IntelliJ IDEA
 - AIR 33+

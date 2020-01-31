@@ -8,7 +8,7 @@
             <entry library-name="HelloWorldANE" library-level="project">
               <dependency linkage="Merged" />
             </entry>
-            <entry library-name="com.tuarua.frekotlin-1.9.1" library-level="project">
+            <entry library-name="com.tuarua.frekotlin-1.9.5" library-level="project">
               <dependency linkage="Merged" />
             </entry>
           </entries>
@@ -34,6 +34,6 @@
     <orderEntry type="jdk" jdkName="AIRSDK_33" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="HelloWorldANE" level="project" />
-    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.1" level="project" />
+    <orderEntry type="library" exported="" name="com.tuarua.frekotlin-1.9.5" level="project" />
   </component>
 </module>
