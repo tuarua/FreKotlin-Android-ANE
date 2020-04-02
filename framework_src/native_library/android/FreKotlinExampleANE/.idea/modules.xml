@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FreKotlin/FreKotlin.iml" filepath="$PROJECT_DIR$/FreKotlin/FreKotlin.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FreKotlinExampleANE.iml" filepath="$PROJECT_DIR$/FreKotlinExampleANE.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FreKotlin/FreKotlin.iml" filepath="$PROJECT_DIR$/FreKotlin/FreKotlin.iml" group="FreKotlinExampleANE/FreKotlin" />
+      <module fileurl="file://$PROJECT_DIR$/FreKotlinExampleANE.iml" filepath="$PROJECT_DIR$/FreKotlinExampleANE.iml" group="FreKotlinExampleANE" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="FreKotlinExampleANE/app" />
     </modules>
   </component>
 </project>
