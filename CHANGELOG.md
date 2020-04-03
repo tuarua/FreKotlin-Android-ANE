@@ -1,3 +1,6 @@
+### 1.10.0
+- Upgraded to Kotlin 1.3.71
+
 ### 1.9.5
 - Upgraded to Kotlin 1.3.61
 - Added operator FREObject?.set for main types. Allows setting props on FREObjects without setting value to .toFREObject() eg `fre["name"] = "Bob"`
