@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/33.0">
+<application xmlns="http://ns.adobe.com/air/application/33.1">
 
     <id>Main</id>
 
@@ -9,7 +9,7 @@
     <!-- The name that is displayed in the AIR application installer. May have multiple values for each language. See samples or xsd schema file. Optional. -->
     <name>Main</name>
 
-    <versionNumber>1.10.0</versionNumber>
+    <versionNumber>1.40.0</versionNumber>
 
     <!-- Identifies the ActionScript extensions used by an application. -->
     <extensions>

@@ -1,3 +1,6 @@
+### 1.40.0
+- Upgraded to Kotlin 1.4.0
+
 ### 1.10.0
 - Upgraded to Kotlin 1.3.71
 
