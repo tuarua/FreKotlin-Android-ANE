@@ -52,31 +52,32 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:${dokka_version}"
+        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.0-rc"
+
     }
 }
 
-dokka {
-    outputFormat = 'html'
+dokkaHtml {
+    // outputFormat = 'html'
     outputDirectory = "$buildDir/javadoc"
-    configuration {
-        includeNonPublic = false
-        skipDeprecated = true
-        reportUndocumented = true
-
-        sourceLink {
-            path = "src/main/java"
-            url = "https://github.com/tuarua/FreKotlin-Android-ANE/tree/1.10" +
-                    ".0/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java"
-            lineSuffix = "#L"
-        }
-
-        // Suppress a package
-        perPackageOption {
-            prefix = "com.tuarua.frekotlin.R"
-            suppress = true
-        }
-    }
+//    configuration {
+//        includeNonPublic = false
+//        skipDeprecated = true
+//        reportUndocumented = true
+//
+//        sourceLink {
+//            path = "src/main/java"
+//            url = "https://github.com/tuarua/FreKotlin-Android-ANE/tree/1.40" +
+//                    ".0/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java"
+//            lineSuffix = "#L"
+//        }
+//
+//        // Suppress a package
+//        perPackageOption {
+//            prefix = "com.tuarua.frekotlin.R"
+//            suppress = true
+//        }
+//    }
 
 }
 

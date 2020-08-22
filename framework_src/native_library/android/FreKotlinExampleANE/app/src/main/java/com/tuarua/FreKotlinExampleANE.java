@@ -18,7 +18,7 @@ package com.tuarua;
 import com.adobe.fre.FREContext;
 import com.adobe.fre.FREExtension;
 
-@SuppressWarnings({"unused", "WeakerAccess", "FieldCanBeLocal"})
+@SuppressWarnings({"WeakerAccess", "FieldCanBeLocal"})
 public class FreKotlinExampleANE implements FREExtension  {
     private String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {

@@ -28,7 +28,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.lang.reflect.Method;
 //This file must remain as Java
-@SuppressWarnings("unused")
 public class FreKotlinContext extends FREContext {
     private String TAG;
     protected FreKotlinMainController controller;
@@ -54,8 +53,6 @@ public class FreKotlinContext extends FREContext {
         controller.dispose();
     }
 
-
-    @SuppressWarnings("JavaReflectionInvocation")
     private class CallKotlinFunction implements FREFunction {
         private String _name;
 
@@ -65,6 +62,7 @@ public class FreKotlinContext extends FREContext {
 
         @Override
         public FREObject call(FREContext freContext, FREObject[] freObjects) {
+            //noinspection rawtypes
             Class[] parameterTypes = new Class[2];
             parameterTypes[0] = FREContext.class;
             parameterTypes[1] = ArrayList.class;
