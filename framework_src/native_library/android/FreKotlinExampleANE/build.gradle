@@ -1,14 +1,14 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 buildscript {
-    ext.kotlin_version = '1.4.0'
+    ext.kotlin_version = '1.4.10'
     ext.dokka_version = '0.10.1'
     repositories {
         google()
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -32,14 +32,14 @@ task clean(type: Delete) {
 }
 
 ext {
-    targetSdkVersion = 28
+    targetSdkVersion = 29
     minSdkVersion = 19
     compileSdkVersion = targetSdkVersion
-    buildToolsVersion = '28.0.3'
+    buildToolsVersion = '29.0.3'
 
     // FreKotlin Library Info
     libVersionCode = 1
-    libVersionName = '1.40.0'
+    libVersionName = '1.41.0'
     libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
     libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
     libModuleName = 'FreKotlin'

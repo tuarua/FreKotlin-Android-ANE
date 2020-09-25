@@ -58,27 +58,7 @@ buildscript {
 }
 
 dokkaHtml {
-    // outputFormat = 'html'
     outputDirectory = "$buildDir/javadoc"
-//    configuration {
-//        includeNonPublic = false
-//        skipDeprecated = true
-//        reportUndocumented = true
-//
-//        sourceLink {
-//            path = "src/main/java"
-//            url = "https://github.com/tuarua/FreKotlin-Android-ANE/tree/1.40" +
-//                    ".0/framework_src/native_library/android/FreKotlinExampleANE/FreKotlin/src/main/java"
-//            lineSuffix = "#L"
-//        }
-//
-//        // Suppress a package
-//        perPackageOption {
-//            prefix = "com.tuarua.frekotlin.R"
-//            suppress = true
-//        }
-//    }
-
 }
 
 // https://www.raywenderlich.com/185299/building-android-library-tutorial

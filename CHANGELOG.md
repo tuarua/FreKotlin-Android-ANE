@@ -1,5 +1,11 @@
+### 1.41.0
+- Upgraded to Kotlin 1.4.10
+- Upgraded to AIR 33.1.1.259
+- Upgraded to Android build tools 29.0.3
+
 ### 1.40.0
 - Upgraded to Kotlin 1.4.0
+
 
 ### 1.10.0
 - Upgraded to Kotlin 1.3.71
