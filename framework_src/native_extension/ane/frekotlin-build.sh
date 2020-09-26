@@ -5,10 +5,10 @@ echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
 
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33.1.1.259"
 
-KOTLIN_VERSION="1.4.0"
-ANE_VERSION="1.40.0"
+KOTLIN_VERSION="1.4.10"
+ANE_VERSION="1.41.0"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin
@@ -61,5 +61,5 @@ rm "$pathtome/platforms/android/library.swf"
 rm "$pathtome/$SWC_NAME.swc"
 rm "$pathtome/library.swf"
 
-cp "$pathtome/$ANE_NAME-$ANE_VERSION.ane" "$pathtome/../../../starter_projec/example/android_dependencies"
+cp "$pathtome/$ANE_NAME-$ANE_VERSION.ane" "$pathtome/../../../starter_project/example/android_dependencies"
 echo "DONE!"
