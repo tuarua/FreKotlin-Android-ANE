@@ -35,6 +35,7 @@
         <manifestAdditions>
             <![CDATA[
             <manifest android:installLocation="auto">
+                <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
                 <uses-permission android:name="android.permission.INTERNET"/>
                 <application android:enabled="true">
                     <meta-data android:name="android.max_aspect" android:value="2.1" />
