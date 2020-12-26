@@ -1,3 +1,7 @@
+### 1.42.0
+- Upgraded to Kotlin 1.4.21
+- Upgraded to AIR 33.1.1.345
+
 ### 1.41.0
 - Upgraded to Kotlin 1.4.10
 - Upgraded to AIR 33.1.1.259
