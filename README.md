@@ -1,7 +1,5 @@
 # FreKotlin
 
-[ ![Download](https://api.bintray.com/packages/tuarua/maven/FreKotlin/images/download.svg) ](https://bintray.com/tuarua/maven/FreKotlin/_latestVersion)
-
 Example Android Studio project showing how to create Air Native Extensions for Android using Kotlin.  
   
 This project is used as the basis for the following ANEs   
