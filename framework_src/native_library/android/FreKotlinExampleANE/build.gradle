@@ -24,6 +24,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://jitpack.io'}
     }
 }
 
@@ -39,10 +40,11 @@ ext {
 
     // FreKotlin Library Info
     libVersionCode = 1
-    libVersionName = '1.42.0'
+    libVersionName = '1.43.0'
     libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
     libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
     libModuleName = 'FreKotlin'
     libModuleDesc = 'Create Air Native Extensions for Android using Kotlin.'
-    libBintrayName = 'FreKotlin'
+    libMavenGroupId = 'com.tuarua'
+    libMavenArtifactId = 'FreKotlin'
 }

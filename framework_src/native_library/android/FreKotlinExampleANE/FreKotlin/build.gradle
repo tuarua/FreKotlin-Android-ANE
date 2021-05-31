@@ -17,6 +17,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'org.jetbrains.dokka'
+apply plugin: 'maven-publish'
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -47,21 +48,32 @@ dependencies {
     implementation files('../shared/libs/FlashRuntimeExtensions.jar')
 }
 
+afterEvaluate {
+    publishing {
+        publications{
+            // Creates a Maven publication called release
+            release(MavenPublication) {
+                // Applies the component for the release build variant
+                from components.release
+                // You can then customize attributes of the publication as shown below
+                groupId = rootProject.ext.libMavenGroupId
+                artifactId = rootProject.ext.libMavenArtifactId
+                version = rootProject.ext.libVersionName
+            }
+        }
+    }
+}
+
+
 buildscript {
     repositories {
         jcenter()
     }
     dependencies {
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.0-rc"
-
     }
 }
 
 dokkaHtml {
     outputDirectory = "$buildDir/javadoc"
 }
-
-// https://www.raywenderlich.com/185299/building-android-library-tutorial
-
-// applied specifically at the bottom
-apply from: './scripts/bintrayConfig.gradle'
