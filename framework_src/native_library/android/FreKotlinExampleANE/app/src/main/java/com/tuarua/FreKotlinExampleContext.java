@@ -24,7 +24,7 @@ import com.tuarua.frekotlin.FreKotlinMainController;
 @SuppressWarnings({"WeakerAccess"})
 public class FreKotlinExampleContext extends FreKotlinContext {
     private AndroidActivityWrapper aaw;
-    private KotlinController kc;
+    private final KotlinController kc;
 
     public FreKotlinExampleContext(String name, FreKotlinMainController controller, String[] functions) {
         super(name, controller, functions);

@@ -87,7 +87,7 @@ public class Main extends Sprite {
             textField.text += "Array: " + resultArray.toString() + "\n";
         }
 
-        const IMAGE_URL:String = "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Kotlin-logo.svg/600px-Kotlin-logo.svg.png";
+        const IMAGE_URL:String = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Kotlin_logo.svg/640px-Kotlin_logo.svg.png";
 
         var ldr:Loader = new Loader();
         ldr.contentLoaderInfo.addEventListener(Event.COMPLETE, ldr_complete);

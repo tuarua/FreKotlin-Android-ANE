@@ -3,7 +3,7 @@
 #Get the path to the script and trim to get the directory.
 pathtome=$0
 pathtome="${pathtome%/*}"
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33.1.1.259"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33.1.1.713"
 
 PROJECTNAME=HelloWorldANE
 

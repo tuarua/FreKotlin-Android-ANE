@@ -154,7 +154,7 @@ internal object FreKotlinHelper {
             val args = arrayOfNulls<FREObject>(1)
             args[0] = rawValue
             val classType = aneUtils.callMethod("getClassType", args)
-            val type = getAsString(classType)?.toLowerCase(Locale.ROOT) ?: return FreObjectTypeKotlin.NULL
+            val type = getAsString(classType)?.lowercase(Locale.ROOT) ?: return FreObjectTypeKotlin.NULL
             when {
                 type.contains("__as3__.vec::vector") -> return FreObjectTypeKotlin.VECTOR
                 else -> when (type) {

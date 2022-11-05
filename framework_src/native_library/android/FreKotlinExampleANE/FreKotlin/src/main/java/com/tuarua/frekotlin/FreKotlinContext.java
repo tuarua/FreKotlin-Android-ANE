@@ -29,9 +29,9 @@ import java.util.Map;
 import java.lang.reflect.Method;
 //This file must remain as Java
 public class FreKotlinContext extends FREContext {
-    private String TAG;
+    private final String TAG;
     protected FreKotlinMainController controller;
-    private String[] functions;
+    private final String[] functions;
     public FreKotlinContext(String name, FreKotlinMainController controller, String[] functions) {
         TAG = name;
         this.controller = controller;
@@ -54,7 +54,7 @@ public class FreKotlinContext extends FREContext {
     }
 
     private class CallKotlinFunction implements FREFunction {
-        private String _name;
+        private final String _name;
 
         CallKotlinFunction(String name) {
             _name = name;
