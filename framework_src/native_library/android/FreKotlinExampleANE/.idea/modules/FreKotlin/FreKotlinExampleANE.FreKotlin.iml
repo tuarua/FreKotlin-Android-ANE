@@ -4,8 +4,8 @@
     <facet type="android-gradle" name="Android-Gradle">
       <configuration>
         <option name="GRADLE_PROJECT_PATH" value=":FreKotlin" />
-        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="4.0.1" />
-        <option name="LAST_KNOWN_AGP_VERSION" value="4.0.1" />
+        <option name="LAST_SUCCESSFUL_SYNC_AGP_VERSION" value="4.0.2" />
+        <option name="LAST_KNOWN_AGP_VERSION" value="4.0.2" />
       </configuration>
     </facet>
     <facet type="android" name="Android">
@@ -20,7 +20,7 @@
         <option name="MANIFEST_FILE_RELATIVE_PATH" value="/src/main/AndroidManifest.xml" />
         <option name="RES_FOLDER_RELATIVE_PATH" value="/src/main/res" />
         <option name="RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../FreKotlin/src/main/res;file://$MODULE_DIR$/../../../FreKotlin/src/release/res;file://$MODULE_DIR$/../../../FreKotlin/build/generated/res/rs/release" />
-        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="file://$MODULE_DIR$/../../../FreKotlin/src/androidTest/res" />
+        <option name="TEST_RES_FOLDERS_RELATIVE_PATH" value="" />
         <option name="ASSETS_FOLDER_RELATIVE_PATH" value="/src/main/assets" />
         <option name="PROJECT_TYPE" value="1" />
       </configuration>
@@ -32,13 +32,11 @@
         </compilerSettings>
         <compilerArguments>
           <option name="destination" value="$MODULE_DIR$/../../../FreKotlin/build/tmp/kotlin-classes/release" />
-          <option name="classpath" value="$MODULE_DIR$/../../../FreKotlin/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar:/Users/eoinlandy/flash/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/shared/libs/runtimeClasses.jar:/Users/eoinlandy/flash/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/shared/libs/FlashRuntimeExtensions.jar:/Users/eoinlandy/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.4.21/4a668382d7c38688d3490afde93b6a113ed46698/kotlin-stdlib-1.4.21.jar:/Users/eoinlandy/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.4.21/7f48a062aa4b53215998780f7c245a4276828e1d/kotlin-stdlib-common-1.4.21.jar:/Users/eoinlandy/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/eoinlandy/Library/Android/sdk/platforms/android-29/android.jar:/Users/eoinlandy/Library/Android/sdk/build-tools/29.0.3/core-lambda-stubs.jar" />
+          <option name="classpath" value="$MODULE_DIR$/../../../FreKotlin/build/intermediates/compile_only_not_namespaced_r_class_jar/release/R.jar:/Users/eoinlandy/flash/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/shared/libs/runtimeClasses.jar:/Users/eoinlandy/flash/FreKotlin-Android-ANE/framework_src/native_library/android/FreKotlinExampleANE/shared/libs/FlashRuntimeExtensions.jar:/Users/eoinlandy/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.6.10/b8af3fe6f1ca88526914929add63cf5e7c5049af/kotlin-stdlib-1.6.10.jar:/Users/eoinlandy/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/eoinlandy/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.6.10/c118700e3a33c8a0d9adc920e9dec0831171925/kotlin-stdlib-common-1.6.10.jar:/Users/eoinlandy/Library/Android/sdk/platforms/android-29/android.jar:/Users/eoinlandy/Library/Android/sdk/build-tools/29.0.3/core-lambda-stubs.jar" />
           <option name="noStdlib" value="true" />
-          <option name="noReflect" value="true" />
           <option name="moduleName" value="FreKotlin_release" />
-          <option name="jvmTarget" value="1.8" />
-          <option name="languageVersion" value="1.4" />
-          <option name="apiVersion" value="1.4" />
+          <option name="languageVersion" value="1.5" />
+          <option name="apiVersion" value="1.5" />
           <option name="pluginOptions">
             <array />
           </option>
@@ -53,8 +51,6 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_8">
-    <output url="file://$MODULE_DIR$/../../../FreKotlin/build/intermediates/javac/release/classes" />
-    <output-test url="file://$MODULE_DIR$/../../../FreKotlin/build/intermediates/javac/releaseUnitTest/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$/../../../FreKotlin">
       <sourceFolder url="file://$MODULE_DIR$/../../../FreKotlin/src/main/java" isTestSource="false" />
@@ -62,13 +58,14 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../FreKotlin/build/generated/source/buildConfig/release" isTestSource="false" generated="true" />
       <excludeFolder url="file://$MODULE_DIR$/../../../FreKotlin/.gradle" />
       <excludeFolder url="file://$MODULE_DIR$/../../../FreKotlin/build" />
+      <excludeFolder url="file://$MODULE_DIR$/../../../FreKotlin/out" />
     </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Gradle: ./shared/libs/runtimeClasses.jar" level="project" />
     <orderEntry type="library" name="Gradle: ./shared/libs/FlashRuntimeExtensions.jar" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.4.21" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.4.21" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.6.10" level="project" />
     <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-common:1.6.10" level="project" />
   </component>
 </module>

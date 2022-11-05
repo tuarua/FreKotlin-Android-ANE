@@ -99,7 +99,7 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
         return kotlinDouble.toFREObject()
     }
 
-    fun runObjectTests(ctx: FREContext, argv: FREArgv): FREObject? {
+    fun runObjectTests(ctx: FREContext, argv: FREArgv): FREObject {
         trace("***********Start Object test***********")
         val person = argv[0]
         val oldAge = Int(person["age"])
@@ -284,6 +284,7 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
             PAUSED -> Log.i(TAG, "PAUSED")
             STOPPED -> Log.i(TAG, "STOPPED")
             DESTROYED -> Log.i(TAG, "DESTROYED")
+            null -> Log.i(TAG, "NULL")
         }
     }
 

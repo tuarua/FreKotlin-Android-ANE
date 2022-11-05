@@ -20,7 +20,7 @@ import com.adobe.fre.FREExtension;
 
 @SuppressWarnings({"WeakerAccess", "FieldCanBeLocal"})
 public class FreKotlinExampleANE implements FREExtension  {
-    private String NAME = "com.tuarua.FreKotlinExampleANE";
+    private final String NAME = "com.tuarua.FreKotlinExampleANE";
     public static final String[] FUNCTIONS = {
              "init"
             ,"runStringTests"

@@ -41,7 +41,7 @@ import java.nio.ByteBuffer
  * pixel format is ARGB32. If the value is zero, the pixel format is _RGB32. Whether the value is big endian
  * or little endian depends on the host device. This field is read-only.
  * @property isPremultiplied A Bool that indicates whether the bitmap pixels are stored as premultiplied color
- * values. A true value means the values are premultipled. This field is read-only.
+ * values. A true value means the values are premultiplied. This field is read-only.
  * @property lineStride32 An Int that specifies the number of UInt values per scanline. This value is typically
  * the same as the width parameter. This field is read-only.
  * @property isInvertedY A Bool that indicates the order in which the rows of bitmap data in the image are stored. A
