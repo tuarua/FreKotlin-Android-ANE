@@ -6,8 +6,6 @@ pathtome=$0
 pathtome="${pathtome%/*}"
 AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33.1.1.713"
 
-sh ./frekotlin-build.sh
-
 PROJECTNAME=FreKotlinExampleANE
 ANENAME=com.tuarua.frekotlin.example
 

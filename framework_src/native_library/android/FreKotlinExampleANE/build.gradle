@@ -3,7 +3,6 @@
 buildscript {
     ext.kotlin_version = '1.6.10'
     ext.frekotlin_version = '1.61.0'
-    ext.dokka_version = '0.10.1'
     repositories {
         google()
         jcenter()
@@ -14,9 +13,6 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-
-        // Required plugins added to classpath to facilitate pushing to JCenter/Bintray
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
     }
 }
 
@@ -37,14 +33,6 @@ ext {
     minSdkVersion = 19
     compileSdkVersion = targetSdkVersion
     buildToolsVersion = '29.0.3'
-
-    // FreKotlin Library Info
     libVersionCode = 1
     libVersionName = '1.61.0'
-    libPomUrl = 'https://github.com/tuarua/FreKotlin-Android-ANE'
-    libGithubRepo = 'tuarua/FreKotlin-Android-ANE'
-    libModuleName = 'FreKotlin'
-    libModuleDesc = 'Create Air Native Extensions for Android using Kotlin.'
-    libMavenGroupId = 'com.tuarua'
-    libMavenArtifactId = 'FreKotlin'
 }

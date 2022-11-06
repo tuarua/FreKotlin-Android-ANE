@@ -23,7 +23,7 @@ unzip "$pathtome/$SWC_NAME.swc" "library.swf" -d "$pathtome"
 cp "$pathtome/library.swf" "$pathtome/platforms/android"
 
 # Copying Android aars into place
-cp "$pathtome/../../native_library/android/$PROJECTNAME/FreKotlin/build/outputs/aar/FreKotlin-release.aar" "$pathtome/platforms/android/FreKotlin-release.aar"
+cp "$pathtome/../../../../FreKotlin/library/build/outputs/aar/library-release.aar" "$pathtome/platforms/android/FreKotlin-release.aar"
 unzip "$pathtome/platforms/android/FreKotlin-release.aar" "classes.jar" -d "$pathtome/platforms/android"
 
 #Run the build command.

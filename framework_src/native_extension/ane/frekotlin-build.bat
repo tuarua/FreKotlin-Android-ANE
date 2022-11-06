@@ -20,7 +20,7 @@ del %pathtome%%SWC_NAME%Extract.zip
 
 REM copy library.swf to folders.
 copy %pathtome%library.swf %pathtome%platforms\android
-copy /Y %pathtome%..\..\native_library\android\%PROJECT_NAME%\FreKotlin\build\outputs\aar\FreKotlin-release.aar %pathtome%platforms\android\FreKotlin-release.aar
+copy /Y %pathtome%..\..\..\..\FreKotlin\library\build\outputs\aar\library-release.aar %pathtome%platforms\android\FreKotlin-release.aar
 
 call %SZIP% x %pathtome%platforms\android\FreKotlin-release.aar -o%pathtome%platforms\android\ classes.jar
 
