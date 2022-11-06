@@ -32,7 +32,7 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
         }
         var ret = myString
         if (uppercase) {
-            ret = ret.toUpperCase(Locale.getDefault())
+            ret = ret.uppercase(Locale.getDefault())
         }
         return ret.toFREObject()
     }
@@ -51,6 +51,7 @@ class KotlinController : FreKotlinMainController, FreKotlinStateChangeCallback, 
             PAUSED -> return
             STOPPED -> return
             DESTROYED -> return
+            else -> return
         }
     }
 

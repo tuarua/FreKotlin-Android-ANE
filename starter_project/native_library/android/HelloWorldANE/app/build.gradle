@@ -26,11 +26,9 @@ android {
 }
 
 dependencies {
-    implementation "com.tuarua:FreKotlin:$frekotlin_version"
+    implementation "com.github.tuarua:FreKotlin:$frekotlin_version"
 }
 repositories {
     mavenCentral()
-    maven {
-        url  "https://dl.bintray.com/tuarua/maven"
-    }
+    maven { url 'https://jitpack.io' }
 }
