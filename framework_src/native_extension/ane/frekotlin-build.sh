@@ -5,10 +5,10 @@ echo "Setting path to current directory to:"
 pathtome=$0
 pathtome="${pathtome%/*}"
 
-AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_33.1.1.713"
+AIR_SDK="/Users/eoinlandy/SDKs/AIRSDK_50.1.1"
 
-KOTLIN_VERSION="1.6.10"
-ANE_VERSION="1.61.0"
+KOTLIN_VERSION="1.7.21"
+ANE_VERSION="1.72.1"
 PROJECTNAME=FreKotlinExampleANE
 SWC_NAME=FreKotlinANE
 ANE_NAME=com.tuarua.frekotlin

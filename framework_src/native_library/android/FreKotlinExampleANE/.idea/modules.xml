@@ -5,6 +5,8 @@
       <module fileurl="file://$PROJECT_DIR$/FreKotlinExampleANE.iml" filepath="$PROJECT_DIR$/FreKotlinExampleANE.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/FreKotlin/FreKotlinExampleANE.FreKotlin.iml" filepath="$PROJECT_DIR$/.idea/modules/FreKotlin/FreKotlinExampleANE.FreKotlin.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FreKotlinExampleANE.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FreKotlinExampleANE.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FreKotlinExampleANE.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FreKotlinExampleANE.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/FreKotlinExampleANE.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/FreKotlinExampleANE.app.unitTest.iml" />
     </modules>
   </component>
 </project>

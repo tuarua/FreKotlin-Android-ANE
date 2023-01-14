@@ -2,6 +2,7 @@
   <library name="com.tuarua.frekotlin.example" type="flex">
     <CLASSES>
       <root url="jar://$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/com.tuarua.frekotlin.example.ane!/" />
+      <root url="jar://$DOCUMENTS$/FreKotlin-Android-ANE/framework_src/native_extension/ane/com.tuarua.frekotlin-1.72.1.ane!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

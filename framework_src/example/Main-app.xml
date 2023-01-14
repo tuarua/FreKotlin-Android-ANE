@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<application xmlns="http://ns.adobe.com/air/application/33.1">
+<application xmlns="http://ns.adobe.com/air/application/50.1">
 
-    <id>Main</id>
+    <id>com.tuarua.FreKotlinExample</id>
 
     <!-- Used as the filename for the application. Required. -->
     <filename>Main</filename>
@@ -9,7 +9,7 @@
     <!-- The name that is displayed in the AIR application installer. May have multiple values for each language. See samples or xsd schema file. Optional. -->
     <name>Main</name>
 
-    <versionNumber>1.42.0</versionNumber>
+    <versionNumber>1.72.1</versionNumber>
 
     <!-- Identifies the ActionScript extensions used by an application. -->
     <extensions>
@@ -35,7 +35,7 @@
         <manifestAdditions>
             <![CDATA[
             <manifest android:installLocation="auto">
-                <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="29" />
+                <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="31" />
                 <uses-permission android:name="android.permission.INTERNET"/>
                 <application android:enabled="true">
                     <meta-data android:name="android.max_aspect" android:value="2.1" />
