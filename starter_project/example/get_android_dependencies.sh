@@ -1,2 +1,2 @@
 #!/bin/sh
-wget -O android_dependencies/com.tuarua.frekotlin-1.61.0.ane https://github.com/tuarua/Android-ANE-Dependencies/blob/master/anes/kotlin/com.tuarua.frekotlin-1.61.0.ane?raw=true
+wget -O android_dependencies/com.tuarua.frekotlin-1.72.1.ane https://github.com/tuarua/Android-ANE-Dependencies/blob/master/anes/kotlin/com.tuarua.frekotlin-1.72.1.ane?raw=true
